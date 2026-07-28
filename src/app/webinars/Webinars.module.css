@@ -1,0 +1,238 @@
+.hero {
+  background: var(--tint);
+  padding: clamp(52px, 6.5vw, 88px) 32px;
+}
+
+.heroGrid {
+  max-width: 1160px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: clamp(40px, 5vw, 64px);
+  align-items: center;
+}
+
+.heroTitle {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(36px, 4.8vw, 58px);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  margin: 18px 0 0;
+  color: var(--ink);
+}
+
+.heroLede {
+  font-size: clamp(16px, 1.4vw, 18px);
+  line-height: 1.65;
+  color: var(--ink-soft);
+  max-width: 500px;
+  margin: 20px 0 0;
+  font-weight: 400;
+}
+
+.heroVisual {
+  position: relative;
+}
+
+.heroSquare {
+  position: absolute;
+  inset: -14px -14px auto auto;
+  width: 130px;
+  height: 130px;
+  border-radius: 28px;
+  background: #e1dcf9;
+  z-index: 0;
+}
+
+.heroImage {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: clamp(300px, 38vw, 420px);
+  box-shadow: 0 30px 60px rgba(23, 23, 31, 0.16);
+}
+
+.orientationSection {
+  padding: clamp(60px, 8vw, 100px) 32px;
+  background: #fff;
+}
+
+.orientationCard {
+  max-width: 1160px;
+  margin: 0 auto;
+  background: var(--dark-bg);
+  border-radius: 28px;
+  padding: clamp(36px, 4vw, 56px);
+  color: #fff;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: clamp(32px, 4vw, 52px);
+  align-items: center;
+}
+
+.orientationBadge {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--purple-lighter);
+  background: rgba(143, 132, 255, 0.14);
+  padding: 6px 13px;
+  border-radius: 999px;
+}
+
+.orientationTitle {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(26px, 3.2vw, 38px);
+  line-height: 1.1;
+  margin: 18px 0 0;
+}
+
+.orientationText {
+  font-size: 16px;
+  line-height: 1.72;
+  color: var(--dark-text-soft);
+  margin: 16px 0 0;
+  font-weight: 400;
+}
+
+.orientationImage {
+  display: block;
+  width: 100%;
+  height: clamp(240px, 28vw, 320px);
+}
+
+.listSection {
+  padding: 0 32px clamp(60px, 8vw, 100px);
+  background: #fff;
+}
+
+.listInner {
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+.listHeading {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(28px, 3.6vw, 42px);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  margin: 16px 0 32px;
+  color: var(--ink);
+}
+
+.workshopGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 22px;
+}
+
+.workshopCard {
+  border: 1px solid var(--border-tint);
+  border-radius: 22px;
+  padding: 30px;
+}
+
+.workshopRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.workshopType {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.workshopDate {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--purple);
+}
+
+.workshopTitle {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 22px;
+  margin: 14px 0 0;
+  color: var(--ink);
+}
+
+.workshopDesc {
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--ink-soft);
+  margin: 10px 0 0;
+  font-weight: 400;
+}
+
+.workshopAnchor {
+  font-size: 13.5px;
+  color: var(--muted);
+  margin: 14px 0 0;
+  font-weight: 600;
+}
+
+.registerSection {
+  padding: clamp(60px, 8vw, 100px) 32px;
+  background: var(--tint);
+}
+
+.registerInner {
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.registerHeading {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(28px, 3.6vw, 40px);
+  line-height: 1.12;
+  margin: 0;
+  color: var(--ink);
+}
+
+.stepsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 22px;
+  margin-top: 40px;
+  text-align: left;
+}
+
+.stepCard {
+  background: #fff;
+  border-radius: 20px;
+  padding: 30px;
+}
+
+.stepNumber {
+  font-family: var(--font-serif);
+  font-size: 32px;
+  color: var(--purple);
+}
+
+.stepTitle {
+  font-size: 17px;
+  font-weight: 700;
+  margin: 12px 0 0;
+  color: var(--ink);
+}
+
+.stepText {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin: 8px 0 0;
+  font-weight: 400;
+}

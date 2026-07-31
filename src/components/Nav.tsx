@@ -1,121 +1,288 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import styles from "./Nav.module.css";
-import { CalendarIcon, CircleTargetIcon, PeopleIcon, WorkshopIcon } from "./Icons";
+import * as Dialog from "@radix-ui/react-dialog";
+import { AnimatePresence, motion, type Variants } from "motion/react";
+import {
+  CalendarDots,
+  ArrowUpRight,
+  CaretDown,
+  Target,
+  UsersThree,
+  ChalkboardTeacher,
+  X,
+} from "@phosphor-icons/react";
 
-const OFFERING_PATHS = ["/career-clinic", "/mastermind", "/events", "/webinars"];
+import { cn } from "@/lib/utils";
+
+const OFFERING = [
+  {
+    href: "/career-clinic",
+    icon: Target,
+    title: "Career Clinic",
+    desc: "Get Canada-ready & hired",
+  },
+  {
+    href: "/mastermind",
+    icon: UsersThree,
+    title: "Mastermind Community",
+    desc: "Grow with driven peers",
+  },
+  {
+    href: "/events",
+    icon: CalendarDots,
+    title: "Community Events",
+    desc: "Next Gen, sports & podcast",
+  },
+  {
+    href: "/webinars",
+    icon: ChalkboardTeacher,
+    title: "Webinars & Workshops",
+    desc: "Orientation & masterclasses",
+  },
+];
+
+const OFFERING_PATHS = OFFERING.map((o) => o.href);
+
+const NAV_LINKS = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  { href: "/blog", label: "Blog" },
+];
+
+const menuStagger: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.06, delayChildren: 0.12 } },
+};
+
+const menuItem: Variants = {
+  hidden: { opacity: 0, y: 32, filter: "blur(6px)" },
+  show: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+  },
+};
 
 export default function Nav() {
   const pathname = usePathname();
-  const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  const closeMobile = () => setMobileOpen(false);
-
-  const offerGroupActive = OFFERING_PATHS.includes(pathname);
-  const link = (href: string) => (pathname === href ? styles.active : "");
+  const isActive = (href: string) => pathname === href;
+  const offerActive = OFFERING_PATHS.includes(pathname);
 
   return (
-    <header className={`${styles.header} ${scrolled ? styles.scrolled : ""}`}>
-      <div className={styles.bar}>
-        <Link href="/" className={styles.logoLink}>
-          <Image src="/logo-default.png" alt="Migrant Smart" width={84} height={34} priority />
+    <header className="sticky top-4 z-40 px-4">
+      <div className="mx-auto flex w-fit max-w-[calc(100vw-2rem)] items-center gap-1 rounded-full border border-black/10 bg-background/70 py-1.5 pr-1.5 pl-4 shadow-[0_20px_50px_-20px_rgba(23,23,31,0.35)] backdrop-blur-xl dark:border-white/10">
+        <Link
+          href="/"
+          className="mr-2 shrink-0"
+          aria-label="Migrant Smart, home"
+        >
+          <Image
+            src="/logo-default.png"
+            alt="Migrant Smart"
+            width={72}
+            height={29}
+            priority
+            className="dark:invert"
+          />
         </Link>
 
-        <nav className={styles.desktopNav}>
-          <Link href="/" className={`${styles.navLink} ${link("/")}`}>
+        <nav className="hidden items-center gap-1 lg:flex">
+          <Link
+            href="/"
+            className={cn(
+              "rounded-full px-3.5 py-2 text-[13.5px] font-semibold text-foreground/70 transition-colors hover:text-foreground",
+              isActive("/") && "bg-accent text-foreground",
+            )}
+          >
             Home
           </Link>
-          <Link href="/about" className={`${styles.navLink} ${link("/about")}`}>
+          <Link
+            href="/about"
+            className={cn(
+              "rounded-full px-3.5 py-2 text-[13.5px] font-semibold text-foreground/70 transition-colors hover:text-foreground",
+              isActive("/about") && "bg-accent text-foreground",
+            )}
+          >
             About
           </Link>
-          <div className={styles.offeringWrap}>
-            <Link href="/career-clinic" className={`${styles.offerBtn} ${offerGroupActive ? styles.active : ""}`}>
-              Our Offering <span className={styles.caret}>⌄</span>
-            </Link>
-            <div className={styles.dropdown}>
-              <Link href="/career-clinic" className={styles.dropdownItem}>
-                <span className={styles.dropdownIcon}>
-                  <CircleTargetIcon size={21} />
-                </span>
-                <span>
-                  <span className={styles.dropdownTitle}>Career Clinic</span>
-                  <span className={styles.dropdownDesc}>Get Canada-ready &amp; hired</span>
-                </span>
-              </Link>
-              <Link href="/mastermind" className={styles.dropdownItem}>
-                <span className={styles.dropdownIcon}>
-                  <PeopleIcon size={21} />
-                </span>
-                <span>
-                  <span className={styles.dropdownTitle}>Mastermind Community</span>
-                  <span className={styles.dropdownDesc}>Grow with driven peers</span>
-                </span>
-              </Link>
-              <Link href="/events" className={styles.dropdownItem}>
-                <span className={styles.dropdownIcon}>
-                  <CalendarIcon size={21} />
-                </span>
-                <span>
-                  <span className={styles.dropdownTitle}>Community Events</span>
-                  <span className={styles.dropdownDesc}>Next Gen, sports &amp; podcast</span>
-                </span>
-              </Link>
-              <Link href="/webinars" className={styles.dropdownItem}>
-                <span className={styles.dropdownIcon}>
-                  <WorkshopIcon size={21} />
-                </span>
-                <span>
-                  <span className={styles.dropdownTitle}>Webinars &amp; Workshops</span>
-                  <span className={styles.dropdownDesc}>Orientation &amp; masterclasses</span>
-                </span>
-              </Link>
+
+          <div className="group relative">
+            <button
+              type="button"
+              className={cn(
+                "flex items-center gap-1 rounded-full px-3.5 py-2 text-[13.5px] font-semibold text-foreground/70 transition-colors hover:text-foreground",
+                offerActive && "bg-accent text-foreground",
+              )}
+            >
+              Our Offering
+              <CaretDown
+                size={12}
+                weight="bold"
+                className="transition-transform duration-300 group-hover:rotate-180"
+              />
+            </button>
+            <div className="invisible absolute top-full left-1/2 z-50 w-[300px] -translate-x-1/2 pt-3 opacity-0 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:visible group-hover:opacity-100">
+              <div className="rounded-[22px] border border-black/10 bg-background/90 p-2 shadow-[0_30px_60px_-20px_rgba(23,23,31,0.4)] backdrop-blur-xl dark:border-white/10">
+                {OFFERING.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="flex items-start gap-3 rounded-2xl p-3 transition-colors hover:bg-accent"
+                  >
+                    <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-secondary text-primary">
+                      <item.icon size={19} weight="regular" />
+                    </span>
+                    <span>
+                      <span className="block text-[14px] font-bold text-foreground">
+                        {item.title}
+                      </span>
+                      <span className="block text-[12.5px] text-muted-foreground">
+                        {item.desc}
+                      </span>
+                    </span>
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
-          <Link href="/blog" className={`${styles.navLink} ${link("/blog")}`}>
+
+          <Link
+            href="/blog"
+            className={cn(
+              "rounded-full px-3.5 py-2 text-[13.5px] font-semibold text-foreground/70 transition-colors hover:text-foreground",
+              isActive("/blog") && "bg-accent text-foreground",
+            )}
+          >
             Blog
           </Link>
         </nav>
 
-        <div className={styles.actions}>
-          <a href="https://chat.whatsapp.com/" target="_blank" rel="noopener" className={styles.ctaBtn}>
-            Join Community
-          </a>
-          <button
-            aria-label="Menu"
-            className={styles.burger}
-            onClick={() => setMobileOpen((v) => !v)}
+        <div className="ml-1 hidden items-center gap-2 lg:flex">
+          <a
+            href="https://chat.whatsapp.com/"
+            target="_blank"
+            rel="noopener"
+            className="group flex items-center gap-2 rounded-full bg-primary py-2 pr-2 pl-4 text-[13.5px] font-bold text-primary-foreground shadow-[0_10px_24px_-8px_rgba(84,72,240,0.55)] transition-transform duration-300 hover:-translate-y-0.5 active:scale-[0.97]"
           >
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
+            Join Community
+            <span className="flex size-6 items-center justify-center rounded-full bg-white/20 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+              <ArrowUpRight size={13} weight="bold" />
+            </span>
+          </a>
         </div>
+
+        {/* Hamburger / close morph */}
+        <button
+          aria-label={mobileOpen ? "Close menu" : "Open menu"}
+          onClick={() => setMobileOpen((v) => !v)}
+          className="relative ml-1 flex size-10 shrink-0 items-center justify-center rounded-full lg:hidden"
+          type="button"
+        >
+          <span
+            className={cn(
+              "absolute h-[1.5px] w-4.5 bg-foreground transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
+              mobileOpen
+                ? "translate-y-0 rotate-45"
+                : "-translate-y-1 rotate-0",
+            )}
+          />
+          <span
+            className={cn(
+              "absolute h-[1.5px] w-4.5 bg-foreground transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
+              mobileOpen
+                ? "translate-y-0 -rotate-45"
+                : "translate-y-[4px] rotate-0",
+            )}
+          />
+        </button>
       </div>
 
-      <div className={`${styles.mobileMenu} ${mobileOpen ? styles.open : ""}`}>
-        <Link href="/" className={styles.mobileLink} onClick={closeMobile}>Home</Link>
-        <Link href="/about" className={styles.mobileLink} onClick={closeMobile}>About</Link>
-        <Link href="/career-clinic" className={styles.mobileLink} onClick={closeMobile}>Career Clinic</Link>
-        <Link href="/mastermind" className={styles.mobileLink} onClick={closeMobile}>Mastermind Community</Link>
-        <Link href="/events" className={styles.mobileLink} onClick={closeMobile}>Community Events</Link>
-        <Link href="/webinars" className={styles.mobileLink} onClick={closeMobile}>Webinars &amp; Workshops</Link>
-        <Link href="/blog" className={styles.mobileLink} onClick={closeMobile}>Blog</Link>
-        <a href="https://chat.whatsapp.com/" target="_blank" rel="noopener" className={styles.mobileCta} onClick={closeMobile}>
-          Join Community
-        </a>
-      </div>
+      <Dialog.Root open={mobileOpen} onOpenChange={setMobileOpen}>
+        <Dialog.Portal forceMount>
+          <AnimatePresence>
+            {mobileOpen && (
+              <>
+                <Dialog.Overlay asChild forceMount>
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.4 }}
+                    className="fixed inset-0 z-40 bg-background/80 backdrop-blur-2xl"
+                  />
+                </Dialog.Overlay>
+                <Dialog.Content asChild forceMount aria-describedby={undefined}>
+                  <motion.div
+                    initial="hidden"
+                    animate="show"
+                    exit="hidden"
+                    variants={menuStagger}
+                    className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-2 px-6"
+                  >
+                    <Dialog.Title className="sr-only">
+                      Navigation menu
+                    </Dialog.Title>
+                    <button
+                      type="button"
+                      aria-label="Close menu"
+                      onClick={() => setMobileOpen(false)}
+                      className="fixed top-6 right-6 flex size-11 items-center justify-center rounded-full border border-black/10 bg-background/70 text-foreground shadow-[0_20px_50px_-20px_rgba(23,23,31,0.35)] backdrop-blur-xl dark:border-white/10"
+                    >
+                      <X size={20} weight="bold" />
+                    </button>
+                    {NAV_LINKS.map((link) => (
+                      <motion.div key={link.href} variants={menuItem}>
+                        <Link
+                          href={link.href}
+                          onClick={() => setMobileOpen(false)}
+                          className="font-serif text-4xl font-medium text-foreground"
+                        >
+                          {link.label}
+                        </Link>
+                      </motion.div>
+                    ))}
+                    {OFFERING.map((item) => (
+                      <motion.div key={item.href} variants={menuItem}>
+                        <Link
+                          href={item.href}
+                          onClick={() => setMobileOpen(false)}
+                          className="font-serif text-2xl font-medium text-muted-foreground"
+                        >
+                          {item.title}
+                        </Link>
+                      </motion.div>
+                    ))}
+                    <motion.div
+                      variants={menuItem}
+                      className="mt-8 flex items-center gap-4"
+                    >
+                      <a
+                        href="https://chat.whatsapp.com/"
+                        target="_blank"
+                        rel="noopener"
+                        onClick={() => setMobileOpen(false)}
+                        className="flex items-center gap-2 rounded-full bg-primary py-3 pr-3 pl-6 text-[15px] font-bold text-primary-foreground"
+                      >
+                        Join Community
+                        <span className="flex size-7 items-center justify-center rounded-full bg-white/20">
+                          <ArrowUpRight size={14} weight="bold" />
+                        </span>
+                      </a>
+                    </motion.div>
+                  </motion.div>
+                </Dialog.Content>
+              </>
+            )}
+          </AnimatePresence>
+        </Dialog.Portal>
+      </Dialog.Root>
     </header>
   );
 }

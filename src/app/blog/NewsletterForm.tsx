@@ -1,40 +1,53 @@
 "use client";
 
+import { useState } from "react";
+import { ArrowRight, CheckCircle } from "@phosphor-icons/react";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
 export default function NewsletterForm() {
+  const [status, setStatus] = useState<"idle" | "submitted">("idle");
+
   return (
     <form
-      onSubmit={(e) => e.preventDefault()}
-      style={{
-        display: "flex",
-        flexWrap: "wrap",
-        gap: 10,
-        justifyContent: "center",
-        marginTop: 28,
-        maxWidth: 480,
-        marginLeft: "auto",
-        marginRight: "auto",
+      onSubmit={(e) => {
+        e.preventDefault();
+        setStatus("submitted");
       }}
+      className="mx-auto mt-8 flex max-w-[480px] flex-col gap-3 sm:flex-row"
     >
-      <input
-        type="email"
-        placeholder="you@email.com"
-        aria-label="Email address"
-        style={{
-          flex: 1,
-          minWidth: 220,
-          background: "#1E1C2E",
-          border: "1px solid #2E2B42",
-          borderRadius: 999,
-          padding: "15px 22px",
-          color: "#fff",
-          fontFamily: "inherit",
-          fontSize: 15,
-          outline: "none",
-        }}
-      />
-      <button type="submit" className="btn btn-primary">
-        Subscribe
-      </button>
+      <div className="flex-1 text-left">
+        <Label htmlFor="newsletter-email" className="sr-only">
+          Email address
+        </Label>
+        <Input
+          id="newsletter-email"
+          type="email"
+          required
+          placeholder="you@email.com"
+          disabled={status === "submitted"}
+          className="border-[#2e2b42] bg-[#1e1c2e] text-white placeholder:text-[#7c7994] focus-visible:border-brand-light"
+        />
+      </div>
+      <Button
+        type="submit"
+        disabled={status === "submitted"}
+        className="shrink-0"
+      >
+        {status === "submitted" ? (
+          <>
+            Subscribed
+            <CheckCircle size={17} weight="fill" />
+          </>
+        ) : (
+          <>
+            Subscribe
+            <ArrowRight size={16} weight="bold" />
+          </>
+        )}
+      </Button>
     </form>
   );
 }

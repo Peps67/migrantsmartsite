@@ -2,7 +2,6 @@ import Link from "next/link";
 import {
   ArrowRight,
   ArrowUpRight,
-  Target,
   CheckCircle,
   YoutubeLogo,
   Play,
@@ -10,7 +9,7 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { PlaceholderPhoto } from "@/components/PlaceholderPhoto";
+import { GlobeConnections } from "@/components/GlobeConnections";
 import { GrainOverlay } from "@/components/GrainOverlay";
 import PixelBlast from "@/components/reactbits/PixelBlast";
 import LineWaves from "@/components/reactbits/LineWaves";
@@ -57,7 +56,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-r from-white/70 via-white/30 to-transparent" />
 
         <GrainOverlay />
-        <div className="relative mx-auto grid max-w-[1100px] items-center gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
+        <div className="relative mx-auto grid max-w-[1440px] items-center gap-12 lg:grid-cols-[0.8fr_1fr] lg:gap-10">
           <div>
             <BlurText
               text="Your launchpad to success in Canada"
@@ -95,35 +94,8 @@ export default function Home() {
             </HeroReveal>
           </div>
 
-          <HeroReveal delay={0.3} className="relative">
-            <span className="pointer-events-none absolute -top-8 -right-6 hidden h-40 w-40 rounded-[32px] bg-primary/20 blur-2xl sm:block" />
-            <span className="pointer-events-none absolute -bottom-10 -left-8 hidden h-32 w-32 rounded-full bg-[var(--aurora-2)]/20 blur-2xl sm:block" />
-            <div className="relative rounded-[2rem] border border-black/10 bg-black/5 p-2 shadow-[0_40px_70px_-30px_rgba(23,23,31,0.25)]">
-              <div className="relative overflow-hidden rounded-[calc(2rem-0.5rem)]">
-                <PlaceholderPhoto
-                  seed="migrant-smart-hero-newcomers"
-                  alt="Diverse newcomers connecting at a Migrant Smart community event"
-                  width={900}
-                  height={1000}
-                  priority
-                  sizes="(min-width: 1024px) 45vw, 90vw"
-                  className="aspect-[9/10]"
-                />
-              </div>
-            </div>
-            <div className="absolute -bottom-6 left-3 flex items-center gap-3 rounded-2xl border border-black/10 bg-white/90 px-5 py-4 shadow-[0_24px_48px_-16px_rgba(23,23,31,0.2)] backdrop-blur-xl sm:left-6">
-              <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
-                <Target size={20} weight="fill" />
-              </span>
-              <div>
-                <div className="text-[14px] font-bold text-[#17171f]">
-                  Career Clinic
-                </div>
-                <div className="text-[12.5px] text-[#17171f]/60">
-                  Build your case for advancement
-                </div>
-              </div>
-            </div>
+          <HeroReveal delay={0.3}>
+            <GlobeConnections className="mx-auto w-full max-w-[860px]" />
           </HeroReveal>
         </div>
       </section>

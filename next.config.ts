@@ -12,6 +12,14 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "fastly.picsum.photos",
       },
+      {
+        protocol: "https",
+        hostname: "randomuser.me",
+      },
+      {
+        protocol: "https",
+        hostname: "flagcdn.com",
+      },
     ],
   },
 };

@@ -108,10 +108,16 @@ const SideRays: React.FC<SideRaysProps> = ({
 
       if (cancelled || !containerRef.current) return;
 
-      const renderer = new Renderer({
-        dpr: Math.min(window.devicePixelRatio, 2),
-        alpha: true,
-      });
+      let renderer: InstanceType<typeof Renderer>;
+      try {
+        renderer = new Renderer({
+          dpr: Math.min(window.devicePixelRatio, 2),
+          alpha: true,
+        });
+        if (!renderer.gl) throw new Error("WebGL context unavailable");
+      } catch {
+        return;
+      }
       rendererRef.current = renderer;
 
       const gl = renderer.gl;

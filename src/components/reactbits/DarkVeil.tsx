@@ -105,10 +105,16 @@ export default function DarkVeil({
     const parent = canvas.parentElement;
     if (!parent) return;
 
-    const renderer = new Renderer({
-      dpr: Math.min(window.devicePixelRatio, 2),
-      canvas,
-    });
+    let renderer: InstanceType<typeof Renderer>;
+    try {
+      renderer = new Renderer({
+        dpr: Math.min(window.devicePixelRatio, 2),
+        canvas,
+      });
+      if (!renderer.gl) throw new Error("WebGL context unavailable");
+    } catch {
+      return;
+    }
 
     const gl = renderer.gl;
     const geometry = new Triangle(gl);

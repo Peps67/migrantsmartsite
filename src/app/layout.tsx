@@ -38,10 +38,7 @@ export default function RootLayout({
         <Nav />
         {children}
         <Footer />
-      {/* impeccable-live-start */}
-<script src="http://localhost:8400/live.js?token=dd897782-2d96-4139-a642-eafbf3973256"></script>
-{/* impeccable-live-end */}
-</body>
+      </body>
     </html>
   );
 }

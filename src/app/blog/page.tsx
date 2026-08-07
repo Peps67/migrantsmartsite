@@ -75,27 +75,28 @@ export default function BlogPage() {
   return (
     <div>
       {/* HERO */}
-      <section className="relative flex min-h-[100dvh] flex-col justify-center overflow-hidden rounded-t-[2.25rem] bg-[#0b0a12] px-5 py-16 text-center sm:rounded-t-[3rem] sm:px-8">
-        <div className="absolute inset-0 opacity-80">
+      <section className="relative flex min-h-[100dvh] flex-col justify-center overflow-hidden rounded-t-[2.25rem] bg-[#f8f7fd] px-5 py-16 text-center sm:rounded-t-[3rem] sm:px-8">
+        <div className="absolute inset-0 opacity-70">
           <Beams
             beamNumber={10}
-            lightColor="#8f84ff"
+            lightColor="#5448f0"
             speed={1.2}
             noiseIntensity={1.9}
             scale={0.26}
             rotation={-6}
           />
         </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/30 to-white/60" />
         <GrainOverlay />
         <Reveal className="relative mx-auto max-w-[820px]">
-          <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-[var(--aurora-3)]">
+          <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-primary">
             The Migrant Smart Blog
           </span>
           <BlurText
             text="Guides, stories & honest advice"
-            className="mx-auto mt-4 justify-center font-serif text-[clamp(32px,4.4vw,60px)] font-medium leading-[1.08] tracking-tight text-white [&>span:nth-child(n+4)]:text-[var(--aurora-3)] [&>span:nth-child(n+4)]:italic"
+            className="mx-auto mt-4 justify-center font-serif text-[clamp(32px,4.4vw,60px)] font-medium leading-[1.08] tracking-tight text-[#17171f] [&>span:nth-child(n+4)]:text-primary [&>span:nth-child(n+4)]:italic"
           />
-          <p className="mx-auto mt-5 max-w-[52ch] text-[16px] leading-relaxed text-white/70 md:text-[18px]">
+          <p className="mx-auto mt-5 max-w-[52ch] text-[16px] leading-relaxed text-[#17171f]/70 md:text-[18px]">
             Practical playbooks and real experiences to help you navigate life,
             work and community in Canada.
           </p>
@@ -107,7 +108,7 @@ export default function BlogPage() {
                 className={
                   cat === "All"
                     ? "px-4 py-2 text-[13px]"
-                    : "border-white/25 px-4 py-2 text-[13px] text-white"
+                    : "border-black/15 px-4 py-2 text-[13px] text-foreground"
                 }
               >
                 {cat}
@@ -118,7 +119,7 @@ export default function BlogPage() {
       </section>
 
       {/* FEATURED */}
-      <section className="px-5 py-16 sm:px-8 md:py-20">
+      <section className="px-5 py-12 sm:px-8 md:py-16">
         <Reveal className="mx-auto max-w-[1240px]">
           <Link
             href="/blog"
@@ -193,7 +194,7 @@ export default function BlogPage() {
       </section>
 
       {/* NEWSLETTER CTA (fixed-dark accent, inset floating card) */}
-      <section className="px-5 pt-2 pb-16 sm:px-8 md:pb-24">
+      <section className="px-5 pt-2 pb-12 sm:px-8 md:pb-16">
         <Reveal
           blur
           className="relative mx-auto max-w-[1160px] overflow-hidden rounded-[40px] bg-[#0b0a12] px-6 py-14 text-center sm:px-10 md:py-20"

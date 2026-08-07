@@ -7,7 +7,6 @@ import { usePathname } from "next/navigation";
 import * as Dialog from "@radix-ui/react-dialog";
 import { AnimatePresence, motion, type Variants } from "motion/react";
 import {
-  CalendarDots,
   ArrowUpRight,
   CaretDown,
   Target,
@@ -23,19 +22,13 @@ const OFFERING = [
     href: "/career-clinic",
     icon: Target,
     title: "Career Clinic",
-    desc: "Get Canada-ready & hired",
+    desc: "Build your case for advancement",
   },
   {
     href: "/mastermind",
     icon: UsersThree,
     title: "Mastermind Community",
     desc: "Grow with driven peers",
-  },
-  {
-    href: "/events",
-    icon: CalendarDots,
-    title: "Community Events",
-    desc: "Next Gen, sports & podcast",
   },
   {
     href: "/webinars",
@@ -50,6 +43,7 @@ const OFFERING_PATHS = OFFERING.map((o) => o.href);
 const NAV_LINKS = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
+  { href: "/events", label: "Events" },
   { href: "/blog", label: "Blog" },
 ];
 
@@ -152,6 +146,16 @@ export default function Nav() {
               </div>
             </div>
           </div>
+
+          <Link
+            href="/events"
+            className={cn(
+              "rounded-full px-3.5 py-2 text-[13.5px] font-semibold text-foreground/70 transition-colors hover:text-foreground",
+              isActive("/events") && "bg-accent text-foreground",
+            )}
+          >
+            Events
+          </Link>
 
           <Link
             href="/blog"

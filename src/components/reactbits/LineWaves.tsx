@@ -169,7 +169,13 @@ export default function LineWaves({
   useEffect(() => {
     if (!containerRef.current) return;
     const container = containerRef.current;
-    const renderer = new Renderer({ alpha: true, premultipliedAlpha: false });
+    let renderer: InstanceType<typeof Renderer>;
+    try {
+      renderer = new Renderer({ alpha: true, premultipliedAlpha: false });
+      if (!renderer.gl) throw new Error("WebGL context unavailable");
+    } catch {
+      return;
+    }
     const gl = renderer.gl;
     gl.clearColor(0, 0, 0, 0);
 

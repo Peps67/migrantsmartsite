@@ -1,130 +1,116 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import {
   Target,
   UsersThree,
   CalendarDots,
   ChalkboardTeacher,
+  ArrowRight,
 } from "@phosphor-icons/react";
 
 import { PlaceholderPhoto } from "@/components/PlaceholderPhoto";
-import BounceCards from "@/components/reactbits/BounceCards";
 
 const OFFERS = [
   {
     href: "/career-clinic",
-    seed: "migrant-smart-career-coaching",
+    image: "/offers/career-clinic.jpg",
+    seed: null,
     icon: Target,
-    tag: "Get hired",
+    tag: "Get promoted",
     title: "Career Clinic",
+    description:
+      "A 6-week cohort that teaches the unwritten rules of credibility, visibility and advancement inside a Canadian organization.",
   },
   {
     href: "/mastermind",
-    seed: "migrant-smart-community-networking",
+    image: "/offers/mastermind.jpg",
+    seed: null,
     icon: UsersThree,
     tag: "Grow together",
     title: "Mastermind Community",
+    description:
+      "A driven peer network for accountability, connection and support as you build your new life.",
   },
   {
     href: "/events",
-    seed: "migrant-smart-nextgen-event",
+    image: "/offers/community-events.jpg",
+    seed: null,
     icon: CalendarDots,
     tag: "Connect",
     title: "Community Events",
+    description:
+      "Next Gen meetups, sports and podcast nights to help you build real connections in Canada.",
   },
   {
     href: "/webinars",
-    seed: "migrant-smart-workshop-session",
+    image: "/offers/webinars.jpg",
+    seed: null,
     icon: ChalkboardTeacher,
     tag: "Learn",
     title: "Webinars & Workshops",
+    description:
+      "Orientation sessions and masterclasses covering everything you need to know as a newcomer.",
   },
 ];
 
-const TRANSFORM_STYLES = [
-  "rotate(-9deg) translate(-190px)",
-  "rotate(-3deg) translate(-63px)",
-  "rotate(3deg) translate(63px)",
-  "rotate(9deg) translate(190px)",
-];
-
 export function OfferFan() {
-  const cards = OFFERS.map((offer) => (
-    <Link
-      key={offer.href}
-      href={offer.href}
-      className="block h-[300px] w-[220px] overflow-hidden rounded-[24px] border-4 border-white shadow-[0_20px_45px_-12px_rgba(23,23,31,0.35)] dark:border-white/90"
-    >
-      <div className="relative h-full w-full">
-        <PlaceholderPhoto
-          seed={offer.seed}
-          alt={`${offer.title} at Migrant Smart`}
-          fill
-          sizes="220px"
-          className="pointer-events-none"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 p-4">
-          <span className="flex size-8 items-center justify-center rounded-full bg-white/15 text-white backdrop-blur-sm">
-            <offer.icon size={16} weight="bold" />
-          </span>
-          <div className="mt-2 text-[10.5px] font-bold uppercase tracking-[0.12em] text-white/70">
-            {offer.tag}
-          </div>
-          <h3 className="mt-0.5 text-[15px] font-bold text-white">
-            {offer.title}
-          </h3>
-        </div>
-      </div>
-    </Link>
-  ));
-
   return (
-    <>
-      <div className="hidden justify-center md:flex">
-        <BounceCards
-          cards={cards}
-          containerWidth={760}
-          containerHeight={340}
-          transformStyles={TRANSFORM_STYLES}
-          enableHover
-          animationDelay={0.2}
-          animationStagger={0.08}
-        />
-      </div>
-
-      {/* Mobile: plain stack, no rotation/overlap per the layout's mobile-collapse rule */}
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:hidden">
-        {OFFERS.map((offer) => (
-          <Link
-            key={offer.href}
-            href={offer.href}
-            className="block h-[260px] overflow-hidden rounded-[22px] border border-border shadow-sm"
-          >
-            <div className="relative h-full w-full">
-              <PlaceholderPhoto
-                seed={offer.seed}
+    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {OFFERS.map((offer) => (
+        <Link
+          key={offer.href}
+          href={offer.href}
+          className="group block overflow-hidden rounded-[26px] border border-black/10 bg-background shadow-[0_20px_45px_-24px_rgba(23,23,31,0.3)] transition-transform duration-300 hover:-translate-y-1 dark:border-white/10"
+        >
+          <div className="relative aspect-[4/3] overflow-hidden">
+            {offer.image ? (
+              <Image
+                src={offer.image}
                 alt={`${offer.title} at Migrant Smart`}
                 fill
-                sizes="(min-width: 640px) 50vw, 100vw"
+                sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 p-5">
-                <span className="flex size-9 items-center justify-center rounded-full bg-white/15 text-white backdrop-blur-sm">
-                  <offer.icon size={17} weight="bold" />
-                </span>
-                <div className="mt-2.5 text-[11px] font-bold uppercase tracking-[0.12em] text-white/70">
-                  {offer.tag}
-                </div>
-                <h3 className="mt-1 text-[17px] font-bold text-white">
-                  {offer.title}
-                </h3>
+            ) : (
+              <PlaceholderPhoto
+                seed={offer.seed!}
+                alt={`${offer.title} at Migrant Smart`}
+                fill
+                sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                className="transition-transform duration-500 group-hover:scale-105"
+              />
+            )}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+            <span className="absolute top-4 left-4 flex size-9 items-center justify-center rounded-full bg-white/15 text-white backdrop-blur-sm">
+              <offer.icon size={17} weight="bold" />
+            </span>
+            <div className="absolute inset-x-0 bottom-0 p-4">
+              <div className="text-[10.5px] font-bold uppercase tracking-[0.12em] text-white/70">
+                {offer.tag}
               </div>
             </div>
-          </Link>
-        ))}
-      </div>
-    </>
+          </div>
+
+          <div className="p-5">
+            <h3 className="font-serif text-lg font-medium text-foreground">
+              {offer.title}
+            </h3>
+            <p className="mt-2 text-[13.5px] leading-relaxed text-muted-foreground">
+              {offer.description}
+            </p>
+            <span className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-bold text-primary">
+              See more
+              <ArrowRight
+                size={14}
+                weight="bold"
+                className="transition-transform duration-300 group-hover:translate-x-1"
+              />
+            </span>
+          </div>
+        </Link>
+      ))}
+    </div>
   );
 }

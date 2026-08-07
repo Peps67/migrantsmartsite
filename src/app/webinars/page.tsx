@@ -65,7 +65,7 @@ export default function WebinarsPage() {
     <div>
       {/* HERO */}
       <section className="flex min-h-[100dvh] flex-col justify-center px-5 py-16 sm:px-8">
-        <div className="mx-auto grid max-w-[1240px] items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
+        <div className="mx-auto grid max-w-[1100px] items-center gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
           <Reveal>
             <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-primary">
               Webinars &amp; Workshops
@@ -103,7 +103,7 @@ export default function WebinarsPage() {
       </section>
 
       {/* ORIENTATION FEATURE */}
-      <section className="px-5 py-16 sm:px-8 md:py-20">
+      <section className="px-5 py-12 sm:px-8 md:py-16">
         <Reveal className="mx-auto max-w-[1240px]">
           <div className="grid items-center gap-10 rounded-[28px] border border-border bg-secondary/60 p-8 sm:p-10 lg:grid-cols-[1fr_0.8fr] dark:bg-surface-tint">
             <div>
@@ -136,7 +136,7 @@ export default function WebinarsPage() {
       </section>
 
       {/* WORKSHOP LIST */}
-      <section className="px-5 py-16 sm:px-8 md:py-24">
+      <section className="px-5 py-12 sm:px-8 md:py-16">
         <div className="mx-auto max-w-[1240px]">
           <Reveal>
             <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-primary">
@@ -176,7 +176,7 @@ export default function WebinarsPage() {
       </section>
 
       {/* HOW TO REGISTER */}
-      <section className="bg-secondary/60 px-5 py-16 sm:px-8 md:py-24 dark:bg-surface-tint">
+      <section className="bg-secondary/60 px-5 py-12 sm:px-8 md:py-16 dark:bg-surface-tint">
         <div className="mx-auto max-w-[1000px]">
           <Reveal>
             <h2 className="text-center font-serif text-[clamp(26px,3.2vw,36px)] font-medium text-foreground">

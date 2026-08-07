@@ -1,110 +1,128 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import {
-  UsersThree,
+  ArrowRight,
+  ArrowUpRight,
   Star,
-  ChatCircleDots,
-  CheckCircle,
+  UsersThree,
+  Buildings,
+  ChartLineUp,
+  Crown,
 } from "@phosphor-icons/react/dist/ssr";
 
 import { Button } from "@/components/ui/button";
 import SpotlightCard from "@/components/reactbits/SpotlightCard";
 import TiltedCard from "@/components/reactbits/TiltedCard";
 import BlurText from "@/components/reactbits/BlurText";
-import Prism from "@/components/reactbits/Prism";
+import Aurora from "@/components/reactbits/Aurora";
 import { GrainOverlay } from "@/components/GrainOverlay";
 import CtaBand from "@/components/CtaBand";
 import Reveal from "@/components/Reveal";
+import HeroReveal from "../HeroReveal";
 
 export const metadata: Metadata = {
-  title: "Mastermind Community — Migrant Smart",
+  title: "Mastermind — Migrant Smart",
   description:
-    "A driven peer community of newcomers sharing goals, accountability and wins on the journey to thriving in Canada.",
+    "A private, invitation-only community for professionals and entrepreneurs across Canada building wealth and legacy, with access to vetted experts, private investment opportunities and a room full of peers who think bigger.",
 };
 
 const picsum = (seed: string, w: number, h: number) =>
   `https://picsum.photos/seed/${seed}/${w}/${h}`;
 
-const EXPECTATIONS = [
+const BENEFITS = [
   {
     icon: UsersThree,
-    title: "Accountability circles",
-    text: "Small groups that check in on your goals and keep the momentum honest.",
+    title: "Vetted Professionals",
+    text: "Connect with trusted experts who can help you execute across the areas that matter — idea validation, plan development, mergers and acquisitions, digital products, marketing, sales, communications, and more — so you know who to trust while you build.",
   },
   {
-    icon: Star,
-    title: "Mentor access",
-    text: "Guidance from people who've built careers and lives in Canada.",
+    icon: Buildings,
+    title: "Funding & Resources",
+    text: "Get access to information from the top 5 banks on funding pathways, and tap into the resources and connections that fuel real growth.",
   },
   {
-    icon: ChatCircleDots,
-    title: "Live discussions",
-    text: "Regular meetups and threads to swap leads, resources and encouragement.",
+    icon: ChartLineUp,
+    title: "Private Wealth-Building Opportunities",
+    text: "Gain access to privately sourced initiatives: private REITs, off-market real estate deals, and other Canadian investment vehicles usually reserved for the well-connected.",
   },
   {
-    icon: CheckCircle,
-    title: "Wins worth sharing",
-    text: "A place to celebrate offers, milestones and first steps, together.",
+    icon: Crown,
+    title: "A Room Worth Being In",
+    text: "Surround yourself with a selected group of peers who challenge you, back you, and think on the same level.",
   },
-];
-
-const TIMING = [
-  { label: "Community check-ins", value: "Weekly" },
-  { label: "Live mastermind call", value: "Monthly" },
-  { label: "Where", value: "WhatsApp + Zoom" },
 ];
 
 export default function MastermindPage() {
   return (
     <div>
       {/* HERO */}
-      <section className="relative flex min-h-[100dvh] flex-col justify-center overflow-hidden rounded-t-[2.25rem] bg-[#0b0a12] px-5 py-20 sm:rounded-t-[3rem] sm:px-8">
-        <div className="absolute inset-0 opacity-90">
-          <Prism
-            animationType="rotate"
-            timeScale={0.35}
-            scale={3.4}
-            hueShift={0.9}
-            colorFrequency={1.1}
-            noise={0.35}
-            glow={1.1}
+      <section className="relative flex min-h-[100dvh] flex-col justify-center overflow-hidden rounded-t-[2.25rem] bg-[#f8f7fd] px-5 py-24 sm:rounded-t-[3rem] sm:px-8 md:py-28">
+        <div className="absolute inset-0 opacity-60">
+          <Aurora
+            colorStops={["#4438d6", "#8f84ff", "#5448f0"]}
+            amplitude={1.2}
+            blend={0.6}
+            speed={0.6}
           />
         </div>
+        <div className="absolute inset-0 bg-gradient-to-r from-white/70 via-white/30 to-transparent" />
         <GrainOverlay />
-        <div className="relative mx-auto grid max-w-[1240px] items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
-          <Reveal>
-            <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-[var(--aurora-3)]">
-              Mastermind Community
-            </span>
-            <BlurText
-              text="You don't have to do this alone"
-              className="mt-4 max-w-[15ch] font-serif text-[clamp(34px,4.6vw,64px)] font-medium leading-[1.06] tracking-tight text-white [&>span:nth-child(7)]:text-[var(--aurora-3)] [&>span:nth-child(7)]:italic"
-            />
-            <p className="mt-6 max-w-[48ch] text-[16.5px] leading-relaxed text-white/70 md:text-[18.5px]">
-              A driven peer community sharing goals, accountability and wins,
-              the people, mentors and momentum that make thriving in Canada feel
-              possible.
-            </p>
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <Button asChild size="lg">
-                <a
-                  href="https://chat.whatsapp.com/"
-                  target="_blank"
-                  rel="noopener"
-                >
-                  Join on WhatsApp
-                </a>
-              </Button>
-              <span className="text-[14px] font-medium text-white/60">
-                Free to join &middot; 3,000+ members
+        <div className="relative mx-auto grid max-w-[1100px] items-center gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
+          <div>
+            <HeroReveal>
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-black/10 bg-black/5 px-3.5 py-1.5 text-[12.5px] font-bold uppercase tracking-[0.1em] text-foreground backdrop-blur-sm">
+                Coming 2027
               </span>
-            </div>
-          </Reveal>
-          <Reveal delay={0.1} className="relative">
-            <span className="pointer-events-none absolute -top-6 -right-6 hidden h-32 w-32 rounded-full bg-white/10 sm:block" />
-            <div className="relative aspect-[9/10] rounded-[2rem] border border-white/15 bg-white/5 p-2 shadow-[0_30px_60px_-24px_rgba(0,0,0,0.5)]">
+            </HeroReveal>
+            <BlurText
+              text="An Exclusive Circle for Those Building Wealth and Legacy"
+              className="mt-4 max-w-[18ch] font-serif text-[clamp(32px,4.6vw,60px)] font-medium leading-[1.08] tracking-tight text-[#17171f]"
+              delay={90}
+              stepDuration={0.3}
+            />
+            <HeroReveal delay={0.9}>
+              <p className="mt-6 max-w-[52ch] text-[17px] leading-relaxed text-[#17171f]/70 sm:text-lg md:text-[19px]">
+                A private community of seriously minded professionals and
+                entrepreneurs across Canada, where ambitious people gain
+                access to vetted experts, private investment opportunities,
+                and a room full of peers who think bigger.
+              </p>
+            </HeroReveal>
+            <HeroReveal
+              delay={1.05}
+              className="mt-9 flex flex-wrap items-center gap-5"
+            >
+              <a
+                href="mailto:hello@migrantsmart.ca?subject=Mastermind%20Waitlist"
+                className="group flex items-center gap-3 rounded-full bg-primary py-3.5 pr-3.5 pl-7 text-[15.5px] font-bold text-white shadow-[0_20px_40px_-16px_rgba(84,72,240,0.45)] transition-transform duration-300 hover:-translate-y-0.5 active:scale-[0.97]"
+              >
+                Join the Waitlist
+                <span className="flex size-9 items-center justify-center rounded-full bg-white/20 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                  <ArrowUpRight size={16} weight="bold" />
+                </span>
+              </a>
+              <Button asChild variant="link">
+                <Link href="#benefits">
+                  See what&rsquo;s included
+                  <ArrowRight size={16} weight="bold" />
+                </Link>
+              </Button>
+            </HeroReveal>
+            <HeroReveal delay={1.2}>
+              <p className="mt-5 text-[14px] font-medium text-[#17171f]/50">
+                Membership is by application only. Join the waitlist to be
+                considered when doors open.
+              </p>
+            </HeroReveal>
+          </div>
+
+          <HeroReveal delay={0.3} className="relative">
+            <span className="pointer-events-none absolute -top-8 -right-6 hidden h-40 w-40 rounded-[32px] bg-primary/20 blur-2xl sm:block" />
+            <span className="pointer-events-none absolute -bottom-10 -left-8 hidden h-32 w-32 rounded-full bg-brand-lighter/20 blur-2xl sm:block" />
+            <div className="relative aspect-[9/10] rounded-[2rem] border border-black/10 bg-black/5 p-2 shadow-[0_40px_70px_-30px_rgba(23,23,31,0.25)]">
               <TiltedCard
-                imageSrc={picsum("migrant-smart-mastermind-group", 900, 1000)}
-                altText="Mastermind community group meetup"
+                imageSrc={picsum("migrant-smart-mastermind-inner-circle", 900, 1000)}
+                altText="Professionals and entrepreneurs in the Mastermind inner circle"
                 containerHeight="100%"
                 containerWidth="100%"
                 imageHeight="100%"
@@ -116,40 +134,57 @@ export default function MastermindPage() {
                 className="rounded-[calc(2rem-0.5rem)] [&_img]:rounded-[calc(2rem-0.5rem)]"
               />
             </div>
-          </Reveal>
+            <div className="absolute -bottom-6 left-3 flex items-center gap-3 rounded-2xl border border-black/10 bg-white/90 px-5 py-4 shadow-[0_24px_48px_-16px_rgba(23,23,31,0.2)] backdrop-blur-xl sm:left-6">
+              <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                <Star size={20} weight="fill" />
+              </span>
+              <div>
+                <div className="text-[14px] font-bold text-[#17171f]">
+                  Founding Member
+                </div>
+                <div className="text-[12.5px] text-[#17171f]/60">
+                  Early access, before public launch
+                </div>
+              </div>
+            </div>
+          </HeroReveal>
         </div>
       </section>
 
       {/* WHAT IT IS */}
-      <section className="px-5 py-16 sm:px-8 md:py-20">
+      <section className="px-5 py-12 sm:px-8 md:py-16">
         <Reveal className="mx-auto max-w-[720px] text-center">
           <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-primary">
             What it is
           </span>
           <h2 className="mt-4 font-serif text-[clamp(26px,3.2vw,36px)] font-medium leading-[1.14] tracking-tight text-foreground">
-            A room full of people rooting for you
+            Not a Network. An Inner Circle.
           </h2>
           <p className="mt-6 text-[15.5px] leading-relaxed text-muted-foreground">
-            The Mastermind is where members set goals out loud, share
-            what&rsquo;s working, and get honest support when things get hard.
-            Whether you&rsquo;re job hunting, upskilling, switching fields or
-            starting a business, you&rsquo;ll find peers a few steps ahead,
-            mentors who&rsquo;ve been there, and a rhythm of accountability that
-            keeps you moving.
+            Mastermind is a private, invitation-only membership for
+            professionals and entrepreneurs in Canada who are serious about
+            building wealth and leaving a legacy. Every member is selected
+            through an application process, because the value of the room
+            depends on who&rsquo;s in it. This is a trusted circle of driven
+            people who raise your standards, sharpen your thinking, and open
+            doors you couldn&rsquo;t open alone.
           </p>
         </Reveal>
       </section>
 
-      {/* WHAT TO EXPECT */}
-      <section className="bg-secondary/60 px-5 py-16 sm:px-8 md:py-24 dark:bg-surface-tint">
+      {/* WHAT YOU GET */}
+      <section
+        id="benefits"
+        className="bg-secondary/60 px-5 py-12 sm:px-8 md:py-16 dark:bg-surface-tint"
+      >
         <div className="mx-auto max-w-[1240px]">
           <Reveal>
             <h3 className="text-center font-serif text-2xl font-medium text-foreground">
-              What members can expect
+              Access That Moves You Forward
             </h3>
           </Reveal>
           <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {EXPECTATIONS.map((item, i) => (
+            {BENEFITS.map((item, i) => (
               <Reveal key={item.title} delay={i * 0.08}>
                 <SpotlightCard
                   spotlightColor="rgba(84, 72, 240, 0.3)"
@@ -171,56 +206,32 @@ export default function MastermindPage() {
         </div>
       </section>
 
-      {/* MEETING + WHO */}
-      <section className="px-5 py-16 sm:px-8 md:py-24">
-        <div className="mx-auto grid max-w-[1240px] gap-6 md:grid-cols-2">
-          <Reveal>
-            <SpotlightCard
-              spotlightColor="rgba(84, 72, 240, 0.3)"
-              className="h-full p-7 md:p-9"
-            >
-              <h3 className="text-[17px] font-bold text-foreground">
-                Meeting frequency &amp; timing
-              </h3>
-              <div className="mt-5 flex flex-col gap-4">
-                {TIMING.map((row) => (
-                  <div
-                    key={row.label}
-                    className="flex items-center justify-between border-t border-border pt-4 first:border-t-0 first:pt-0"
-                  >
-                    <span className="text-[14.5px] text-muted-foreground">
-                      {row.label}
-                    </span>
-                    <span className="text-[14.5px] font-bold text-foreground">
-                      {row.value}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </SpotlightCard>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <SpotlightCard
-              spotlightColor="rgba(84, 72, 240, 0.3)"
-              className="h-full p-7 md:p-9"
-            >
-              <h3 className="text-[17px] font-bold text-foreground">
-                Who it&rsquo;s for
-              </h3>
-              <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground">
-                Ambitious newcomers and international students who want more
-                than tips, a community that pushes them, celebrates them and
-                keeps them accountable while they build their Canadian future.
-              </p>
-            </SpotlightCard>
-          </Reveal>
-        </div>
+      {/* HOW IT WORKS */}
+      <section className="px-5 py-12 sm:px-8 md:py-16">
+        <Reveal className="mx-auto max-w-[720px] text-center">
+          <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-primary">
+            How it works
+          </span>
+          <h2 className="mt-4 font-serif text-[clamp(26px,3.2vw,36px)] font-medium leading-[1.14] tracking-tight text-foreground">
+            Wealth Is Built in the Right Rooms
+          </h2>
+          <p className="mt-6 text-[15.5px] leading-relaxed text-muted-foreground">
+            Membership begins with an application, we review each one to keep
+            the community sharp, trusted, and genuinely valuable. Selected
+            members meet monthly over dinner: an evening to hear from guest
+            speakers, trade ideas, and build real relationships. Between the
+            conversation and the connections, this is where opportunities
+            surface, deals get made, and partnerships begin.
+          </p>
+        </Reveal>
       </section>
 
       <CtaBand
-        heading="Find your people"
-        lede="Join the Mastermind community free and get the support the journey really takes."
-        ctaLabel="Join on WhatsApp"
+        heading="Doors Open in 2027. Applications Start With the Waitlist."
+        lede="Mastermind is being built for a select group of Canada's most driven professionals and entrepreneurs, and every place is earned through application. Join the waitlist now to be among the first considered, with founding-member standing for those selected before we open."
+        ctaLabel="Join the Waitlist"
+        ctaHref="mailto:hello@migrantsmart.ca?subject=Mastermind%20Waitlist"
+        backgroundImageSeed="migrant-smart-mastermind-waitlist"
       />
     </div>
   );

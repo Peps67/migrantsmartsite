@@ -20,12 +20,10 @@ import SpotlightCard from "@/components/reactbits/SpotlightCard";
 import { OfferFan } from "@/components/OfferFan";
 import TestimonialSlider from "@/components/TestimonialSlider";
 import TiltedCard from "@/components/reactbits/TiltedCard";
+import YouTubeThumbnail from "@/components/YouTubeThumbnail";
 import { ParallaxY } from "@/components/ParallaxY";
 import HeroReveal from "./HeroReveal";
 import Reveal from "@/components/Reveal";
-
-const picsum = (seed: string, w: number, h: number) =>
-  `https://picsum.photos/seed/${seed}/${w}/${h}`;
 
 const FOUNDER_POINTS = [
   "1:1 career coaching & mentorship",
@@ -59,7 +57,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-r from-white/70 via-white/30 to-transparent" />
 
         <GrainOverlay />
-        <div className="relative mx-auto grid max-w-[1240px] items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
+        <div className="relative mx-auto grid max-w-[1100px] items-center gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
           <div>
             <BlurText
               text="Your launchpad to success in Canada"
@@ -122,7 +120,7 @@ export default function Home() {
                   Career Clinic
                 </div>
                 <div className="text-[12.5px] text-[#17171f]/60">
-                  Land your first Canadian role
+                  Build your case for advancement
                 </div>
               </div>
             </div>
@@ -131,7 +129,7 @@ export default function Home() {
       </section>
 
       {/* ABOUT / MISSION */}
-      <section id="about" className="px-5 py-16 sm:px-8 md:py-24">
+      <section id="about" className="px-5 py-12 sm:px-8 md:py-16">
         <div className="mx-auto grid max-w-[1240px] items-center gap-14 lg:grid-cols-2 lg:gap-16">
           <Reveal blur>
             <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-primary">
@@ -181,7 +179,7 @@ export default function Home() {
                 </div>
                 <div>
                   <div className="font-serif text-2xl font-medium text-foreground">
-                    50+
+                    20+
                   </div>
                   <div className="mt-1 text-[12.5px] text-muted-foreground">
                     Events hosted
@@ -202,7 +200,7 @@ export default function Home() {
       </section>
 
       {/* OFFERING */}
-      <section id="offer" className="px-5 py-16 sm:px-8 md:py-28">
+      <section id="offer" className="px-5 py-12 sm:px-8 md:py-20">
         <div className="mx-auto max-w-[1240px]">
           <Reveal blur className="text-center">
             <h2 className="mx-auto max-w-[20ch] font-serif text-[clamp(28px,3.6vw,42px)] font-medium leading-[1.12] tracking-tight text-foreground">
@@ -210,7 +208,7 @@ export default function Home() {
               <em className="text-primary italic">thrive</em>
             </h2>
           </Reveal>
-          <div className="mt-14">
+          <div className="mt-10">
             <OfferFan />
           </div>
         </div>
@@ -219,15 +217,15 @@ export default function Home() {
       {/* FOUNDER */}
       <section
         id="founder"
-        className="overflow-hidden px-5 py-16 sm:px-8 md:py-24"
+        className="overflow-hidden px-5 py-12 sm:px-8 md:py-16"
       >
         <div className="mx-auto grid max-w-[1240px] items-center gap-14 lg:grid-cols-2 lg:gap-16">
           <ParallaxY range={28} className="relative order-2 lg:order-1">
             <Reveal blur>
               <span className="pointer-events-none absolute -top-6 -left-6 hidden h-28 w-28 rounded-full bg-[var(--aurora-1)]/15 blur-2xl sm:block" />
-              <div className="relative aspect-[4/4.5] rounded-[2rem] border border-black/10 bg-black/5 p-2 shadow-[0_30px_60px_-24px_rgba(23,23,31,0.3)] dark:border-white/15 dark:bg-white/5">
+              <div className="relative aspect-[4/5] rounded-[2rem] border border-black/10 bg-black/5 p-2 shadow-[0_30px_60px_-24px_rgba(23,23,31,0.3)] dark:border-white/15 dark:bg-white/5">
                 <TiltedCard
-                  imageSrc={picsum("migrant-smart-founder-portrait", 800, 900)}
+                  imageSrc="/team/abigail-peterson-founder.jpg"
                   altText="Abigail Peterson, founder of Migrant Smart"
                   containerHeight="100%"
                   containerWidth="100%"
@@ -237,7 +235,7 @@ export default function Home() {
                   scaleOnHover={1.04}
                   showTooltip={false}
                   sizes="(min-width: 1024px) 45vw, 90vw"
-                  className="rounded-[calc(2rem-0.5rem)] [&_img]:rounded-[calc(2rem-0.5rem)]"
+                  className="rounded-[calc(2rem-0.5rem)] [&_img]:rounded-[calc(2rem-0.5rem)] [&_img]:object-[50%_15%]"
                 />
               </div>
             </Reveal>
@@ -294,7 +292,7 @@ export default function Home() {
       {/* DOCUMENTARY */}
       <section
         id="documentary"
-        className="overflow-hidden px-5 py-16 sm:px-8 md:py-24"
+        className="overflow-hidden px-5 py-12 sm:px-8 md:py-16"
       >
         <div className="mx-auto grid max-w-[1240px] items-center gap-14 lg:grid-cols-2 lg:gap-16">
           <Reveal blur>
@@ -314,7 +312,7 @@ export default function Home() {
             <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild variant="ink" size="sm">
                 <a
-                  href="https://www.youtube.com/"
+                  href="https://youtu.be/R1cHXhJNiag?si=xbBAmiM_QkOBbA-c"
                   target="_blank"
                   rel="noopener"
                 >
@@ -324,7 +322,7 @@ export default function Home() {
               </Button>
               <Button asChild variant="outline" size="sm">
                 <a
-                  href="https://www.youtube.com/"
+                  href="https://www.youtube.com/@MigrantSmart"
                   target="_blank"
                   rel="noopener"
                 >
@@ -335,39 +333,18 @@ export default function Home() {
           </Reveal>
 
           <ParallaxY range={24}>
-            <Reveal
-              blur
-              className="group relative aspect-[16/11] rounded-[2rem] border border-black/10 bg-black/5 p-2 dark:border-white/15 dark:bg-white/5"
-            >
-              <TiltedCard
-                imageSrc={picsum(
-                  "migrant-smart-documentary-episode-1",
-                  900,
-                  620,
-                )}
-                altText="The Keys We Carry, documentary episode 1 thumbnail"
-                containerHeight="100%"
-                containerWidth="100%"
-                imageHeight="100%"
-                imageWidth="100%"
-                rotateAmplitude={7}
-                scaleOnHover={1.03}
-                showTooltip={false}
-                sizes="(min-width: 1024px) 45vw, 90vw"
-                className="rounded-[calc(2rem-0.5rem)] [&_img]:rounded-[calc(2rem-0.5rem)]"
+            <Reveal blur>
+              <YouTubeThumbnail
+                videoId="R1cHXhJNiag"
+                title="The Keys We Carry, Episode 1"
               />
-              <div className="pointer-events-none absolute inset-2 flex items-center justify-center rounded-[calc(2rem-0.5rem)] bg-black/15 transition-colors duration-300 group-hover:bg-black/30">
-                <span className="flex size-16 items-center justify-center rounded-full bg-white/95 text-foreground shadow-lg transition-transform duration-300 group-hover:scale-110">
-                  <Play size={26} weight="fill" className="ml-1" />
-                </span>
-              </div>
             </Reveal>
           </ParallaxY>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="px-5 pt-2 pb-16 sm:px-8 md:pb-24">
+      <section className="px-5 pt-2 pb-12 sm:px-8 md:pb-16">
         <Reveal
           blur
           className="relative mx-auto max-w-[1160px] overflow-hidden rounded-[40px] bg-[#0b0a12] px-6 py-16 text-center sm:px-10 md:py-24"

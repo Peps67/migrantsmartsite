@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -20,25 +21,36 @@ export const metadata: Metadata = {
 
 const FEATURED = [
   {
-    seed: "migrant-smart-nextgen-flagship",
+    image: "/events/nextgen-featured.jpg",
+    seed: null,
+    // Source photo is a tall portrait shot in a wide, short card frame — the
+    // default center crop cut off both speakers' heads. Bias down slightly
+    // so their heads clear the top of the frame.
+    objectPosition: "50% 30%",
     badge: "Flagship",
     title: "Next Gen",
     text: "Our signature gathering bringing together ambitious newcomers, mentors and employers for a day of connection, learning and inspiration.",
   },
   {
-    seed: "migrant-smart-sports-social",
+    image: "/events/mssports-featured.jpg",
+    seed: null,
+    objectPosition: null,
     badge: "Seasonal",
     title: "MS Sports",
     text: "Summer sports socials that get the community off the screen and onto the field, friendly games, food and easy first friendships.",
   },
   {
+    image: null,
     seed: "migrant-smart-podcast-recording",
+    objectPosition: null,
     badge: "Podcast",
     title: "Young, Skilled & Smart",
     text: "Honest conversations with newcomers who've made it work, the setbacks, the strategies and the moments that turned things around.",
   },
   {
+    image: null,
     seed: "migrant-smart-documentary-premiere",
+    objectPosition: null,
     badge: "Documentary",
     title: "The Keys We Carry",
     text: "The premiere of our documentary following real migrant journeys in Canada, stories of resilience, reinvention and hope.",
@@ -57,39 +69,40 @@ const UPCOMING = [
   },
 ];
 
-const GALLERY_SEEDS = [
-  "migrant-smart-gallery-1",
-  "migrant-smart-gallery-2",
-  "migrant-smart-gallery-3",
-  "migrant-smart-gallery-4",
-  "migrant-smart-gallery-5",
-  "migrant-smart-gallery-6",
+const GALLERY_IMAGES = [
+  "/events/gallery-1.jpg",
+  "/events/gallery-2.jpg",
+  "/events/gallery-3.jpg",
+  "/events/gallery-4.jpg",
+  "/events/gallery-5.jpg",
+  "/events/gallery-6.jpg",
 ];
 
 export default function EventsPage() {
   return (
     <div>
       {/* HERO */}
-      <section className="relative flex min-h-[100dvh] flex-col justify-center overflow-hidden rounded-t-[2.25rem] bg-[#0b0a12] px-5 py-16 text-center sm:rounded-t-[3rem] sm:px-8">
-        <div className="absolute inset-0 opacity-90">
+      <section className="relative flex min-h-[100dvh] flex-col justify-center overflow-hidden rounded-t-[2.25rem] bg-[#f8f7fd] px-5 py-16 text-center sm:rounded-t-[3rem] sm:px-8">
+        <div className="absolute inset-0 opacity-70">
           <Plasma
-            color="#8f84ff"
+            color="#5448f0"
             speed={0.5}
             scale={1.2}
-            opacity={0.9}
+            opacity={0.7}
             mouseInteractive
           />
         </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-white/50 via-white/20 to-white/50" />
         <GrainOverlay />
         <Reveal className="relative mx-auto max-w-[760px]">
-          <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-[var(--aurora-3)]">
+          <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-primary">
             Community Events
           </span>
           <BlurText
             text="Where connections become community"
-            className="mx-auto mt-4 justify-center font-serif text-[clamp(34px,4.6vw,64px)] font-medium leading-[1.14] tracking-tight text-white [&>span:nth-child(4)]:pb-1 [&>span:nth-child(4)]:text-[var(--aurora-3)] [&>span:nth-child(4)]:italic"
+            className="mx-auto mt-4 justify-center font-serif text-[clamp(34px,4.6vw,64px)] font-medium leading-[1.14] tracking-tight text-[#17171f] [&>span:nth-child(4)]:pb-1 [&>span:nth-child(4)]:text-primary [&>span:nth-child(4)]:italic"
           />
-          <p className="mx-auto mt-5 max-w-[58ch] text-[16.5px] leading-relaxed text-white/70 md:text-[18.5px]">
+          <p className="mx-auto mt-5 max-w-[58ch] text-[16.5px] leading-relaxed text-[#17171f]/70 md:text-[18.5px]">
             From our flagship Next Gen to summer sports and the podcast, our
             events turn online introductions into a real network, and belonging
             into a habit.
@@ -98,7 +111,7 @@ export default function EventsPage() {
       </section>
 
       {/* FEATURED EVENTS */}
-      <section className="px-5 py-16 sm:px-8 md:py-24">
+      <section className="px-5 py-12 sm:px-8 md:py-16">
         <div className="mx-auto grid max-w-[1240px] grid-cols-1 gap-6 sm:grid-cols-2">
           {FEATURED.map((event, i) => (
             <Reveal key={event.title} delay={i * 0.06}>
@@ -107,12 +120,27 @@ export default function EventsPage() {
                 className="overflow-hidden p-0"
               >
                 <div className="relative h-56">
-                  <PlaceholderPhoto
-                    seed={event.seed}
-                    alt={`${event.title} event photo`}
-                    fill
-                    sizes="(min-width: 640px) 50vw, 100vw"
-                  />
+                  {event.image ? (
+                    <Image
+                      src={event.image}
+                      alt={`${event.title} event photo`}
+                      fill
+                      sizes="(min-width: 640px) 50vw, 100vw"
+                      className="object-cover"
+                      style={
+                        event.objectPosition
+                          ? { objectPosition: event.objectPosition }
+                          : undefined
+                      }
+                    />
+                  ) : (
+                    <PlaceholderPhoto
+                      seed={event.seed!}
+                      alt={`${event.title} event photo`}
+                      fill
+                      sizes="(min-width: 640px) 50vw, 100vw"
+                    />
+                  )}
                 </div>
                 <div className="p-6">
                   <Badge variant="soft">{event.badge}</Badge>
@@ -130,8 +158,8 @@ export default function EventsPage() {
       </section>
 
       {/* UPCOMING */}
-      <section className="px-5 py-16 sm:px-8 md:py-24">
-        <div className="relative mx-auto max-w-[1160px] overflow-hidden rounded-[40px] bg-[#0b0a12] px-5 py-16 sm:px-8 md:py-20">
+      <section className="px-5 py-12 sm:px-8 md:py-16">
+        <div className="relative mx-auto max-w-[1160px] overflow-hidden rounded-[40px] bg-[#0b0a12] px-5 py-12 sm:px-8 md:py-16">
           <div className="absolute inset-0 opacity-35">
             <Grainient {...GRAINIENT_PROPS} />
           </div>
@@ -186,7 +214,7 @@ export default function EventsPage() {
       </section>
 
       {/* PAST GALLERY */}
-      <section className="px-5 py-16 sm:px-8 md:py-24">
+      <section className="px-5 py-12 sm:px-8 md:py-16">
         <div className="mx-auto max-w-[1240px]">
           <Reveal>
             <h2 className="font-serif text-[clamp(26px,3.2vw,36px)] font-medium text-foreground">
@@ -194,18 +222,18 @@ export default function EventsPage() {
             </h2>
           </Reveal>
           <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3">
-            {GALLERY_SEEDS.map((seed, i) => (
+            {GALLERY_IMAGES.map((src, i) => (
               <Reveal
-                key={seed}
+                key={src}
                 delay={i * 0.04}
                 className="group relative aspect-square overflow-hidden rounded-2xl"
               >
-                <PlaceholderPhoto
-                  seed={seed}
+                <Image
+                  src={src}
                   alt="Past Migrant Smart event photo"
                   fill
                   sizes="(min-width: 640px) 33vw, 50vw"
-                  className="transition-transform duration-500 group-hover:scale-110"
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
                 />
               </Reveal>
             ))}

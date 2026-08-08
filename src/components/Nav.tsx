@@ -170,7 +170,7 @@ export default function Nav() {
 
         <div className="ml-1 hidden items-center gap-2 lg:flex">
           <a
-            href="https://chat.whatsapp.com/"
+            href="https://chat.whatsapp.com/GZH56TFwU7D61xqFufv6pp?s=sh&p=i&mlu=4"
             target="_blank"
             rel="noopener"
             className="group flex items-center gap-2 rounded-full bg-primary py-2 pr-2 pl-4 text-[13.5px] font-bold text-primary-foreground shadow-[0_10px_24px_-8px_rgba(84,72,240,0.55)] transition-transform duration-300 hover:-translate-y-0.5 active:scale-[0.97]"
@@ -268,7 +268,7 @@ export default function Nav() {
                       className="mt-8 flex items-center gap-4"
                     >
                       <a
-                        href="https://chat.whatsapp.com/"
+                        href="https://chat.whatsapp.com/GZH56TFwU7D61xqFufv6pp?s=sh&p=i&mlu=4"
                         target="_blank"
                         rel="noopener"
                         onClick={() => setMobileOpen(false)}

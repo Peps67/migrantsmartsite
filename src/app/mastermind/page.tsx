@@ -14,7 +14,6 @@ import { Button } from "@/components/ui/button";
 import SpotlightCard from "@/components/reactbits/SpotlightCard";
 import TiltedCard from "@/components/reactbits/TiltedCard";
 import BlurText from "@/components/reactbits/BlurText";
-import Aurora from "@/components/reactbits/Aurora";
 import { GrainOverlay } from "@/components/GrainOverlay";
 import CtaBand from "@/components/CtaBand";
 import Reveal from "@/components/Reveal";
@@ -57,15 +56,6 @@ export default function MastermindPage() {
     <div>
       {/* HERO */}
       <section className="relative flex min-h-[100dvh] flex-col justify-center overflow-hidden rounded-t-[2.25rem] bg-[#f8f7fd] px-5 py-24 sm:rounded-t-[3rem] sm:px-8 md:py-28">
-        <div className="absolute inset-0 opacity-60">
-          <Aurora
-            colorStops={["#4438d6", "#8f84ff", "#5448f0"]}
-            amplitude={1.2}
-            blend={0.6}
-            speed={0.6}
-          />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-white/70 via-white/30 to-transparent" />
         <GrainOverlay />
         <div className="relative mx-auto grid max-w-[1100px] items-center gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
           <div>

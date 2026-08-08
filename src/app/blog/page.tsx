@@ -5,9 +5,6 @@ import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Badge } from "@/components/ui/badge";
 import { PlaceholderPhoto } from "@/components/PlaceholderPhoto";
 import BlurText from "@/components/reactbits/BlurText";
-import Beams from "@/components/reactbits/Beams";
-import LineWaves from "@/components/reactbits/LineWaves";
-import { LINEWAVES_PROPS } from "@/lib/linewaves-theme";
 import { GrainOverlay } from "@/components/GrainOverlay";
 import NewsletterForm from "./NewsletterForm";
 import Reveal from "@/components/Reveal";
@@ -76,17 +73,6 @@ export default function BlogPage() {
     <div>
       {/* HERO */}
       <section className="relative flex min-h-[100dvh] flex-col justify-center overflow-hidden rounded-t-[2.25rem] bg-[#f8f7fd] px-5 py-16 text-center sm:rounded-t-[3rem] sm:px-8">
-        <div className="absolute inset-0 opacity-70">
-          <Beams
-            beamNumber={10}
-            lightColor="#5448f0"
-            speed={1.2}
-            noiseIntensity={1.9}
-            scale={0.26}
-            rotation={-6}
-          />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/30 to-white/60" />
         <GrainOverlay />
         <Reveal className="relative mx-auto max-w-[820px]">
           <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-primary">
@@ -199,9 +185,6 @@ export default function BlogPage() {
           blur
           className="relative mx-auto max-w-[1160px] overflow-hidden rounded-[40px] bg-[#0b0a12] px-6 py-14 text-center sm:px-10 md:py-20"
         >
-          <div className="absolute inset-0 opacity-70">
-            <LineWaves {...LINEWAVES_PROPS} />
-          </div>
           <GrainOverlay />
           <div className="relative mx-auto max-w-[560px]">
             <h2 className="font-serif text-[clamp(26px,3.4vw,38px)] font-medium text-white">

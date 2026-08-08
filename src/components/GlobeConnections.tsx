@@ -4,6 +4,8 @@ import { useEffect, useRef } from "react";
 import createGlobe from "cobe";
 import Image from "next/image";
 
+import { useWebglSupported } from "@/lib/useWebglSupported";
+
 function cx(...classes: Array<string | false | null | undefined>) {
   return classes.filter(Boolean).join(" ");
 }
@@ -88,8 +90,10 @@ function arcPath(node: Node) {
 export function GlobeConnections({ className }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
+  const webglSupported = useWebglSupported();
 
   useEffect(() => {
+    if (!webglSupported) return;
     const canvas = canvasRef.current;
     const wrap = wrapRef.current;
     if (!canvas || !wrap) return;
@@ -99,24 +103,31 @@ export function GlobeConnections({ className }: { className?: string }) {
     let stopped = false;
     const start = performance.now();
 
-    const globe = createGlobe(canvas, {
-      devicePixelRatio: Math.min(window.devicePixelRatio || 1, 2),
-      width: width * 2,
-      height: width * 2,
-      phi: PHI,
-      theta: THETA,
-      dark: 0,
-      diffuse: 1.2,
-      mapSamples: 44000,
-      mapBrightness: 6,
-      mapBaseBrightness: 0,
-      baseColor: [1, 1, 1],
-      markerColor: [1, 0.36, 0.64],
-      glowColor: [0.78, 0.7, 1],
-      opacity: 1,
-      scale: 1,
-      markers: [],
-    });
+    // cobe builds its own WebGL context internally; a sandboxed/disabled
+    // GPU can still fail here even after the feature-detect above.
+    let globe: ReturnType<typeof createGlobe>;
+    try {
+      globe = createGlobe(canvas, {
+        devicePixelRatio: Math.min(window.devicePixelRatio || 1, 2),
+        width: width * 2,
+        height: width * 2,
+        phi: PHI,
+        theta: THETA,
+        dark: 0,
+        diffuse: 1.2,
+        mapSamples: 44000,
+        mapBrightness: 6,
+        mapBaseBrightness: 0,
+        baseColor: [1, 1, 1],
+        markerColor: [1, 0.36, 0.64],
+        glowColor: [0.78, 0.7, 1],
+        opacity: 1,
+        scale: 1,
+        markers: [],
+      });
+    } catch {
+      return;
+    }
 
     const draw = () => {
       if (stopped) return;
@@ -147,7 +158,9 @@ export function GlobeConnections({ className }: { className?: string }) {
       resizeObserver.disconnect();
       globe.destroy();
     };
-  }, []);
+  }, [webglSupported]);
+
+  if (!webglSupported) return null;
 
   return (
     <div

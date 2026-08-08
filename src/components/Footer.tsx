@@ -7,7 +7,7 @@ import { GrainOverlay } from "@/components/GrainOverlay";
 
 const SOCIALS = [
   { href: "https://www.linkedin.com/", label: "LinkedIn", icon: LinkedinLogo },
-  { href: "https://www.instagram.com/", label: "Instagram", icon: InstagramLogo },
+  { href: "https://www.instagram.com/migrantsmart?igsh=MTM0MGtiMTkwanZ5Mg==", label: "Instagram", icon: InstagramLogo },
   { href: "https://www.youtube.com/", label: "YouTube", icon: YoutubeLogo },
 ];
 
@@ -69,12 +69,12 @@ export default function Footer() {
               <a href="mailto:hello@migrantsmart.ca" className="text-[14.5px] text-white/70 hover:text-white">
                 hello@migrantsmart.ca
               </a>
-              <a href="https://chat.whatsapp.com/" target="_blank" rel="noopener" className="text-[14.5px] text-white/70 hover:text-white">
+              <a href="https://chat.whatsapp.com/GZH56TFwU7D61xqFufv6pp?s=sh&p=i&mlu=4" target="_blank" rel="noopener" className="text-[14.5px] text-white/70 hover:text-white">
                 WhatsApp Community
               </a>
             </div>
             <Button asChild variant="white" size="sm" className="mt-5">
-              <a href="https://chat.whatsapp.com/" target="_blank" rel="noopener">
+              <a href="https://chat.whatsapp.com/GZH56TFwU7D61xqFufv6pp?s=sh&p=i&mlu=4" target="_blank" rel="noopener">
                 Join Community
                 <ArrowUpRight size={16} weight="bold" />
               </a>

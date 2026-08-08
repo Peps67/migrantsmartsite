@@ -11,9 +11,6 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { GlobeConnections } from "@/components/GlobeConnections";
 import { GrainOverlay } from "@/components/GrainOverlay";
-import PixelBlast from "@/components/reactbits/PixelBlast";
-import LineWaves from "@/components/reactbits/LineWaves";
-import { LINEWAVES_PROPS } from "@/lib/linewaves-theme";
 import BlurText from "@/components/reactbits/BlurText";
 import SpotlightCard from "@/components/reactbits/SpotlightCard";
 import { OfferFan } from "@/components/OfferFan";
@@ -25,7 +22,6 @@ import HeroReveal from "./HeroReveal";
 import Reveal from "@/components/Reveal";
 
 const FOUNDER_POINTS = [
-  "1:1 career coaching & mentorship",
   "Host of the Career Clinic program",
   "Leads a 3,000+ strong newcomer community",
 ];
@@ -34,29 +30,9 @@ export default function Home() {
   return (
     <div>
       {/* HERO */}
-      <section className="relative flex min-h-[100dvh] flex-col justify-center overflow-hidden rounded-t-[2.25rem] bg-[#f8f7fd] px-5 py-24 sm:rounded-t-[3rem] sm:px-8 md:py-28">
-        <div className="absolute inset-0 opacity-80">
-          <PixelBlast
-            variant="circle"
-            color="#5448f0"
-            pixelSize={4}
-            patternScale={3}
-            patternDensity={1.1}
-            pixelSizeJitter={0.4}
-            enableRipples
-            rippleSpeed={0.4}
-            rippleThickness={0.12}
-            rippleIntensityScale={1.2}
-            speed={0.4}
-            edgeFade={0.35}
-            transparent
-          />
-        </div>
-
-        <div className="absolute inset-0 bg-gradient-to-r from-white/70 via-white/30 to-transparent" />
-
+      <section className="relative flex min-h-[85dvh] flex-col justify-center overflow-hidden rounded-t-[2.25rem] bg-[#f8f7fd] px-5 py-12 sm:rounded-t-[3rem] sm:px-8 md:py-16">
         <GrainOverlay />
-        <div className="relative mx-auto grid max-w-[1440px] items-center gap-12 lg:grid-cols-[0.8fr_1fr] lg:gap-10">
+        <div className="relative mx-auto grid max-w-[1440px] items-center gap-8 lg:grid-cols-[0.8fr_1fr] lg:gap-8">
           <div>
             <BlurText
               text="Your launchpad to success in Canada"
@@ -65,17 +41,17 @@ export default function Home() {
               stepDuration={0.3}
             />
             <HeroReveal delay={0.9}>
-              <p className="mt-6 max-w-[46ch] text-[17px] leading-relaxed text-[#17171f]/70 sm:text-lg md:text-[19px]">
+              <p className="mt-4 max-w-[46ch] text-[17px] leading-relaxed text-[#17171f]/70 sm:text-lg md:text-[19px]">
                 Career coaching, a driven community and practical workshops to
                 help you land, settle and thrive in Canada.
               </p>
             </HeroReveal>
             <HeroReveal
               delay={1.05}
-              className="mt-9 flex flex-wrap items-center gap-5"
+              className="mt-7 flex flex-wrap items-center gap-5"
             >
               <a
-                href="https://chat.whatsapp.com/"
+                href="https://chat.whatsapp.com/GZH56TFwU7D61xqFufv6pp?s=sh&p=i&mlu=4"
                 target="_blank"
                 rel="noopener"
                 className="group flex items-center gap-3 rounded-full bg-primary py-3.5 pr-3.5 pl-7 text-[15.5px] font-bold text-white shadow-[0_20px_40px_-16px_rgba(84,72,240,0.45)] transition-transform duration-300 hover:-translate-y-0.5 active:scale-[0.97]"
@@ -101,7 +77,7 @@ export default function Home() {
       </section>
 
       {/* ABOUT / MISSION */}
-      <section id="about" className="px-5 py-12 sm:px-8 md:py-16">
+      <section id="about" className="px-5 py-9 sm:px-8 md:py-12">
         <div className="mx-auto grid max-w-[1240px] items-center gap-14 lg:grid-cols-2 lg:gap-16">
           <Reveal blur>
             <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-primary">
@@ -172,7 +148,7 @@ export default function Home() {
       </section>
 
       {/* OFFERING */}
-      <section id="offer" className="px-5 py-12 sm:px-8 md:py-20">
+      <section id="offer" className="px-5 py-9 sm:px-8 md:py-14">
         <div className="mx-auto max-w-[1240px]">
           <Reveal blur className="text-center">
             <h2 className="mx-auto max-w-[20ch] font-serif text-[clamp(28px,3.6vw,42px)] font-medium leading-[1.12] tracking-tight text-foreground">
@@ -189,7 +165,7 @@ export default function Home() {
       {/* FOUNDER */}
       <section
         id="founder"
-        className="overflow-hidden px-5 py-12 sm:px-8 md:py-16"
+        className="overflow-hidden px-5 py-9 sm:px-8 md:py-12"
       >
         <div className="mx-auto grid max-w-[1240px] items-center gap-14 lg:grid-cols-2 lg:gap-16">
           <ParallaxY range={28} className="relative order-2 lg:order-1">
@@ -221,14 +197,27 @@ export default function Home() {
               Abigail Peterson
             </h2>
             <p className="mt-1 text-[15px] font-semibold text-muted-foreground">
-              Founder &amp; Lead Coach, Migrant Smart
+              CPA, Founder, Migrant Smart
             </p>
             <p className="mt-5 max-w-[54ch] text-[15.5px] leading-relaxed text-muted-foreground">
-              A newcomer turned community builder, Abigail has spent years
-              helping migrants translate their skills and experience into
-              Canadian opportunity. She started Migrant Smart to give others the
-              roadmap she wished she&rsquo;d had, practical, honest and rooted
-              in lived experience.
+              Formerly a Manager at one of the world&rsquo;s largest
+              consulting firms, Abigail is a Chartered Professional Accountant
+              who audited and advised large multinational organizations
+              across sectors including SaaS, Oil &amp; Gas, Construction,
+              Consumer Services, Manufacturing, and Non-Profits.
+            </p>
+            <p className="mt-4 max-w-[54ch] text-[15.5px] leading-relaxed text-muted-foreground">
+              With 8 years of experience, Abigail now provides strategic
+              coaching and guidance to CPA firms across Eastern and Western
+              Canada, helping them build profitable wealth management units,
+              5X their valuation, and grow their revenue and client base.
+            </p>
+            <p className="mt-4 max-w-[54ch] text-[15.5px] leading-relaxed text-muted-foreground">
+              Alongside her industry and leadership experience, Abigail
+              founded Migrant Smart, an organization built to help career and
+              business professionals who&rsquo;ve relocated to Canada
+              navigate the systems, relationships, and opportunities that
+              determine long-term success.
             </p>
             <div className="mt-6 flex flex-col gap-3">
               {FOUNDER_POINTS.map((point) => (
@@ -246,10 +235,7 @@ export default function Home() {
               ))}
             </div>
             <Button asChild size="lg" className="mt-8">
-              <Link href="/career-clinic">
-                Book your 1:1
-                <ArrowRight size={17} weight="bold" />
-              </Link>
+              <Link href="/career-clinic">Book your 1:1</Link>
             </Button>
             <p className="mt-4 text-[13px] text-muted-foreground">
               Sessions scheduled via Calendly &middot; secure payment via Stripe
@@ -264,7 +250,7 @@ export default function Home() {
       {/* DOCUMENTARY */}
       <section
         id="documentary"
-        className="overflow-hidden px-5 py-12 sm:px-8 md:py-16"
+        className="overflow-hidden px-5 py-9 sm:px-8 md:py-12"
       >
         <div className="mx-auto grid max-w-[1240px] items-center gap-14 lg:grid-cols-2 lg:gap-16">
           <Reveal blur>
@@ -316,14 +302,11 @@ export default function Home() {
       </section>
 
       {/* CTA */}
-      <section className="px-5 pt-2 pb-12 sm:px-8 md:pb-16">
+      <section className="px-5 pt-2 pb-9 sm:px-8 md:pb-12">
         <Reveal
           blur
           className="relative mx-auto max-w-[1160px] overflow-hidden rounded-[40px] bg-[#0b0a12] px-6 py-16 text-center sm:px-10 md:py-24"
         >
-          <div className="absolute inset-0 opacity-80">
-            <LineWaves {...LINEWAVES_PROPS} />
-          </div>
           <div className="relative">
             <h2 className="mx-auto max-w-[18ch] font-serif text-[clamp(28px,4.2vw,46px)] font-medium leading-[1.08] tracking-tight text-white">
               Ready to start your journey?
@@ -333,7 +316,7 @@ export default function Home() {
               Migrant Smart.
             </p>
             <a
-              href="https://chat.whatsapp.com/"
+              href="https://chat.whatsapp.com/GZH56TFwU7D61xqFufv6pp?s=sh&p=i&mlu=4"
               target="_blank"
               rel="noopener"
               className="group mt-8 inline-flex items-center gap-3 rounded-full bg-white py-3.5 pr-3.5 pl-7 text-[15.5px] font-bold text-[#0b0a12] shadow-[0_24px_50px_-16px_rgba(0,0,0,0.5)] transition-transform duration-300 hover:-translate-y-0.5 active:scale-[0.97]"

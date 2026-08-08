@@ -6,7 +6,6 @@ import { Badge } from "@/components/ui/badge";
 import { PlaceholderPhoto } from "@/components/PlaceholderPhoto";
 import SpotlightCard from "@/components/reactbits/SpotlightCard";
 import BlurText from "@/components/reactbits/BlurText";
-import Plasma from "@/components/reactbits/Plasma";
 import Grainient from "@/components/reactbits/Grainient";
 import { GRAINIENT_PROPS } from "@/lib/grainient-theme";
 import { GrainOverlay } from "@/components/GrainOverlay";
@@ -40,17 +39,21 @@ const FEATURED = [
     text: "Summer sports socials that get the community off the screen and onto the field, friendly games, food and easy first friendships.",
   },
   {
-    image: null,
-    seed: "migrant-smart-podcast-recording",
-    objectPosition: null,
+    image: "/events/yss-podcast.jpg",
+    seed: null,
+    // Poster art is portrait — bias the crop to keep the logo (top) and
+    // the mic/headphones (mid-lower) both in frame.
+    objectPosition: "50% 15%",
     badge: "Podcast",
     title: "Young, Skilled & Smart",
     text: "Honest conversations with newcomers who've made it work, the setbacks, the strategies and the moments that turned things around.",
   },
   {
-    image: null,
-    seed: "migrant-smart-documentary-premiere",
-    objectPosition: null,
+    image: "/events/documentary-poster.jpg",
+    seed: null,
+    // Bias the crop down so the full "keys we carry" title text clears
+    // the frame instead of getting cut mid-word.
+    objectPosition: "50% 80%",
     badge: "Documentary",
     title: "The Keys We Carry",
     text: "The premiere of our documentary following real migrant journeys in Canada, stories of resilience, reinvention and hope.",
@@ -58,7 +61,6 @@ const FEATURED = [
 ];
 
 const UPCOMING = [
-  { title: "Next Gen", desc: "Flagship community gathering, Toronto" },
   {
     title: "MS Sports Summer Social",
     desc: "Friendly games & community picnic",
@@ -67,6 +69,11 @@ const UPCOMING = [
     title: "Young, Skilled & Smart, Live taping",
     desc: "Podcast recording with a live audience",
   },
+  {
+    title: "Career Clinic",
+    desc: "6-week cohort orientation & kickoff",
+  },
+  { title: "Next Gen", desc: "Flagship community gathering, Toronto" },
 ];
 
 const GALLERY_IMAGES = [
@@ -83,16 +90,6 @@ export default function EventsPage() {
     <div>
       {/* HERO */}
       <section className="relative flex min-h-[100dvh] flex-col justify-center overflow-hidden rounded-t-[2.25rem] bg-[#f8f7fd] px-5 py-16 text-center sm:rounded-t-[3rem] sm:px-8">
-        <div className="absolute inset-0 opacity-70">
-          <Plasma
-            color="#5448f0"
-            speed={0.5}
-            scale={1.2}
-            opacity={0.7}
-            mouseInteractive
-          />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-white/50 via-white/20 to-white/50" />
         <GrainOverlay />
         <Reveal className="relative mx-auto max-w-[760px]">
           <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-primary">
@@ -107,6 +104,34 @@ export default function EventsPage() {
             events turn online introductions into a real network, and belonging
             into a habit.
           </p>
+          <div className="mx-auto mt-10 flex max-w-[460px] items-center justify-center gap-6 rounded-2xl bg-[#5343EB] px-6 py-6 shadow-[0_30px_60px_-24px_rgba(83,67,235,0.5)] sm:gap-10">
+            <div>
+              <div className="font-serif text-2xl font-medium text-white sm:text-3xl">
+                20+
+              </div>
+              <div className="mt-1 text-[12px] text-white/70">
+                Events hosted
+              </div>
+            </div>
+            <div className="h-10 w-px bg-white/20" />
+            <div>
+              <div className="font-serif text-2xl font-medium text-white sm:text-3xl">
+                4
+              </div>
+              <div className="mt-1 text-[12px] text-white/70">
+                Event formats
+              </div>
+            </div>
+            <div className="h-10 w-px bg-white/20" />
+            <div>
+              <div className="font-serif text-2xl font-medium text-white sm:text-3xl">
+                3,000+
+              </div>
+              <div className="mt-1 text-[12px] text-white/70">
+                Community members
+              </div>
+            </div>
+          </div>
         </Reveal>
       </section>
 
@@ -119,7 +144,7 @@ export default function EventsPage() {
                 spotlightColor="rgba(84, 72, 240, 0.25)"
                 className="overflow-hidden p-0"
               >
-                <div className="relative h-56">
+                <div className="relative h-[480px]">
                   {event.image ? (
                     <Image
                       src={event.image}

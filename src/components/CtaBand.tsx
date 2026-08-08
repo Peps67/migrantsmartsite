@@ -2,8 +2,6 @@
 
 import { ArrowUpRight } from "@phosphor-icons/react";
 
-import LineWaves from "@/components/reactbits/LineWaves";
-import { LINEWAVES_PROPS } from "@/lib/linewaves-theme";
 import { GrainOverlay } from "@/components/GrainOverlay";
 import { PlaceholderPhoto } from "@/components/PlaceholderPhoto";
 import Reveal from "@/components/Reveal";
@@ -21,7 +19,7 @@ export default function CtaBand({
   heading,
   lede,
   ctaLabel = "Join the community",
-  ctaHref = "https://chat.whatsapp.com/",
+  ctaHref = "https://chat.whatsapp.com/GZH56TFwU7D61xqFufv6pp?s=sh&p=i&mlu=4",
   backgroundImageSeed,
 }: CtaBandProps) {
   return (
@@ -30,7 +28,7 @@ export default function CtaBand({
         blur
         className="relative mx-auto max-w-[1160px] overflow-hidden rounded-[40px] bg-[#0b0a12] px-6 py-14 text-center sm:px-10 md:py-20"
       >
-        {backgroundImageSeed ? (
+        {backgroundImageSeed && (
           <>
             <PlaceholderPhoto
               seed={backgroundImageSeed}
@@ -41,10 +39,6 @@ export default function CtaBand({
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0b0a12] via-[#0b0a12]/70 to-[#0b0a12]/30" />
           </>
-        ) : (
-          <div className="absolute inset-0 opacity-80">
-            <LineWaves {...LINEWAVES_PROPS} />
-          </div>
         )}
         <GrainOverlay />
         <div className="relative">

@@ -5,6 +5,7 @@ import * as THREE from "three";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { PerspectiveCamera } from "@react-three/drei";
 import { degToRad } from "three/src/math/MathUtils.js";
+import { useWebglSupported } from "@/lib/useWebglSupported";
 
 interface ExtendMaterialConfig {
   header: string;
@@ -244,6 +245,9 @@ const Beams = ({
       }),
     [speed, noiseIntensity, scale, beamColor]
   );
+
+  const webglSupported = useWebglSupported();
+  if (!webglSupported) return null;
 
   return (
     <CanvasWrapper>

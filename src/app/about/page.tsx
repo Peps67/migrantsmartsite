@@ -5,7 +5,6 @@ import { Compass, Sparkle } from "@phosphor-icons/react/dist/ssr";
 import SpotlightCard from "@/components/reactbits/SpotlightCard";
 import BlurText from "@/components/reactbits/BlurText";
 import ScrollFloat from "@/components/reactbits/ScrollFloat";
-import Beams from "@/components/reactbits/Beams";
 import { GrainOverlay } from "@/components/GrainOverlay";
 import CtaBand from "@/components/CtaBand";
 import Reveal from "@/components/Reveal";
@@ -45,33 +44,52 @@ const TEAM = [
 export default function AboutPage() {
   return (
     <div>
-      {/* PAGE HERO — rounded-top "cutout" card, same light language as Home. */}
-      <section className="relative flex min-h-[100dvh] flex-col justify-center overflow-hidden rounded-t-[2.25rem] bg-[#f8f7fd] px-5 py-24 text-center sm:rounded-t-[3rem] sm:px-8">
-        <div className="absolute inset-0 opacity-70">
-          <Beams
-            beamNumber={12}
-            lightColor="#5448f0"
-            speed={1.1}
-            noiseIntensity={1.5}
-            scale={0.24}
-            rotation={-6}
-          />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/30 to-white/60" />
+      {/* PAGE HERO — brand-purple field per the Migrant Smart brand guideline. */}
+      <section className="relative flex min-h-[100dvh] flex-col justify-center overflow-hidden rounded-t-[2.25rem] bg-gradient-to-br from-[#5343EB] to-[#4739c9] px-5 py-24 text-center sm:rounded-t-[3rem] sm:px-8">
+        <span className="pointer-events-none absolute -top-16 left-[6%] hidden h-64 w-64 rounded-full bg-[#6F61F8]/50 blur-[90px] sm:block" />
+        <span className="pointer-events-none absolute -bottom-20 right-[8%] hidden h-72 w-72 rounded-full bg-white/10 blur-[100px] sm:block" />
         <GrainOverlay />
         <Reveal className="relative mx-auto max-w-[760px]">
-          <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-primary">
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-[13px] font-bold uppercase tracking-[0.14em] text-white backdrop-blur-sm">
             Who we are
           </span>
           <BlurText
             text="Building your bridge to a Canadian future"
-            className="mx-auto mt-4 justify-center font-serif text-[clamp(34px,4.6vw,64px)] font-medium leading-[1.06] tracking-tight text-[#17171f] [&>span:nth-child(6)]:pb-1 [&>span:nth-child(6)]:text-primary [&>span:nth-child(6)]:italic"
+            className="mx-auto mt-5 justify-center font-serif text-[clamp(34px,4.6vw,64px)] font-medium leading-[1.06] tracking-tight text-white [&>span:nth-child(6)]:pb-1 [&>span:nth-child(6)]:text-[#c7c2ff] [&>span:nth-child(6)]:italic"
           />
-          <p className="mx-auto mt-5 max-w-[58ch] text-[16.5px] leading-relaxed text-[#17171f]/70 md:text-[18.5px]">
-            A community-first platform built to help immigrants and
-            international students land, settle and thrive in Canada, with the
-            guidance, tools and people the journey really takes.
+          <p className="mx-auto mt-5 max-w-[58ch] text-[16.5px] leading-relaxed text-white/75 md:text-[18.5px]">
+            A community built to give career and business professionals the
+            information and connections they need to settle, and build
+            sustainable careers and businesses, in Canada.
           </p>
+          <div className="mx-auto mt-10 flex max-w-[420px] items-center justify-center gap-6 rounded-2xl border border-white/20 bg-white/10 px-6 py-5 backdrop-blur-sm sm:gap-10">
+            <div>
+              <div className="font-serif text-2xl font-medium text-white sm:text-3xl">
+                3,000+
+              </div>
+              <div className="mt-1 text-[12px] text-white/60">
+                Community members
+              </div>
+            </div>
+            <div className="h-10 w-px bg-white/20" />
+            <div>
+              <div className="font-serif text-2xl font-medium text-white sm:text-3xl">
+                20+
+              </div>
+              <div className="mt-1 text-[12px] text-white/60">
+                Events hosted
+              </div>
+            </div>
+            <div className="h-10 w-px bg-white/20" />
+            <div>
+              <div className="font-serif text-2xl font-medium text-white sm:text-3xl">
+                4
+              </div>
+              <div className="mt-1 text-[12px] text-white/60">
+                Core programs
+              </div>
+            </div>
+          </div>
         </Reveal>
       </section>
 
@@ -157,29 +175,40 @@ export default function AboutPage() {
       {/* OUR STORY */}
       <section className="px-5 py-12 sm:px-8 md:py-16">
         <div className="mx-auto max-w-[720px] text-center">
+          <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-primary">
+            About Migrant Smart
+          </span>
           <ScrollFloat
-            containerClassName="!my-0 justify-center flex"
+            containerClassName="!mt-4 !mb-0 justify-center flex"
             textClassName="font-serif font-medium text-foreground"
           >
-            {"It started with a question\nevery newcomer asks"}
+            {"Not just a landing spot.\nA launchpad."}
           </ScrollFloat>
           <Reveal delay={0.1}>
             <p className="mt-6 font-serif text-xl italic leading-relaxed text-foreground">
-              &ldquo;Why is starting over this hard, and does it have to
-              be?&rdquo;
+              Why do so many talented professionals still feel like
+              outsiders, years after they&rsquo;ve arrived?
             </p>
             <p className="mt-6 text-[15.5px] leading-relaxed text-muted-foreground">
-              Migrant Smart began with the lived experience of arriving in
-              Canada full of ambition but short on direction, sending out
-              résumés that went nowhere, missing the unwritten rules, and
-              feeling the distance from home. Out of that came a simple
-              conviction: the roadmap shouldn&rsquo;t be a secret.
+              Moving to a new country is never easy. You&rsquo;re figuring
+              out a new country while adapting to new systems, new culture
+              and new norms, and that becomes a lot harder without knowing
+              the right people, having access to the right information, or
+              being in the right rooms.
             </p>
             <p className="mt-4 text-[15.5px] leading-relaxed text-muted-foreground">
-              What started as informal help for friends grew into programs,
-              events and a community thousands strong. Today, Migrant Smart is
-              where newcomers find the practical guidance and genuine support to
-              turn a fresh start into a future they&rsquo;re proud of.
+              Five to ten years in, many professionals are still underpaid,
+              still overlooked for opportunities, still wondering if Canada
+              was the right move. We asked why. The answer was simple: a lack
+              of opportunity, no understanding of the systemic rules, and not
+              being in the right rooms.
+            </p>
+            <p className="mt-4 text-[15.5px] leading-relaxed text-muted-foreground">
+              That&rsquo;s exactly why Migrant Smart exists. We&rsquo;re
+              building a community where professionals like you connect with
+              peers who&rsquo;ve navigated the same path, get real answers to
+              your burning questions, and find the rooms you didn&rsquo;t
+              know existed.
             </p>
           </Reveal>
         </div>

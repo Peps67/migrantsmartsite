@@ -42,16 +42,16 @@ export default function TestimonialSlider() {
   return (
     <section
       id="testimonials"
-      className="relative overflow-hidden bg-[#0b0a12] py-12 sm:py-16"
+      className="relative overflow-hidden bg-[#5343EB] py-12 sm:py-16"
     >
       <div className="absolute inset-0 opacity-40">
-        <Grainient {...GRAINIENT_PROPS} />
+        <Grainient {...GRAINIENT_PROPS} color3="#5343EB" />
       </div>
       <GrainOverlay />
 
       <div className="relative mx-auto max-w-[900px] px-5 text-center sm:px-8">
         <Reveal>
-          <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-[var(--aurora-3)]">
+          <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-brand-lighter">
             Client testimonials
           </span>
           <ScrollFloat
@@ -71,31 +71,31 @@ export default function TestimonialSlider() {
           {TRACK.map((t, i) => (
             <div
               key={`${t.name}-${i}`}
-              className="w-[300px] shrink-0 rounded-2xl border border-white/10 bg-white/[0.06] p-6 backdrop-blur-sm sm:w-[340px]"
+              className="w-[300px] shrink-0 rounded-2xl border border-white/20 bg-white/10 p-6 backdrop-blur-sm sm:w-[340px]"
             >
-              <Quotes size={28} weight="fill" className="text-white/20" />
+              <Quotes size={28} weight="fill" className="text-white/25" />
               <div className="mt-3 flex gap-1">
                 {Array.from({ length: 5 }).map((_, s) => (
                   <Star
                     key={s}
                     size={12}
                     weight="fill"
-                    className="text-[var(--aurora-3)]"
+                    className="text-brand-lighter"
                   />
                 ))}
               </div>
-              <p className="mt-3 text-[14.5px] leading-relaxed text-white/85">
+              <p className="mt-3 text-[14.5px] leading-relaxed text-white">
                 &ldquo;{t.quote}&rdquo;
               </p>
               <div className="mt-6 flex items-center gap-3">
-                <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-white/10 text-[12px] font-bold text-white/90">
+                <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-white/15 text-[12px] font-bold text-white">
                   {t.initials}
                 </span>
                 <div className="text-left">
                   <div className="text-[13.5px] font-bold text-white">
                     {t.name}
                   </div>
-                  <div className="text-[12px] text-white/50">{t.role}</div>
+                  <div className="text-[12px] text-white/70">{t.role}</div>
                 </div>
               </div>
             </div>

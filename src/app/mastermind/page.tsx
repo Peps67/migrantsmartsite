@@ -55,7 +55,7 @@ export default function MastermindPage() {
   return (
     <div>
       {/* HERO */}
-      <section className="relative flex min-h-[100dvh] flex-col justify-center overflow-hidden rounded-t-[2.25rem] bg-[#f8f7fd] px-5 py-24 sm:rounded-t-[3rem] sm:px-8 md:py-28">
+      <section className="relative flex min-h-[100dvh] flex-col justify-center overflow-hidden rounded-t-[2.25rem] bg-[#f8f7fd] px-5 py-10 sm:rounded-t-[3rem] sm:px-8 md:py-12">
         <GrainOverlay />
         <div className="relative mx-auto grid max-w-[1100px] items-center gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
           <div>
@@ -71,7 +71,7 @@ export default function MastermindPage() {
               stepDuration={0.3}
             />
             <HeroReveal delay={0.9}>
-              <p className="mt-6 max-w-[52ch] text-[17px] leading-relaxed text-[#17171f]/70 sm:text-lg md:text-[19px]">
+              <p className="mt-4 max-w-[52ch] text-[17px] leading-relaxed text-[#17171f]/70 sm:text-lg md:text-[19px]">
                 A private community of seriously minded professionals and
                 entrepreneurs across Canada, where ambitious people gain
                 access to vetted experts, private investment opportunities,
@@ -80,7 +80,7 @@ export default function MastermindPage() {
             </HeroReveal>
             <HeroReveal
               delay={1.05}
-              className="mt-9 flex flex-wrap items-center gap-5"
+              className="mt-6 flex flex-wrap items-center gap-5"
             >
               <a
                 href="mailto:hello@migrantsmart.ca?subject=Mastermind%20Waitlist"
@@ -99,7 +99,7 @@ export default function MastermindPage() {
               </Button>
             </HeroReveal>
             <HeroReveal delay={1.2}>
-              <p className="mt-5 text-[14px] font-medium text-[#17171f]/50">
+              <p className="mt-3 text-[14px] font-medium text-[#17171f]/50">
                 Membership is by application only. Join the waitlist to be
                 considered when doors open.
               </p>

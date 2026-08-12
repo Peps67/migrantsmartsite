@@ -64,7 +64,7 @@ export default function WebinarsPage() {
   return (
     <div>
       {/* HERO */}
-      <section className="flex min-h-[100dvh] flex-col justify-center px-5 py-16 sm:px-8">
+      <section className="flex min-h-[100dvh] flex-col justify-center px-5 py-10 sm:px-8">
         <div className="mx-auto grid max-w-[1100px] items-center gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
           <Reveal>
             <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-primary">
@@ -74,12 +74,12 @@ export default function WebinarsPage() {
               text="The practical essentials, explained"
               className="mt-4 max-w-[16ch] font-serif text-[clamp(34px,4.6vw,64px)] font-medium leading-[1.14] tracking-tight text-foreground [&>span:nth-child(4)]:pb-1 [&>span:nth-child(4)]:text-primary [&>span:nth-child(4)]:italic"
             />
-            <p className="mt-6 max-w-[48ch] text-[16.5px] leading-relaxed text-muted-foreground md:text-[18.5px]">
+            <p className="mt-4 max-w-[48ch] text-[16.5px] leading-relaxed text-muted-foreground md:text-[18.5px]">
               Live and recorded sessions on the things no one tells you when you
               arrive, housing, credentials, banking and taxes, led by anchors
               who&rsquo;ve been there.
             </p>
-            <Button asChild size="lg" className="mt-8">
+            <Button asChild size="lg" className="mt-6">
               <a href="https://lu.ma/" target="_blank" rel="noopener">
                 See upcoming sessions
                 <ArrowRight size={17} weight="bold" />

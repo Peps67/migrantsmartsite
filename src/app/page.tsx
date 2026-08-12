@@ -30,7 +30,7 @@ export default function Home() {
   return (
     <div>
       {/* HERO */}
-      <section className="relative flex min-h-[85dvh] flex-col justify-center overflow-hidden rounded-t-[2.25rem] bg-[#f8f7fd] px-5 py-12 sm:rounded-t-[3rem] sm:px-8 md:py-16">
+      <section className="relative flex min-h-[100dvh] flex-col justify-center overflow-hidden rounded-t-[2.25rem] bg-[#f8f7fd] px-5 py-8 sm:rounded-t-[3rem] sm:px-8 md:py-10">
         <GrainOverlay />
         <div className="relative mx-auto grid max-w-[1440px] items-center gap-8 lg:grid-cols-[0.8fr_1fr] lg:gap-8">
           <div>
@@ -71,7 +71,7 @@ export default function Home() {
           </div>
 
           <HeroReveal delay={0.3}>
-            <GlobeConnections className="mx-auto w-full max-w-[860px]" />
+            <GlobeConnections className="mx-auto w-full max-w-[560px]" />
           </HeroReveal>
         </div>
       </section>
@@ -174,7 +174,7 @@ export default function Home() {
               <div className="relative aspect-[4/5] rounded-[2rem] border border-black/10 bg-black/5 p-2 shadow-[0_30px_60px_-24px_rgba(23,23,31,0.3)] dark:border-white/15 dark:bg-white/5">
                 <TiltedCard
                   imageSrc="/team/abigail-peterson-founder.jpg"
-                  altText="Abigail Peterson, founder of Migrant Smart"
+                  altText="Abigail Akpan, founder of Migrant Smart"
                   containerHeight="100%"
                   containerWidth="100%"
                   imageHeight="100%"
@@ -194,7 +194,7 @@ export default function Home() {
               Meet the Founder
             </span>
             <h2 className="mt-4 font-serif text-[clamp(26px,3.2vw,36px)] font-medium text-foreground">
-              Abigail Peterson
+              Abigail Akpan
             </h2>
             <p className="mt-1 text-[15px] font-semibold text-muted-foreground">
               CPA, Founder, Migrant Smart
@@ -235,7 +235,7 @@ export default function Home() {
               ))}
             </div>
             <Button asChild size="lg" className="mt-8">
-              <Link href="/career-clinic">Book your 1:1</Link>
+              <Link href="/book-1-1">Book your 1:1</Link>
             </Button>
             <p className="mt-4 text-[13px] text-muted-foreground">
               Sessions scheduled via Calendly &middot; secure payment via Stripe

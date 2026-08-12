@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Image from "next/image";
-import { Compass, Sparkle } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, Compass, Sparkle } from "@phosphor-icons/react/dist/ssr";
 
+import { Button } from "@/components/ui/button";
 import SpotlightCard from "@/components/reactbits/SpotlightCard";
 import BlurText from "@/components/reactbits/BlurText";
 import ScrollFloat from "@/components/reactbits/ScrollFloat";
 import { GrainOverlay } from "@/components/GrainOverlay";
 import CtaBand from "@/components/CtaBand";
 import Reveal from "@/components/Reveal";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "About — Migrant Smart",
@@ -17,7 +20,7 @@ export const metadata: Metadata = {
 
 const TEAM = [
   {
-    name: "Abigail Peterson",
+    name: "Abigail Akpan",
     role: "Founder, Migrant Smart",
     image: "/team/abigail-peterson.jpg",
     objectFit: "cover" as const,
@@ -33,7 +36,7 @@ const TEAM = [
     objectPosition: "50% 68%",
   },
   {
-    name: "Iyinoluwa",
+    name: "Iyinoluwa Ojo",
     role: "Social Media Manager",
     image: "/team/iyinoluwa.jpg",
     objectFit: "cover" as const,
@@ -41,11 +44,30 @@ const TEAM = [
   },
 ];
 
+const HOST_STATS = [
+  { value: "8+", label: "Years in finance & accounting" },
+  { value: "Age 26", label: "Promoted to Manager at a global firm" },
+  { value: "CPA", label: "Chartered Professional Accountant" },
+];
+
+const HOST_STORY = [
+  "I moved to Canada to become a doctor. I became a Chartered Accountant instead, and navigating that detour is the reason Migrant Smart exists.",
+  "Back in Nigeria, I was a first-class medical student at one of the country's top private universities. In my culture, becoming a doctor isn't just a career choice, it's the gold standard, and I was on track for it.",
+  "Then an opportunity to study in Canada came up, and I took it. I wasn't desperate to leave. I simply accepted a chance to study abroad, the way anyone would. I was told the transition would be simple: switch my program from Kinesiology to Medicine once I arrived at the University of Regina, and I'd be back on track. I didn't even know what Kinesiology meant at the time.",
+  "“Simple” turned out to mean something very different. It meant completing a full four-year undergraduate degree, working to save money, establishing residency, and only then applying to an intensely competitive medical school as a non-permanent resident. My seven-year plan had quietly become a fourteen-year one.",
+  "So I pivoted. First to Engineering, where I passed every exam but never felt at home. Then to Business Administration — a decision that meant telling my father, who had sacrificed so much for his future doctor daughter, that the plan had changed.",
+  "Today, I'm a Chartered Accountant. I've worked at the Ministry of Finance, Great-West Life, and SaskPower, and became Manager at one of the largest accounting and consulting firms in the world by the age of 26.",
+  "None of that was the path I planned. But every detour taught me something I couldn't have learned any other way.",
+  "Here's what I've come to understand: the detour itself was never the problem. What cost me years wasn't a lack of ability or ambition. It was not knowing the real rules of the systems I was navigating. No one told me what “simple” actually meant until I'd already lost time finding out the hard way.",
+  "That is exactly why Migrant Smart exists. It's the guidance I didn't have when I needed it most, real timelines, systemic knowledge, and honest answers about how Canada's professional systems actually work. Not to prevent every detour, but to make sure the ones you take are informed choices, not costly surprises.",
+  "If you're standing where I once stood, Migrant Smart is here to help you close that gap faster than I did.",
+];
+
 export default function AboutPage() {
   return (
     <div>
       {/* PAGE HERO — brand-purple field per the Migrant Smart brand guideline. */}
-      <section className="relative flex min-h-[100dvh] flex-col justify-center overflow-hidden rounded-t-[2.25rem] bg-gradient-to-br from-[#5343EB] to-[#4739c9] px-5 py-24 text-center sm:rounded-t-[3rem] sm:px-8">
+      <section className="relative flex min-h-[100dvh] flex-col justify-center overflow-hidden rounded-t-[2.25rem] bg-gradient-to-br from-[#5343EB] to-[#4739c9] px-5 py-10 text-center sm:rounded-t-[3rem] sm:px-8 md:py-12">
         <span className="pointer-events-none absolute -top-16 left-[6%] hidden h-64 w-64 rounded-full bg-[#6F61F8]/50 blur-[90px] sm:block" />
         <span className="pointer-events-none absolute -bottom-20 right-[8%] hidden h-72 w-72 rounded-full bg-white/10 blur-[100px] sm:block" />
         <GrainOverlay />
@@ -57,12 +79,12 @@ export default function AboutPage() {
             text="Building your bridge to a Canadian future"
             className="mx-auto mt-5 justify-center font-serif text-[clamp(34px,4.6vw,64px)] font-medium leading-[1.06] tracking-tight text-white [&>span:nth-child(6)]:pb-1 [&>span:nth-child(6)]:text-[#c7c2ff] [&>span:nth-child(6)]:italic"
           />
-          <p className="mx-auto mt-5 max-w-[58ch] text-[16.5px] leading-relaxed text-white/75 md:text-[18.5px]">
+          <p className="mx-auto mt-4 max-w-[58ch] text-[16.5px] leading-relaxed text-white/75 md:text-[18.5px]">
             A community built to give career and business professionals the
             information and connections they need to settle, and build
             sustainable careers and businesses, in Canada.
           </p>
-          <div className="mx-auto mt-10 flex max-w-[420px] items-center justify-center gap-6 rounded-2xl border border-white/20 bg-white/10 px-6 py-5 backdrop-blur-sm sm:gap-10">
+          <div className="mx-auto mt-6 flex max-w-[420px] items-center justify-center gap-6 rounded-2xl border border-white/20 bg-white/10 px-6 py-4 backdrop-blur-sm sm:gap-10">
             <div>
               <div className="font-serif text-2xl font-medium text-white sm:text-3xl">
                 3,000+
@@ -211,6 +233,77 @@ export default function AboutPage() {
               know existed.
             </p>
           </Reveal>
+        </div>
+      </section>
+
+      {/* ABOUT THE FOUNDER */}
+      <section className="px-5 py-12 sm:px-8 md:py-16">
+        <div className="mx-auto max-w-[1240px]">
+          <Reveal className="mx-auto max-w-[680px] text-center">
+            <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-primary">
+              About the founder
+            </span>
+            <h2 className="mt-4 font-serif text-[clamp(26px,3.2vw,36px)] font-medium leading-[1.14] tracking-tight text-foreground">
+              The detour that built Migrant Smart
+            </h2>
+          </Reveal>
+          <div className="mt-12 grid gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:gap-14">
+            <Reveal blur>
+              <div className="lg:sticky lg:top-24">
+                <div className="relative aspect-[2/3] overflow-hidden rounded-[2rem] border border-black/10 bg-black/5 p-2 shadow-[0_30px_60px_-24px_rgba(23,23,31,0.25)] dark:border-white/15 dark:bg-white/5">
+                  <div className="relative h-full w-full overflow-hidden rounded-[calc(2rem-0.5rem)]">
+                    <Image
+                      src="/team/abigail-peterson-founder.jpg"
+                      alt="Abigail Akpan, CPA and founder of Migrant Smart"
+                      fill
+                      sizes="(min-width: 1024px) 35vw, 90vw"
+                      className="object-cover object-[50%_15%]"
+                    />
+                  </div>
+                </div>
+                <h3 className="mt-6 font-serif text-xl font-medium text-foreground">
+                  Abigail Akpan
+                </h3>
+                <p className="mt-1 text-[14px] font-semibold text-muted-foreground">
+                  CPA, Founder, Migrant Smart
+                </p>
+                <div className="mt-6 grid grid-cols-3 gap-4 border-t border-border pt-6">
+                  {HOST_STATS.map((stat) => (
+                    <div key={stat.label}>
+                      <div className="font-serif text-xl font-medium text-foreground">
+                        {stat.value}
+                      </div>
+                      <div className="mt-1 text-[11.5px] leading-snug text-muted-foreground">
+                        {stat.label}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </Reveal>
+            <Reveal blur delay={0.1}>
+              <div className="flex flex-col gap-4">
+                {HOST_STORY.map((paragraph, i) => (
+                  <p
+                    key={i}
+                    className={cn(
+                      "text-[15.5px] leading-relaxed text-muted-foreground",
+                      (i === 0 || i === HOST_STORY.length - 1) &&
+                        "font-serif text-[17px] text-foreground italic",
+                    )}
+                  >
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+              <Button asChild size="lg" className="mt-8">
+                <Link href="/book-1-1">
+                  Book 1:1
+                  <ArrowRight size={17} weight="bold" />
+                </Link>
+              </Button>
+            </Reveal>
+          </div>
         </div>
       </section>
 

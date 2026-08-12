@@ -72,7 +72,7 @@ export default function BlogPage() {
   return (
     <div>
       {/* HERO */}
-      <section className="relative flex min-h-[100dvh] flex-col justify-center overflow-hidden rounded-t-[2.25rem] bg-[#f8f7fd] px-5 py-16 text-center sm:rounded-t-[3rem] sm:px-8">
+      <section className="relative flex min-h-[100dvh] flex-col justify-center overflow-hidden rounded-t-[2.25rem] bg-[#f8f7fd] px-5 py-10 text-center sm:rounded-t-[3rem] sm:px-8">
         <GrainOverlay />
         <Reveal className="relative mx-auto max-w-[820px]">
           <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-primary">
@@ -133,7 +133,7 @@ export default function BlogPage() {
                 you&rsquo;re in now.
               </p>
               <div className="mt-5 flex items-center gap-2 text-[13.5px] text-muted-foreground">
-                <span>Abigail Peterson</span>
+                <span>Abigail Akpan</span>
                 <span aria-hidden>&middot;</span>
                 <span>6 min read</span>
               </div>

@@ -50,10 +50,10 @@ export const metadata: Metadata = {
 };
 
 const WAITLIST_HREF =
-  "mailto:hello@migrantsmart.ca?subject=Career%20Clinic%20Registration";
+  "https://docs.google.com/forms/d/e/1FAIpQLSdyWNIjwd0Dn547yzK4m9D3yCl-168wLghhZHetljF8ZexlyQ/viewform?usp=send_form";
 
-// 9:00 AM MT on Aug 11, 2026 — the date early-bird registration opens.
-const EARLY_BIRD_ISO = "2026-08-11T15:00:00Z";
+// 9:00 AM MT on Sep 12, 2026 — Cohort 2, Week 1 kicks off.
+const COHORT_LAUNCH_ISO = "2026-09-12T15:00:00Z";
 
 const FACTS = [
   { label: "Format", value: "6-week live cohort", icon: Clock },
@@ -339,11 +339,11 @@ const TIERS = [
 const TESTIMONIAL_VIDEOS = [
   {
     posterSrc: "/career-clinic/hero-professionals.jpg",
-    posterAlt: "A Career Clinic cohort 1 participant, video testimonial coming soon",
+    posterAlt: "A Career Clinic cohort 2 participant, video testimonial coming soon",
   },
   {
     posterSrc: "/career-clinic/team-collaboration.jpg",
-    posterAlt: "A Career Clinic cohort 1 participant, video testimonial coming soon",
+    posterAlt: "A Career Clinic cohort 2 participant, video testimonial coming soon",
   },
 ];
 
@@ -358,7 +358,7 @@ const FAQS = [
   },
   {
     q: "How much does it cost?",
-    a: "Pricing per tier is announced when early-bird registration opens on August 11. Register your interest now and you'll be first to know, and first in line for early-bird pricing.",
+    a: "Career Clinic is a paid program, with pricing that varies by tier. Register your interest now to get the full breakdown and next steps.",
   },
   {
     q: "Is this online or in-person?",
@@ -370,7 +370,7 @@ const FAQS = [
   },
   {
     q: "What happens after I register?",
-    a: "You'll get a confirmation email, and you'll be the first to know the moment early-bird registration and per-tier pricing open on August 11.",
+    a: "You'll get a confirmation email with the full pricing breakdown and next steps.",
   },
 ];
 
@@ -378,7 +378,7 @@ export default function CareerClinicPage() {
   return (
     <div>
       {/* HERO */}
-      <section className="relative flex min-h-[100dvh] flex-col justify-center overflow-hidden rounded-t-[2.25rem] bg-[#f8f7fd] px-5 py-16 sm:rounded-t-[3rem] sm:px-8">
+      <section className="relative flex min-h-[100dvh] flex-col justify-center overflow-hidden rounded-t-[2.25rem] bg-[#f8f7fd] px-5 py-10 sm:rounded-t-[3rem] sm:px-8">
         <GrainOverlay />
         <div className="relative mx-auto grid max-w-[1100px] items-center gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
           <Reveal>
@@ -389,23 +389,22 @@ export default function CareerClinicPage() {
               text="You got the job. Now what?"
               className="mt-4 max-w-[16ch] font-serif text-[clamp(34px,4.6vw,64px)] font-medium leading-[1.06] tracking-tight text-[#17171f] [&>span:nth-child(6)]:text-primary [&>span:nth-child(6)]:italic"
             />
-            <p className="mt-6 max-w-[50ch] text-[16.5px] leading-relaxed text-[#17171f]/70 md:text-[18.5px]">
+            <p className="mt-4 max-w-[50ch] text-[16.5px] leading-relaxed text-[#17171f]/70 md:text-[18.5px]">
               Career Clinic is a 6-week cohort program for immigrant
               professionals who are already employed in Canada, but
               underpaid, underleveraged and invisible relative to their real
               experience. We teach what&rsquo;s never written down: how to
               build credibility, get seen, and get promoted.
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-4">
+            <div className="mt-6 flex flex-wrap items-center gap-4">
               <Button asChild size="lg">
                 <a href={WAITLIST_HREF}>
-                  Register Here
+                  Join the Waitlist
                   <ArrowRight size={17} weight="bold" />
                 </a>
               </Button>
               <span className="text-[14px] font-medium text-[#17171f]/60">
-                Early-bird registration opens Aug 11 &middot; Cohort launches
-                Sep 12
+                Cohort 2 launches Sep 12
               </span>
             </div>
           </Reveal>
@@ -430,7 +429,7 @@ export default function CareerClinicPage() {
         </div>
       </section>
 
-      {/* EARLY-BIRD COUNTDOWN */}
+      {/* COHORT 2 COUNTDOWN */}
       <section className="px-5 py-12 sm:px-8 md:py-16">
         <div className="relative mx-auto max-w-[1160px] overflow-hidden rounded-[40px] bg-[#0b0a12] px-5 py-12 text-center sm:px-8 md:py-16">
           <Image
@@ -446,26 +445,26 @@ export default function CareerClinicPage() {
           <div className="relative mx-auto max-w-[720px]">
             <Reveal>
               <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-brand-lighter">
-                Early-bird registration
+                Career Clinic launch
               </span>
               <h2 className="mt-4 font-serif text-[clamp(26px,3.4vw,40px)] font-medium leading-[1.14] tracking-tight text-white">
-                Early-bird pricing opens in
+                Countdown to Career Clinic Cohort 2
               </h2>
               <p className="mt-3 text-[15px] font-semibold text-white/80">
-                Tuesday, August 11, 2026 &middot; 9:00 AM MT / 11:00 AM ET
+                Saturday, September 12, 2026 &middot; 9:00 AM MT / 11:00 AM ET
               </p>
               <p className="mt-1 text-[13.5px] text-white/50">
-                Cohort 1 launches September 12 &middot; live sessions at a
-                partner venue in Calgary, with virtual access
+                Live sessions at a partner venue in Calgary, with virtual
+                access
               </p>
             </Reveal>
             <Reveal delay={0.1}>
-              <CountdownTimer targetDate={EARLY_BIRD_ISO} className="mt-8" />
+              <CountdownTimer targetDate={COHORT_LAUNCH_ISO} className="mt-8" />
             </Reveal>
             <Reveal delay={0.15}>
               <Button asChild size="lg" className="mt-8">
                 <a href={WAITLIST_HREF}>
-                  Register Here
+                  Join the Waitlist
                   <ArrowRight size={17} weight="bold" />
                 </a>
               </Button>
@@ -611,7 +610,7 @@ export default function CareerClinicPage() {
           <Reveal delay={0.2} className="mt-10 flex justify-center">
             <Button asChild size="lg">
               <a href={WAITLIST_HREF}>
-                Register Here
+                Join the Waitlist
                 <ArrowRight size={17} weight="bold" />
               </a>
             </Button>
@@ -772,7 +771,7 @@ export default function CareerClinicPage() {
             </p>
             <Button asChild size="lg" className="mt-6">
               <a href={WAITLIST_HREF}>
-                Register Here
+                Join the Waitlist
                 <ArrowRight size={17} weight="bold" />
               </a>
             </Button>
@@ -798,7 +797,7 @@ export default function CareerClinicPage() {
                   <div className="relative h-full w-full overflow-hidden rounded-[calc(2rem-0.5rem)]">
                     <Image
                       src="/team/abigail-peterson-founder.jpg"
-                      alt="Abigail Peterson, CPA and founder of Migrant Smart"
+                      alt="Abigail Akpan, CPA and founder of Migrant Smart"
                       fill
                       sizes="(min-width: 1024px) 35vw, 90vw"
                       className="object-cover object-[50%_15%]"
@@ -806,7 +805,7 @@ export default function CareerClinicPage() {
                   </div>
                 </div>
                 <h3 className="mt-6 font-serif text-xl font-medium text-foreground">
-                  Abigail Peterson
+                  Abigail Akpan
                 </h3>
                 <p className="mt-1 text-[14px] font-semibold text-muted-foreground">
                   CPA, Founder, Migrant Smart
@@ -842,7 +841,7 @@ export default function CareerClinicPage() {
               </div>
               <Button asChild size="lg" className="mt-8">
                 <a href={WAITLIST_HREF}>
-                  Register Here
+                  Join the Waitlist
                   <ArrowRight size={17} weight="bold" />
                 </a>
               </Button>
@@ -985,8 +984,8 @@ export default function CareerClinicPage() {
               From the full accelerator to a done-for-you experience
             </h2>
             <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground">
-              Pricing per tier is revealed when early-bird registration opens
-              on August 11. Register now to lock in early-bird access.
+              Register your interest now to see full pricing per tier and
+              secure your spot in Cohort 2.
             </p>
           </Reveal>
           <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-3">
@@ -1055,7 +1054,7 @@ export default function CareerClinicPage() {
                     className="mt-8 w-full"
                   >
                     <a href={WAITLIST_HREF}>
-                      Register Here
+                      Join the Waitlist
                       <ArrowRight size={17} weight="bold" />
                     </a>
                   </Button>
@@ -1241,12 +1240,11 @@ export default function CareerClinicPage() {
               Stop building your Canadian career alone
             </h2>
             <p className="mx-auto mt-4 max-w-[480px] text-[15.5px] leading-relaxed text-white/90">
-              Register for early-bird access before Career Clinic opens
-              August 11. Cohort launches September 12, spots are limited.
+              Cohort 2 launches September 12, spots are limited.
             </p>
             <Button asChild size="lg" className="mt-8">
               <a href={WAITLIST_HREF}>
-                Register Here
+                Join the Waitlist
                 <ArrowRight size={17} weight="bold" />
               </a>
             </Button>

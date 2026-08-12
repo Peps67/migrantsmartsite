@@ -89,7 +89,7 @@ export default function EventsPage() {
   return (
     <div>
       {/* HERO */}
-      <section className="relative flex min-h-[100dvh] flex-col justify-center overflow-hidden rounded-t-[2.25rem] bg-[#f8f7fd] px-5 py-16 text-center sm:rounded-t-[3rem] sm:px-8">
+      <section className="relative flex min-h-[100dvh] flex-col justify-center overflow-hidden rounded-t-[2.25rem] bg-[#f8f7fd] px-5 py-10 text-center sm:rounded-t-[3rem] sm:px-8">
         <GrainOverlay />
         <Reveal className="relative mx-auto max-w-[760px]">
           <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-primary">
@@ -99,12 +99,12 @@ export default function EventsPage() {
             text="Where connections become community"
             className="mx-auto mt-4 justify-center font-serif text-[clamp(34px,4.6vw,64px)] font-medium leading-[1.14] tracking-tight text-[#17171f] [&>span:nth-child(4)]:pb-1 [&>span:nth-child(4)]:text-primary [&>span:nth-child(4)]:italic"
           />
-          <p className="mx-auto mt-5 max-w-[58ch] text-[16.5px] leading-relaxed text-[#17171f]/70 md:text-[18.5px]">
+          <p className="mx-auto mt-4 max-w-[58ch] text-[16.5px] leading-relaxed text-[#17171f]/70 md:text-[18.5px]">
             From our flagship Next Gen to summer sports and the podcast, our
             events turn online introductions into a real network, and belonging
             into a habit.
           </p>
-          <div className="mx-auto mt-10 flex max-w-[460px] items-center justify-center gap-6 rounded-2xl bg-[#5343EB] px-6 py-6 shadow-[0_30px_60px_-24px_rgba(83,67,235,0.5)] sm:gap-10">
+          <div className="mx-auto mt-6 flex max-w-[460px] items-center justify-center gap-6 rounded-2xl bg-[#5343EB] px-6 py-4 shadow-[0_30px_60px_-24px_rgba(83,67,235,0.5)] sm:gap-10">
             <div>
               <div className="font-serif text-2xl font-medium text-white sm:text-3xl">
                 20+

@@ -12,8 +12,8 @@ function cx(...classes: Array<string | false | null | undefined>) {
 
 type Node = {
   id: string;
-  x: number;
-  y: number;
+  lat: number;
+  lng: number;
   country: string;
   code: string;
   avatar: string;
@@ -23,17 +23,17 @@ type Node = {
 const NODES: Node[] = [
   {
     id: "canada",
-    x: 0.24,
-    y: 0.21,
+    lat: 43.6532,
+    lng: -79.3832,
     country: "Canada",
     code: "ca",
     avatar: "https://randomuser.me/api/portraits/men/70.jpg",
-    flagSide: "right",
+    flagSide: "left",
   },
   {
     id: "uk",
-    x: 0.77,
-    y: 0.2,
+    lat: 51.5072,
+    lng: -0.1276,
     country: "United Kingdom",
     code: "gb",
     avatar: "https://randomuser.me/api/portraits/women/16.jpg",
@@ -41,8 +41,8 @@ const NODES: Node[] = [
   },
   {
     id: "us",
-    x: 0.16,
-    y: 0.68,
+    lat: -6,
+    lng: -85,
     country: "United States",
     code: "us",
     avatar: "https://randomuser.me/api/portraits/women/30.jpg",
@@ -50,8 +50,8 @@ const NODES: Node[] = [
   },
   {
     id: "nigeria",
-    x: 0.86,
-    y: 0.67,
+    lat: 6.5244,
+    lng: 3.3792,
     country: "Nigeria",
     code: "ng",
     avatar: "https://randomuser.me/api/portraits/men/59.jpg",
@@ -59,37 +59,95 @@ const NODES: Node[] = [
   },
 ];
 
-const CENTER = { x: 0.5, y: 0.5 };
-const ARC_BOW = 0.16;
+const HUB = { id: "hub", lat: 13, lng: -38 };
 
-const PHI = 5.4;
+const INITIAL_PHI = 5.4;
 const THETA = 0.28;
 
-// cobe decodes its map texture asynchronously and only paints inside update().
-// A parked globe would otherwise keep the first, textureless frame forever.
+const GLOBE_RADIUS = 0.8;
+const MARKER_ELEVATION = 0.02;
+const ARC_HEIGHT = 0.32;
+const ARC_SAMPLES = 72;
+const SILHOUETTE_SQ = 0.64;
+
 const SETTLE_MS = 2500;
 
-function arcPath(node: Node) {
-  const ax = node.x * 1000;
-  const ay = node.y * 1000;
-  const cxp = CENTER.x * 1000;
-  const cyp = CENTER.y * 1000;
+type Vec3 = [number, number, number];
 
-  const vx = cxp - ax;
-  const vy = cyp - ay;
-  const len = Math.hypot(vx, vy) || 1;
+function toVec3(lat: number, lng: number): Vec3 {
+  const r = (lat * Math.PI) / 180;
+  const a = (lng * Math.PI) / 180 - Math.PI;
+  const o = Math.cos(r);
+  return [-o * Math.cos(a), Math.sin(r), o * Math.sin(a)];
+}
 
-  const mx = (ax + cxp) / 2;
-  const my = (ay + cyp) / 2;
-  const ctrlX = mx + (-vy / len) * len * ARC_BOW;
-  const ctrlY = my + (vx / len) * len * ARC_BOW;
+function project(v: Vec3, phi: number, theta: number) {
+  const cosT = Math.cos(theta);
+  const sinT = Math.sin(theta);
+  const cosP = Math.cos(phi);
+  const sinP = Math.sin(phi);
 
-  return `M${ax} ${ay}Q${ctrlX.toFixed(2)} ${ctrlY.toFixed(2)} ${cxp} ${cyp}`;
+  const c = cosP * v[0] + sinP * v[2];
+  const s = sinP * sinT * v[0] + cosT * v[1] - cosP * sinT * v[2];
+  const depth = -sinP * cosT * v[0] + sinT * v[1] + cosP * cosT * v[2];
+
+  return {
+    x: (c + 1) / 2,
+    y: (-s + 1) / 2,
+    visible: depth >= 0 || c * c + s * s >= SILHOUETTE_SQ,
+  };
+}
+
+function arcPath(node: Node, phi: number, theta: number): string {
+  const from = toVec3(node.lat, node.lng);
+  const to = toVec3(HUB.lat, HUB.lng);
+
+  const elev = GLOBE_RADIUS + MARKER_ELEVATION;
+  const p0: Vec3 = [from[0] * elev, from[1] * elev, from[2] * elev];
+  const p2: Vec3 = [to[0] * elev, to[1] * elev, to[2] * elev];
+
+  const sum: Vec3 = [from[0] + to[0], from[1] + to[1], from[2] + to[2]];
+  const len = Math.hypot(sum[0], sum[1], sum[2]) || 1;
+  const ctrlScale = GLOBE_RADIUS + ARC_HEIGHT + MARKER_ELEVATION;
+  const p1: Vec3 = [
+    (sum[0] / len) * ctrlScale,
+    (sum[1] / len) * ctrlScale,
+    (sum[2] / len) * ctrlScale,
+  ];
+
+  let d = "";
+  let drawing = false;
+
+  for (let i = 0; i <= ARC_SAMPLES; i++) {
+    const t = i / ARC_SAMPLES;
+    const u = 1 - t;
+    const point: Vec3 = [
+      u * u * p0[0] + 2 * u * t * p1[0] + t * t * p2[0],
+      u * u * p0[1] + 2 * u * t * p1[1] + t * t * p2[1],
+      u * u * p0[2] + 2 * u * t * p1[2] + t * t * p2[2],
+    ];
+
+    const { x, y, visible } = project(point, phi, theta);
+    if (!visible) {
+      drawing = false;
+      continue;
+    }
+
+    const px = (x * 1000).toFixed(2);
+    const py = (y * 1000).toFixed(2);
+    d += `${drawing ? "L" : "M"}${px} ${py}`;
+    drawing = true;
+  }
+
+  return d;
 }
 
 export function GlobeConnections({ className }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
+  const pathRefs = useRef<Record<string, SVGPathElement | null>>({});
+  const phiRef = useRef(INITIAL_PHI);
+  const pointerInteracting = useRef<number | null>(null);
   const webglSupported = useWebglSupported();
 
   useEffect(() => {
@@ -101,17 +159,22 @@ export function GlobeConnections({ className }: { className?: string }) {
     let width = wrap.offsetWidth;
     let raf = 0;
     let stopped = false;
+    let lastPhi = Number.NaN;
     const start = performance.now();
 
-    // cobe builds its own WebGL context internally; a sandboxed/disabled
-    // GPU can still fail here even after the feature-detect above.
+    const drawArcs = (phi: number) => {
+      for (const node of NODES) {
+        pathRefs.current[node.id]?.setAttribute("d", arcPath(node, phi, THETA));
+      }
+    };
+
     let globe: ReturnType<typeof createGlobe>;
     try {
       globe = createGlobe(canvas, {
         devicePixelRatio: Math.min(window.devicePixelRatio || 1, 2),
         width: width * 2,
         height: width * 2,
-        phi: PHI,
+        phi: phiRef.current,
         theta: THETA,
         dark: 0,
         diffuse: 1.2,
@@ -121,33 +184,40 @@ export function GlobeConnections({ className }: { className?: string }) {
         baseColor: [1, 1, 1],
         markerColor: [1, 0.36, 0.64],
         glowColor: [0.78, 0.7, 1],
+        markerElevation: MARKER_ELEVATION,
         opacity: 1,
         scale: 1,
-        markers: [],
+        markers: [
+          { location: [HUB.lat, HUB.lng], size: 0.012, id: HUB.id },
+          ...NODES.map((n) => ({
+            location: [n.lat, n.lng] as [number, number],
+            size: 0.04,
+            id: n.id,
+          })),
+        ],
       });
     } catch {
       return;
     }
 
-    const draw = () => {
+    const tick = () => {
       if (stopped) return;
-      globe.update({ phi: PHI, theta: THETA });
-      if (performance.now() - start < SETTLE_MS) {
-        raf = requestAnimationFrame(draw);
+      const settling = performance.now() - start < SETTLE_MS;
+      if (settling || phiRef.current !== lastPhi) {
+        lastPhi = phiRef.current;
+        globe.update({ phi: phiRef.current, theta: THETA });
+        drawArcs(phiRef.current);
       }
+      raf = requestAnimationFrame(tick);
     };
-    raf = requestAnimationFrame(draw);
+    raf = requestAnimationFrame(tick);
+    drawArcs(phiRef.current);
 
     const resizeObserver = new ResizeObserver(() => {
       const next = wrap.offsetWidth;
       if (next && next !== width) {
         width = next;
-        globe.update({
-          width: width * 2,
-          height: width * 2,
-          phi: PHI,
-          theta: THETA,
-        });
+        globe.update({ width: width * 2, height: width * 2 });
       }
     });
     resizeObserver.observe(wrap);
@@ -169,7 +239,27 @@ export function GlobeConnections({ className }: { className?: string }) {
     >
       <canvas
         ref={canvasRef}
-        className="pointer-events-none size-full select-none"
+        onPointerDown={(e) => {
+          pointerInteracting.current = e.clientX;
+          e.currentTarget.style.cursor = "grabbing";
+          e.currentTarget.setPointerCapture(e.pointerId);
+        }}
+        onPointerUp={(e) => {
+          pointerInteracting.current = null;
+          e.currentTarget.style.cursor = "grab";
+        }}
+        onPointerCancel={(e) => {
+          pointerInteracting.current = null;
+          e.currentTarget.style.cursor = "grab";
+        }}
+        onPointerMove={(e) => {
+          if (pointerInteracting.current !== null) {
+            const delta = e.clientX - pointerInteracting.current;
+            pointerInteracting.current = e.clientX;
+            phiRef.current += delta / 200;
+          }
+        }}
+        className="size-full cursor-grab touch-pan-y select-none"
       />
 
       <svg
@@ -181,7 +271,9 @@ export function GlobeConnections({ className }: { className?: string }) {
         {NODES.map((node) => (
           <path
             key={node.id}
-            d={arcPath(node)}
+            ref={(el) => {
+              pathRefs.current[node.id] = el;
+            }}
             fill="none"
             stroke="var(--bright-violet, #6a4bff)"
             strokeWidth={7}
@@ -193,8 +285,16 @@ export function GlobeConnections({ className }: { className?: string }) {
       </svg>
 
       <div
-        className="pointer-events-none absolute z-10 size-14 -translate-x-[48.5%] -translate-y-full sm:size-[68px]"
-        style={{ left: `${CENTER.x * 100}%`, top: `${CENTER.y * 100}%` }}
+        style={
+          {
+            position: "absolute",
+            positionAnchor: "--cobe-hub",
+            top: "anchor(center)",
+            left: "anchor(center)",
+            opacity: "var(--cobe-visible-hub, 0)",
+          } as React.CSSProperties
+        }
+        className="pointer-events-none z-10 size-14 -translate-x-[48.5%] -translate-y-full transition-[opacity] duration-300 sm:size-[68px]"
       >
         <Image
           src="/logo-icon.png"
@@ -208,8 +308,17 @@ export function GlobeConnections({ className }: { className?: string }) {
       {NODES.map((node) => (
         <div
           key={node.id}
-          className="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2"
-          style={{ left: `${node.x * 100}%`, top: `${node.y * 100}%` }}
+          style={
+            {
+              position: "absolute",
+              positionAnchor: `--cobe-${node.id}`,
+              top: "anchor(center)",
+              left: "anchor(center)",
+              opacity: `var(--cobe-visible-${node.id}, 0)`,
+              filter: `blur(calc((1 - var(--cobe-visible-${node.id}, 0)) * 6px))`,
+            } as React.CSSProperties
+          }
+          className="pointer-events-none -translate-x-1/2 -translate-y-1/2 transition-[opacity,filter] duration-300"
         >
           <div className="relative">
             <div className="size-14 overflow-hidden rounded-full shadow-[0_14px_32px_-8px_rgba(23,23,31,0.45)] ring-4 ring-white sm:size-[68px]">

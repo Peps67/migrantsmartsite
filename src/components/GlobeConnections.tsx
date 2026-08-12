@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import createGlobe from "cobe";
 import Image from "next/image";
 
@@ -71,6 +71,7 @@ const ARC_SAMPLES = 72;
 const SILHOUETTE_SQ = 0.64;
 
 const SETTLE_MS = 2500;
+const AUTO_ROTATE_SPEED = 0.005;
 
 type Vec3 = [number, number, number];
 
@@ -149,6 +150,15 @@ export function GlobeConnections({ className }: { className?: string }) {
   const phiRef = useRef(INITIAL_PHI);
   const pointerInteracting = useRef<number | null>(null);
   const webglSupported = useWebglSupported();
+  const [reduceMotion, setReduceMotion] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sync = () => setReduceMotion(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
 
   useEffect(() => {
     if (!webglSupported) return;
@@ -202,6 +212,9 @@ export function GlobeConnections({ className }: { className?: string }) {
 
     const tick = () => {
       if (stopped) return;
+      if (pointerInteracting.current === null && !reduceMotion) {
+        phiRef.current += AUTO_ROTATE_SPEED;
+      }
       const settling = performance.now() - start < SETTLE_MS;
       if (settling || phiRef.current !== lastPhi) {
         lastPhi = phiRef.current;
@@ -228,7 +241,7 @@ export function GlobeConnections({ className }: { className?: string }) {
       resizeObserver.disconnect();
       globe.destroy();
     };
-  }, [webglSupported]);
+  }, [webglSupported, reduceMotion]);
 
   if (!webglSupported) return null;
 

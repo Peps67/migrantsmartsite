@@ -5,6 +5,10 @@ import {
   CheckCircle,
   YoutubeLogo,
   Play,
+  Sparkle,
+  CalendarBlank,
+  Clock,
+  MapPin,
 } from "@phosphor-icons/react/dist/ssr";
 
 import { Button } from "@/components/ui/button";
@@ -18,6 +22,7 @@ import TestimonialSlider from "@/components/TestimonialSlider";
 import TiltedCard from "@/components/reactbits/TiltedCard";
 import YouTubeThumbnail from "@/components/YouTubeThumbnail";
 import { ParallaxY } from "@/components/ParallaxY";
+import CountdownTimer from "@/components/CountdownTimer";
 import HeroReveal from "./HeroReveal";
 import Reveal from "@/components/Reveal";
 
@@ -26,14 +31,23 @@ const FOUNDER_POINTS = [
   "Leads a 3,000+ strong newcomer community",
 ];
 
+// 9:00 AM MT on Sep 19, 2026 — Career Clinic Cohort 2 kicks off.
+const CAREER_CLINIC_LAUNCH_ISO = "2026-09-19T15:00:00Z";
+
+const CAREER_CLINIC_DETAILS = [
+  { icon: CalendarBlank, label: "Date", value: "Sep 19 – Oct 3, 2026" },
+  { icon: Clock, label: "Time", value: "11:00AM – 2:00PM" },
+  { icon: MapPin, label: "Location", value: "The Platform Calgary" },
+];
+
 export default function Home() {
   return (
     <div>
       {/* HERO */}
-      <section className="relative flex min-h-[100dvh] flex-col justify-center overflow-hidden rounded-t-[2.25rem] bg-[#f8f7fd] px-5 py-8 sm:rounded-t-[3rem] sm:px-8 md:py-10">
+      <section className="relative flex flex-col justify-center overflow-hidden rounded-t-[2.25rem] bg-[#f8f7fd] px-5 py-10 sm:rounded-t-[3rem] sm:px-8 md:py-14">
         <GrainOverlay />
-        <div className="relative mx-auto grid max-w-[1440px] items-center gap-8 lg:grid-cols-[0.8fr_1fr] lg:gap-8">
-          <div>
+        <div className="relative mx-auto grid max-w-[1100px] items-center gap-8 lg:grid-cols-[0.8fr_1fr] lg:gap-8">
+          <div className="lg:-mt-11">
             <BlurText
               text="Your launchpad to success in Canada"
               className="max-w-[16ch] font-serif text-[clamp(38px,5.4vw,76px)] font-medium leading-[1.05] tracking-tight text-[#17171f] [&>span:nth-child(4)]:text-primary [&>span:nth-child(4)]:italic"
@@ -71,14 +85,80 @@ export default function Home() {
           </div>
 
           <HeroReveal delay={0.3}>
-            <GlobeConnections className="mx-auto w-full max-w-[560px]" />
+            <GlobeConnections className="mx-auto w-full max-w-[500px]" />
           </HeroReveal>
         </div>
       </section>
 
+      {/* CAREER CLINIC COUNTDOWN STRIP */}
+      <section className="relative z-10 px-5 sm:px-8">
+        <Reveal
+          blur
+          className="relative mx-auto -mt-10 max-w-[1040px] overflow-hidden rounded-[2rem] bg-[#5343EB] px-6 py-6 shadow-[0_30px_70px_-24px_rgba(84,72,240,0.55)] sm:-mt-12 sm:rounded-[2.5rem] sm:px-9 sm:py-7"
+        >
+          <GrainOverlay />
+          <div className="relative flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between lg:gap-6">
+            <div className="text-center lg:text-left">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1 text-[11px] font-bold tracking-[0.1em] text-primary uppercase shadow-[0_8px_20px_-8px_rgba(23,23,31,0.35)]">
+                <Sparkle size={12} weight="fill" />
+                Countdown to Career Clinic Cohort 2
+              </span>
+              <div className="mt-4 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
+                <CountdownTimer
+                  targetDate={CAREER_CLINIC_LAUNCH_ISO}
+                  variant="light"
+                  className="justify-center lg:justify-start"
+                />
+              </div>
+            </div>
+
+            <div className="hidden h-16 w-px shrink-0 bg-white/15 lg:block" />
+            <div className="block h-px w-full bg-white/15 lg:hidden" />
+
+            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-4 lg:shrink-0 lg:items-start">
+              {CAREER_CLINIC_DETAILS.map((detail, i) => (
+                <div key={detail.label} className="flex items-center gap-x-6">
+                  {i > 0 && (
+                    <span className="hidden h-9 w-px shrink-0 bg-white/15 sm:block" />
+                  )}
+                  <div className="flex flex-col items-start gap-3">
+                    <div className="flex items-center gap-2.5">
+                      <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-white/10 text-white">
+                        <detail.icon size={16} weight="bold" />
+                      </span>
+                      <div className="text-left">
+                        <div className="text-[10px] font-bold tracking-[0.1em] text-white/55 uppercase">
+                          {detail.label}
+                        </div>
+                        <div className="text-[13px] font-bold whitespace-nowrap text-white">
+                          {detail.value}
+                        </div>
+                      </div>
+                    </div>
+                    {i === 2 && (
+                      <Button
+                        asChild
+                        variant="white"
+                        size="sm"
+                        className="w-full"
+                      >
+                        <Link href="/career-clinic">
+                          Register Here
+                          <ArrowRight size={16} weight="bold" />
+                        </Link>
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Reveal>
+      </section>
+
       {/* ABOUT / MISSION */}
       <section id="about" className="px-5 py-9 sm:px-8 md:py-12">
-        <div className="mx-auto grid max-w-[1240px] items-center gap-14 lg:grid-cols-2 lg:gap-16">
+        <div className="mx-auto grid max-w-[1100px] items-center gap-14 lg:grid-cols-2 lg:gap-16">
           <Reveal blur>
             <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-primary">
               Our Mission
@@ -252,7 +332,7 @@ export default function Home() {
         id="documentary"
         className="overflow-hidden px-5 py-9 sm:px-8 md:py-12"
       >
-        <div className="mx-auto grid max-w-[1240px] items-center gap-14 lg:grid-cols-2 lg:gap-16">
+        <div className="mx-auto grid max-w-[1100px] items-center gap-14 lg:grid-cols-2 lg:gap-16">
           <Reveal blur>
             <Badge variant="outline" className="border-red-500/30 text-red-500">
               <YoutubeLogo size={16} weight="fill" />

@@ -34,28 +34,79 @@ const HOST_STATS = [
   { value: "3,000+", label: "Community members" },
 ];
 
-// NOTE: placeholder Calendly event links — swap these for Abigail's real
-// Calendly event URLs once the two paid event types are set up. Pricing
-// shown on this page is informational; the actual charge only happens if
-// each Calendly event type has Calendly's own paid-event add-on turned on
-// (Calendly's native Stripe connection, configured inside the Calendly
-// account settings — not something this website handles directly).
+// Pricing shown on this page is informational; the actual charge only
+// happens because each Calendly event type below has Calendly's own
+// paid-event add-on turned on (Calendly's native Stripe connection,
+// configured inside the Calendly account settings — not something this
+// website handles directly).
 const SESSIONS = [
+  {
+    tag: "Free Inquiry",
+    icon: ChatCircleText,
+    title: "Free Inquiry Session",
+    price: "Free",
+    duration: "15 minutes",
+    text: "For anyone who doesn't know where to start. This session is for anyone who wants to talk through their situation before deciding what kind of support they need.",
+    calendlyUrl:
+      "https://calendly.com/abigail-peterson-aa/free-inquiry-session?month=2026-08",
+  },
   {
     tag: "Finance & Settlement",
     icon: Wallet,
-    title: "Finance & Settlement Advice",
+    title: "Finance and Settlement Session",
     price: "$120 CAD",
-    text: "For newcomers navigating banking, credit, taxes and the financial systems nobody explains when you arrive. Get a clear picture of where you stand and what to do next.",
-    calendlyUrl: "https://calendly.com/migrantsmart/finance-settlement-advice",
+    duration: "1 hour 30 minutes",
+    text: "A one-on-one session to help professionals navigate financial planning and settlement in Canada. We'll go through your specific questions, whether that's budgeting, credit building, banking, taxes, or general settlement logistics, and leave you with clear next steps.",
+    calendlyUrl:
+      "https://calendly.com/abigail-peterson-aa/1-1-finance-settlement-session?month=2026-08",
   },
   {
     tag: "Career",
     icon: Briefcase,
-    title: "Career Advice",
+    title: "Career Strategy Session",
     price: "$250 CAD",
-    text: "For professionals ready to build their case for advancement, sharpen their resume and LinkedIn, or map out their next move in the Canadian job market.",
-    calendlyUrl: "https://calendly.com/migrantsmart/career-advice",
+    duration: "1 hour 30 minutes",
+    text: "A one-on-one session to help immigrant professionals navigate their career path in Canada. We'll go through your specific questions or issues, whether that's job search strategy, resume/LinkedIn positioning, interview prep, designing your career path, or how to transition into your target industry. You'll leave with actionable next steps.",
+    calendlyUrl:
+      "https://calendly.com/abigail-peterson-aa/personalized-1-1-sessions?month=2026-08",
+  },
+];
+
+const TESTIMONIALS = [
+  {
+    quote:
+      "I'd been out of a job for two years when I started working with Abigail. In our very first session we completely revamped my CV, and the interview invites started coming in almost right away. By our fourth session, I had a job offer in hand.",
+    initials: "DT",
+    name: "David T.",
+    role: "Career Strategy Session",
+  },
+  {
+    quote:
+      "I'd been stuck at the same level for four years before working with Abigail. In just two sessions, she helped me build a 'brag book' to track my weekly wins — so when appraisal time came around, I had a real record of my impact to show. That's what got me promoted.",
+    initials: "NA",
+    name: "Ngozi A.",
+    role: "Career Strategy Session",
+  },
+  {
+    quote:
+      "I met Abigail at the Next Gen conference, right when I was a fresh graduate with no idea how to approach my career. Our sessions gave me clarity on the skills I needed to build to land a job — and it worked, because I'm now an Analyst at Deloitte.",
+    initials: "MB",
+    name: "Michael B.",
+    role: "Career Strategy Session",
+  },
+  {
+    quote:
+      "As a newcomer in Calgary, I had no idea where to start with building credit. My session with Abigail gave me clarity on how to build my credit score, plus recommendations on which banks to use for smoother financial growth in Canada.",
+    initials: "GK",
+    name: "Grace K.",
+    role: "Finance & Settlement Session",
+  },
+  {
+    quote:
+      "I made some rough calls on where to settle when I first migrated. After my call with Abby, I decided to move from Quebec to Edmonton after finishing school — the tips and strategy she shared made that decision so much easier.",
+    initials: "SO",
+    name: "Samuel O.",
+    role: "Finance & Settlement Session",
   },
 ];
 
@@ -206,11 +257,11 @@ export default function Book1On1Page() {
               Find the right session for you
             </h2>
             <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground">
-              Two focused ways to work with Abigail directly. Pick the one
+              Three focused ways to work with Abigail directly. Pick the one
               that matches where you&rsquo;re stuck.
             </p>
           </Reveal>
-          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {SESSIONS.map((session, i) => (
               <Reveal key={session.title} delay={i * 0.08}>
                 <SpotlightCard
@@ -223,11 +274,16 @@ export default function Book1On1Page() {
                     </span>
                     <Badge variant="soft">{session.tag}</Badge>
                   </div>
-                  <h3 className="mt-6 font-serif text-2xl font-medium text-foreground">
+                  <h3 className="mt-6 min-h-16 font-serif text-2xl font-medium text-foreground">
                     {session.title}
                   </h3>
-                  <div className="mt-2 font-serif text-xl font-medium text-primary">
-                    {session.price}
+                  <div className="mt-2 flex items-baseline gap-2">
+                    <span className="text-xl font-bold text-primary">
+                      {session.price}
+                    </span>
+                    <span className="text-[13px] text-muted-foreground">
+                      &ndash; {session.duration}
+                    </span>
                   </div>
                   <p className="mt-3 flex-1 text-[15px] leading-relaxed text-muted-foreground">
                     {session.text}
@@ -306,24 +362,24 @@ export default function Book1On1Page() {
           className="relative mt-10 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]"
         >
           <div className="motion-safe:animate-marquee flex w-max gap-5 hover:[animation-play-state:paused]">
-            {[0, 1, 2, 0, 1, 2].map((_, i) => (
+            {[...TESTIMONIALS, ...TESTIMONIALS].map((t, i) => (
               <div
                 key={i}
-                className="w-[300px] shrink-0 rounded-2xl border border-white/20 bg-white/10 p-6 backdrop-blur-sm sm:w-[340px]"
+                className="flex w-[300px] shrink-0 flex-col rounded-2xl border border-white/20 bg-white/10 p-6 backdrop-blur-sm sm:w-[340px]"
               >
                 <Quotes size={26} weight="fill" className="text-white/25" />
-                <p className="mt-4 text-[14.5px] leading-relaxed text-white italic">
-                  &ldquo;[Insert quote from a 1:1 client]&rdquo;
+                <p className="mt-4 flex-1 text-[14.5px] leading-relaxed text-white italic">
+                  &ldquo;{t.quote}&rdquo;
                 </p>
                 <div className="mt-6 flex items-center gap-3">
                   <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-white/15 text-[12px] font-bold text-white">
-                    [N]
+                    {t.initials}
                   </span>
                   <div className="text-left">
                     <div className="text-[13.5px] font-bold text-white">
-                      [Name]
+                      {t.name}
                     </div>
-                    <div className="text-[12px] text-white/70">[Role]</div>
+                    <div className="text-[12px] text-white/70">{t.role}</div>
                   </div>
                 </div>
               </div>

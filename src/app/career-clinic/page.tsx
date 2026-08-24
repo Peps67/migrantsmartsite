@@ -10,7 +10,7 @@ import {
   Crown,
   ChartLineDown,
   UsersFour,
-  ForkKnife,
+  VideoCamera,
   CalendarBlank,
   Clock,
   MapPin,
@@ -42,35 +42,43 @@ import CountdownTimer from "@/components/CountdownTimer";
 import VideoPlaceholder from "@/components/VideoPlaceholder";
 import { cn } from "@/lib/utils";
 import Reveal from "@/components/Reveal";
+import ScrollDrawLine from "@/components/ScrollDrawLine";
 
 export const metadata: Metadata = {
   title: "Career Clinic — Migrant Smart",
   description:
-    "You got the job. Now what? Career Clinic is a 6-week cohort program that teaches immigrant professionals the unwritten rules of credibility, visibility and advancement inside a Canadian organization.",
+    "Career Clinic helps immigrant professionals understand the strategies, expectations and unwritten systems that influence career success in Canada, so they can position their experience, convert opportunities into offers, and build long-term career momentum.",
 };
 
 const WAITLIST_HREF =
   "https://docs.google.com/forms/d/e/1FAIpQLSdyWNIjwd0Dn547yzK4m9D3yCl-168wLghhZHetljF8ZexlyQ/viewform?usp=send_form";
 
-// 9:00 AM MT on Sep 12, 2026 — Cohort 2, Week 1 kicks off.
-const COHORT_LAUNCH_ISO = "2026-09-12T15:00:00Z";
+// 9:00 AM MT on Sep 19, 2026 — Cohort 2, Week 1 kicks off.
+const COHORT_LAUNCH_ISO = "2026-09-19T15:00:00Z";
+
+const PROGRAM_BUNDLE_URL = "https://buy.stripe.com/9B6bJ01Qtcas9Qrd091sQ00";
+const SESSION_1_URL = "https://buy.stripe.com/00w5kCamZfmE5Ab3pz1sQ01";
+const SESSION_2_URL = "https://buy.stripe.com/cNi4gydzb4I0e6H8JT1sQ02";
+const SESSION_3_URL = "https://buy.stripe.com/9B6bJ07aN2zSbYzf8h1sQ03";
 
 const FACTS = [
-  { label: "Format", value: "6-week live cohort", icon: Clock },
+  { label: "Format", value: "Live phase-based sessions", icon: Clock },
   {
     label: "Structure",
-    value: "Live sessions + accountability pods",
+    value: "3 phases: Position, Convert, Advance",
     icon: UsersFour,
   },
   {
     label: "Who it's for",
-    value: "Employed pros, 2–10 yrs in Canada",
+    value: "Immigrant professionals ready to move",
     icon: Eye,
   },
-  { label: "Next cohort", value: "September 12", icon: CalendarBlank },
+  { label: "Next cohort", value: "September 19", icon: CalendarBlank },
 ];
 
 const FACTS_TRACK = [...FACTS, ...FACTS];
+
+const TAGLINE_TRACK = Array.from({ length: 12 }, () => "Get Seen. Get Hired. Get Ahead.");
 
 const PROBLEM_STATS = [
   {
@@ -93,52 +101,57 @@ const PROBLEM_STATS = [
 const LEARN_PILLARS = [
   {
     number: "01",
-    tag: "Visibility",
+    tag: "Position — Get Seen",
     icon: Eye,
-    title: "How to Be Seen Without Overselling Yourself",
-    text: "Learn the unwritten norms around visibility in a Canadian workplace, and how to make your work known without it feeling like self-promotion.",
+    title: "How Do I Make Employers Understand My Value?",
+    text: "We start with a career audit, translate your experience into language Canadian employers instantly understand, and rebuild your resume and LinkedIn around outcomes, not tasks.",
   },
   {
     number: "02",
-    tag: "Credibility",
+    tag: "Convert — Get Hired",
     icon: Handshake,
-    title: "The Framework for Building Trust That Actually Works",
-    text: "Discover how credibility is really built inside a Canadian organization, and the communication strategy that wins buy-in from the people who decide who moves up.",
+    title: "How Do I Turn Interest Into an Offer?",
+    text: "You'll learn to articulate your value with evidence, prepare for interviews that assess more than your resume, and handle salary conversations, plus live mock interviews with real feedback.",
   },
   {
     number: "03",
-    tag: "Advancement",
+    tag: "Advance — Get Ahead",
     icon: TrendUp,
-    title: "A Documented Case You Can Bring to Your Manager",
-    text: "Leave with a personal 90-day action plan, real negotiation reps, and a network of sponsors and allies actively backing your next move.",
+    title: "How Do I Build Career Capital and Keep Growing?",
+    text: "Design your next move, build workplace fluency, earn sponsorship and relationships that speak for you, and put together the case for your next promotion.",
   },
 ];
 
 const WHO_ITS_FOR = [
   {
     number: "01",
-    title: "Foreign-trained & credentialed",
-    text: "You're a foreign-trained professional in finance, IT, engineering, business or a healthcare-adjacent field, with a degree or equivalent credential.",
+    title: "Not getting enough interviews",
+    text: "You're a qualified professional, but the interview requests just aren't coming in.",
   },
   {
     number: "02",
-    title: "2–10 years into your Canadian career",
-    text: "You're 28–45 years old, and you've spent two to ten years building a career here.",
+    title: "Interviews, but no offers",
+    text: "You're getting interviews, you're just not converting them into offers.",
   },
   {
     number: "03",
-    title: "Employed, but stalled",
-    text: "You're currently employed, but in a role below your experience level, or plateaued with no visibility or promotion path.",
+    title: "Ready to re-enter your profession",
+    text: "You're a newcomer working a survival or transitional job, and you want back into your actual profession.",
   },
   {
     number: "04",
-    title: "Ready to invest in yourself",
-    text: "You're financially stable enough to invest in your own advancement.",
+    title: "Experience that doesn't translate",
+    text: "You've struggled to translate your international experience into language Canadian employers quickly understand.",
   },
   {
     number: "05",
-    title: "Already past the “get hired” stage",
-    text: "You've already tried the free, entry-level settlement services, resume help and first-job coaching. Those solved getting hired. Nothing since has solved what comes after.",
+    title: "Employed, but underpaid or overlooked",
+    text: "You're working, but you feel underpaid, overlooked or stuck exactly where you started.",
+  },
+  {
+    number: "06",
+    title: "Ready for the next level",
+    text: "You want to move into a higher-responsibility, management or leadership role.",
   },
 ];
 
@@ -167,10 +180,10 @@ const COMPARISON = [
 ];
 
 const CAREER_CLINIC_PERKS = [
-  "A live cohort, not a login, real people on the same weekly rhythm as you",
-  "Mentorship and a recruiter network you can't buy access to anywhere else",
+  "A live, structured framework, not a login, real sessions built around Position, Convert and Advance",
+  "Direct access to recruiters and employers through live conversations, not just theory",
   "The insider playbook for visibility, trust and promotion no one else teaches",
-  "A done-for-you tier if you'd rather have it handled than just taught",
+  "Buy the full 3-session bundle, or just the session that matches where you're stuck",
 ];
 
 const HOST_STATS = [
@@ -192,147 +205,162 @@ const HOST_STORY = [
   "If you're standing where I once stood, Career Clinic is here to help you close that gap faster than I did.",
 ];
 
-const WEEKS = [
+const PHASES = [
   {
     number: "01",
-    title: "Diagnose & Design",
-    objective:
-      "Get a clear, honest picture of where you stand and where you're headed.",
+    title: "Position: Get Seen",
+    objective: "How do I make employers understand my value?",
     items: [
-      "Pre-work: an online career audit and self-assessment",
-      "In-class career audit and goal mapping, promotion vs. lateral move vs. new employer",
-      "Baseline resume and LinkedIn review",
+      "Career audit and gap analysis, a clear picture of where you stand and what's missing",
+      "Experience translation, reframing your background around business impact so employers understand it fast",
+      "A results-oriented resume built on outcomes and evidence, not just tasks",
+      "A professional brand and visibility strategy, LinkedIn, portfolio and networking, built to be seen",
     ],
     outcome:
-      "A clear diagnosis of where you stand, and a defined target for the six weeks ahead.",
+      "A career gap analysis, a positioning statement, a rebuilt resume and a 90-day visibility strategy, all yours to keep.",
   },
   {
     number: "02",
-    title: "Personal Brand & Visibility",
-    objective:
-      "Package the experience you already have, and start being seen for it.",
+    title: "Convert: Get Hired",
+    objective: "How do I turn interest, and interviews, into an offer?",
     items: [
-      "Resume and LinkedIn optimization sprint, positioned for advancement, not just search",
-      "Personal brand narrative development with a guest speaker",
-      "How to be visible without over-promoting yourself, a Canadian workplace culture briefing",
+      "Interview preparation, a repeatable process for both virtual and in-person rounds",
+      "Value articulation, communicating outcomes and evidence with confidence, not defensiveness",
+      "Offer conversion, handling experience-gap questions and negotiating salary with a clear framework",
+      "Live mock interviews with real facilitator and peer feedback",
+      "A fireside conversation with recruiters and employers, straight from the source",
     ],
     outcome:
-      "A resume, LinkedIn profile and personal narrative built to move you forward, not just get you noticed.",
+      "An interview readiness score, a value articulation framework, mock interview feedback and a salary negotiation framework.",
   },
   {
     number: "03",
-    title: "Build Credibility & Trust",
+    title: "Advance: Get Ahead",
     objective:
-      "Learn how trust and credibility are actually built inside a Canadian organization.",
+      "How do I build career capital and keep progressing after I get the job?",
     items: [
-      "The framework for building trust and credibility at work",
-      "Communication strategy that wins buy-in",
-      "Handling difficult situations, live Q&A",
+      "Designing your career path, the capabilities and exposure the next level actually requires",
+      "Workplace fluency, reading Canadian norms, priorities and decision-making structures",
+      "Building career capital, becoming the credible, go-to person for important work",
+      "Relationships and sponsorship, the people who speak for you when you're not in the room",
+      "Positioning for advancement, building the case for your next promotion",
     ],
     outcome:
-      "A repeatable framework for earning trust and buy-in, wherever you work next.",
-  },
-  {
-    number: "04",
-    title: "Network Strategically",
-    objective:
-      "Build the internal and external relationships that actually open doors.",
-    items: [
-      "Internal networking: finding sponsors and allies inside your own organization",
-      "External networking: informational interviews and cold outreach, templates plus live practice",
-      "Mentor matching finalized; accountability pods of 4–6 launched",
-    ],
-    outcome:
-      "A mentor, an accountability pod, and a real networking practice you'll keep using.",
-  },
-  {
-    number: "05",
-    title: "Interview & Negotiate",
-    objective: "Prepare to make your case out loud, with confidence.",
-    items: [
-      "Mock interviews and promotion-conversation role-play",
-      "The STAR method and storytelling for performance reviews and interviews",
-      "Salary and promotion negotiation role-play, plus an offer evaluation framework",
-    ],
-    outcome: "Interview and negotiation reps under your belt, before it counts.",
-  },
-  {
-    number: "06",
-    title: "Execution & Sustained Growth",
-    objective: "Leave with a plan, not just a certificate.",
-    items: [
-      "Your personal 90-day action plan, the capstone",
-      "A long-term visibility and advancement strategy for after the program ends",
-      "Community transition: your accountability pod and mentor relationship continue",
-    ],
-    outcome:
-      "A documented 90-day action plan, and a community that keeps going after week six.",
+      "A 12-month career advancement roadmap, a stakeholder and sponsor map, and a promotion readiness assessment.",
   },
 ];
 
-const BUILD_OUTCOMES = [
+const OUTCOME_GROUPS = [
   {
-    icon: Briefcase,
-    title: "Your case for advancement",
-    desc: "A documented, manager-ready case you can put on the table the moment the timing's right.",
+    phase: "Position",
+    items: [
+      {
+        icon: Eye,
+        title: "Career Positioning Statement",
+        desc: "A clear, reusable statement of the value you bring, built from your career audit.",
+      },
+      {
+        icon: Briefcase,
+        title: "Resume Improvement Framework",
+        desc: "A results-oriented resume structure built on outcomes and evidence, not just tasks.",
+      },
+      {
+        icon: Megaphone,
+        title: "LinkedIn Optimization Plan",
+        desc: "A profile and visibility strategy built to get you seen by the right people.",
+      },
+    ],
   },
   {
-    icon: Eye,
-    title: "A visibility strategy that works here",
-    desc: "How to be seen and known inside a Canadian organization, without it feeling like self-promotion.",
+    phase: "Convert",
+    items: [
+      {
+        icon: Handshake,
+        title: "Value Articulation Framework",
+        desc: "A repeatable way to communicate your experience through outcomes, not defensiveness.",
+      },
+      {
+        icon: Quotes,
+        title: "Mock Interview Feedback",
+        desc: "Live facilitator and peer feedback on your strengths and where to sharpen up.",
+      },
+      {
+        icon: Scales,
+        title: "Salary Negotiation Framework",
+        desc: "A clear framework for salary and offer conversations you'll keep using for years.",
+      },
+    ],
   },
   {
-    icon: UsersFour,
-    title: "A real network backing you",
-    desc: "Sponsors, allies and mentors who already know your name before you need them to.",
-  },
-  {
-    icon: Scales,
-    title: "Negotiation skill for years, not just this raise",
-    desc: "A framework for reviews, raises and offers you'll keep using long after week six.",
-  },
-  {
-    icon: CalendarCheck,
-    title: "A 90-day plan, already written",
-    desc: "You don't leave wondering what's next. You leave with it mapped out, week by week.",
+    phase: "Advance",
+    items: [
+      {
+        icon: CalendarCheck,
+        title: "12-Month Advancement Roadmap",
+        desc: "You don't leave wondering what's next. You leave with it mapped out, month by month.",
+      },
+      {
+        icon: Crown,
+        title: "Internal Brand Strategy",
+        desc: "A plan for becoming the credible, go-to person for important work inside your org.",
+      },
+      {
+        icon: TrendUp,
+        title: "Promotion Readiness Assessment",
+        desc: "An honest read on where you stand, and what's left to build your case for advancement.",
+      },
+    ],
   },
 ];
 
-const TIERS = [
+const SESSION_OFFERS = [
   {
-    name: "Foundation",
-    tagline: "The full accelerator",
+    name: "Program Bundle",
+    tagline: "Best value",
+    price: "$250 CAD",
     features: [
-      "Full 6-week live accelerator program",
-      "Community and accountability group access",
-    ],
-    highlight: false,
-  },
-  {
-    name: "Guided",
-    tagline: "Most popular",
-    features: [
-      "Everything in Foundation",
-      "1:1 audit and skills assessment",
-      "Resume and LinkedIn optimization",
-      "Free headshot and profile review",
-      "3 mock interview sessions",
-      "Introduction to the Migrant Smart recruiter network",
+      "All 3 sessions: Get Seen + Get Hired + Get Ahead",
+      "Free LinkedIn headshot",
+      "The full Position → Convert → Advance framework",
     ],
     highlight: true,
+    href: PROGRAM_BUNDLE_URL,
   },
   {
-    name: "Concierge",
-    tagline: "Done-for-you",
+    name: "Session 1",
+    tagline: "Position",
+    price: "$87 CAD",
     features: [
-      "Everything in Guided",
-      "Branding and positioning for LinkedIn",
-      "Priority mentor matching",
-      "Job application and placement support",
-      "9 mock interview sessions",
-      "Priority access to referral-network opportunities",
+      "Get seen for the right opportunities",
+      "Career audit, experience translation and resume strategy",
+      "Professional brand and visibility plan",
     ],
     highlight: false,
+    href: SESSION_1_URL,
+  },
+  {
+    name: "Session 2",
+    tagline: "Convert",
+    price: "$98 CAD",
+    features: [
+      "Turn employer interest and interviews into offers",
+      "Interview prep, value articulation and offer conversion",
+      "Live mock interviews with real feedback",
+    ],
+    highlight: false,
+    href: SESSION_2_URL,
+  },
+  {
+    name: "Session 3",
+    tagline: "Advance",
+    price: "$98 CAD",
+    features: [
+      "Build career capital and get ahead in your career",
+      "Workplace fluency, relationships and sponsorship",
+      "Position yourself for your next promotion",
+    ],
+    highlight: false,
+    href: SESSION_3_URL,
   },
 ];
 
@@ -358,7 +386,11 @@ const FAQS = [
   },
   {
     q: "How much does it cost?",
-    a: "Career Clinic is a paid program, with pricing that varies by tier. Register your interest now to get the full breakdown and next steps.",
+    a: "Individual sessions are $87–$98 CAD each. The Program Bundle, all three sessions plus a free LinkedIn headshot, is $250 CAD. You can register for any of these directly from the pricing section above.",
+  },
+  {
+    q: "Can I just register for one session instead of the whole program?",
+    a: "Yes. Each phase, Get Seen, Get Hired and Get Ahead, is sold as a standalone session so you can start with whichever one matches where you're stuck. The Program Bundle is there if you want all three, plus a free LinkedIn headshot, at a lower combined price.",
   },
   {
     q: "Is this online or in-person?",
@@ -370,7 +402,7 @@ const FAQS = [
   },
   {
     q: "What happens after I register?",
-    a: "You'll get a confirmation email with the full pricing breakdown and next steps.",
+    a: "For the free webinar, you'll get a confirmation email with the joining link. If you register for a session or the bundle, you'll get an email confirming your purchase along with next steps and scheduling details.",
   },
 ];
 
@@ -378,39 +410,73 @@ export default function CareerClinicPage() {
   return (
     <div>
       {/* HERO */}
-      <section className="relative flex min-h-[100dvh] flex-col justify-center overflow-hidden rounded-t-[2.25rem] bg-[#f8f7fd] px-5 py-10 sm:rounded-t-[3rem] sm:px-8">
+      <section className="relative flex flex-col justify-center overflow-hidden rounded-t-[2.25rem] bg-[#f8f7fd] px-5 pt-14 pb-2 sm:rounded-t-[3rem] sm:px-8">
         <GrainOverlay />
         <div className="relative mx-auto grid max-w-[1100px] items-center gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
           <Reveal>
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-black/10 bg-black/5 px-3.5 py-1.5 text-[12.5px] font-bold uppercase tracking-[0.1em] text-foreground backdrop-blur-sm">
-              For employed professionals, not job seekers
-            </span>
             <BlurText
-              text="You got the job. Now what?"
-              className="mt-4 max-w-[16ch] font-serif text-[clamp(34px,4.6vw,64px)] font-medium leading-[1.06] tracking-tight text-[#17171f] [&>span:nth-child(6)]:text-primary [&>span:nth-child(6)]:italic"
+              text="You have the experience. Why isn't it showing?"
+              className="max-w-[16ch] font-serif text-[clamp(30px,4vw,52px)] font-medium leading-[1.08] tracking-tight text-[#17171f] [&>span:nth-child(8)]:text-primary [&>span:nth-child(8)]:italic"
             />
-            <p className="mt-4 max-w-[50ch] text-[16.5px] leading-relaxed text-[#17171f]/70 md:text-[18.5px]">
-              Career Clinic is a 6-week cohort program for immigrant
-              professionals who are already employed in Canada, but
-              underpaid, underleveraged and invisible relative to their real
-              experience. We teach what&rsquo;s never written down: how to
-              build credibility, get seen, and get promoted.
+            <p className="mt-2.5 max-w-[50ch] text-[16.5px] leading-relaxed text-[#17171f]/70">
+              Career Clinic teaches immigrant professionals the strategies,
+              expectations and unwritten systems that actually influence
+              career success in Canada, so you can position what
+              you&rsquo;ve already built, convert opportunities into real
+              offers, and keep building momentum long after you&rsquo;re
+              hired.
             </p>
-            <div className="mt-6 flex flex-wrap items-center gap-4">
-              <Button asChild size="lg">
-                <a href={WAITLIST_HREF}>
-                  Join the Waitlist
-                  <ArrowRight size={17} weight="bold" />
+            <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2.5">
+              <div className="flex items-center gap-2.5">
+                <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/12 text-primary">
+                  <Clock size={16} weight="bold" />
+                </span>
+                <div className="text-left">
+                  <div className="text-[10px] font-bold uppercase tracking-[0.1em] text-[#17171f]/50">
+                    Time
+                  </div>
+                  <div className="text-[13.5px] font-bold text-[#17171f]">
+                    11:00AM &ndash; 2:00PM
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center gap-2.5">
+                <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/12 text-primary">
+                  <CalendarBlank size={16} weight="bold" />
+                </span>
+                <div className="text-left">
+                  <div className="text-[10px] font-bold uppercase tracking-[0.1em] text-[#17171f]/50">
+                    Date
+                  </div>
+                  <div className="text-[13.5px] font-bold text-[#17171f]">
+                    September 19th &ndash; October 3rd
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center gap-2.5">
+                <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/12 text-primary">
+                  <MapPin size={16} weight="bold" />
+                </span>
+                <div className="text-left">
+                  <div className="text-[10px] font-bold uppercase tracking-[0.1em] text-[#17171f]/50">
+                    Location
+                  </div>
+                  <div className="text-[13.5px] font-bold text-[#17171f]">
+                    The Platform Calgary
+                  </div>
+                </div>
+              </div>
+              <Button asChild size="sm">
+                <a href="#sessions">
+                  Register Here
+                  <ArrowRight size={16} weight="bold" />
                 </a>
               </Button>
-              <span className="text-[14px] font-medium text-[#17171f]/60">
-                Cohort 2 launches Sep 12
-              </span>
             </div>
           </Reveal>
           <Reveal delay={0.1} className="relative">
             <span className="pointer-events-none absolute -top-6 -right-6 hidden h-28 w-28 rounded-[24px] bg-primary/15 blur-2xl sm:block" />
-            <div className="relative aspect-[9/10] rounded-[2rem] border border-black/10 bg-black/5 p-2 shadow-[0_30px_60px_-24px_rgba(23,23,31,0.25)]">
+            <div className="relative aspect-[1/1] rounded-[2rem] border border-black/10 bg-black/5 p-2 shadow-[0_30px_60px_-24px_rgba(23,23,31,0.25)]">
               <TiltedCard
                 imageSrc="/career-clinic/hero-clinic-flyer.jpg"
                 altText="A Migrant Smart Career Clinic promotional flyer"
@@ -426,6 +492,23 @@ export default function CareerClinicPage() {
               />
             </div>
           </Reveal>
+        </div>
+      </section>
+
+      {/* ROLLING TAGLINE */}
+      <section className="overflow-hidden bg-[#5343EB] py-3">
+        <div className="relative [mask-image:linear-gradient(to_right,transparent,black_4%,black_96%,transparent)]">
+          <div className="motion-safe:animate-marquee flex w-max items-center gap-8">
+            {[...TAGLINE_TRACK, ...TAGLINE_TRACK].map((line, i) => (
+              <span
+                key={i}
+                className="flex shrink-0 items-center gap-8 text-[15px] font-bold tracking-[0.08em] text-white uppercase sm:text-[18px]"
+              >
+                {line}
+                <span className="text-white/40">&bull;</span>
+              </span>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -451,7 +534,7 @@ export default function CareerClinicPage() {
                 Countdown to Career Clinic Cohort 2
               </h2>
               <p className="mt-3 text-[15px] font-semibold text-white/80">
-                Saturday, September 12, 2026 &middot; 9:00 AM MT / 11:00 AM ET
+                Saturday, September 19, 2026 &middot; 9:00 AM MT / 11:00 AM ET
               </p>
               <p className="mt-1 text-[13.5px] text-white/50">
                 Live sessions at a partner venue in Calgary, with virtual
@@ -463,8 +546,8 @@ export default function CareerClinicPage() {
             </Reveal>
             <Reveal delay={0.15}>
               <Button asChild size="lg" className="mt-8">
-                <a href={WAITLIST_HREF}>
-                  Join the Waitlist
+                <a href="#sessions">
+                  Register Here
                   <ArrowRight size={17} weight="bold" />
                 </a>
               </Button>
@@ -531,19 +614,20 @@ export default function CareerClinicPage() {
           <Reveal blur delay={0.1} className="order-1 lg:order-2">
             <span className="inline-flex items-center gap-1.5 text-[13px] font-bold uppercase tracking-[0.14em] text-primary">
               <ChartLineDown size={15} weight="bold" />
-              The problem
+              The tension
             </span>
             <h2 className="mt-4 max-w-[20ch] font-serif text-[clamp(28px,3.6vw,42px)] font-medium leading-[1.12] tracking-tight text-foreground">
               It&rsquo;s not that you can&rsquo;t get hired. You did.
             </h2>
-            <p className="mt-5 max-w-[54ch] text-[15.5px] leading-relaxed text-muted-foreground">
-              It&rsquo;s that once inside, nobody taught you the unwritten
-              rules of how credibility, visibility and advancement actually
-              work in a Canadian workplace, so your career stalls exactly at
-              the point everyone assumes the hard part is over. The barriers
-              are structural: bias toward &ldquo;Canadian experience,&rdquo;
-              referral networks that exclude newcomers, and hiring managers
-              who don&rsquo;t know how to evaluate foreign credentials.
+            <p className="mt-5 max-w-[54ch] text-[15.5px] leading-relaxed text-foreground/70">
+              It&rsquo;s that once you&rsquo;re inside, nobody taught you the
+              unwritten systems, how credibility, visibility and advancement
+              actually work in a Canadian workplace, so your career stalls
+              exactly where everyone assumes the hard part is over. Talent
+              alone was never going to be enough. Information, positioning,
+              relationships, workplace fluency and strategy are what create
+              leverage, and immigrant professionals shouldn&rsquo;t have to
+              diminish the experience they already have to build it.
             </p>
           </Reveal>
         </div>
@@ -557,7 +641,7 @@ export default function CareerClinicPage() {
                 <div className="font-serif text-3xl font-medium text-primary">
                   {stat.value}
                 </div>
-                <p className="mt-3 text-[14px] leading-relaxed text-muted-foreground">
+                <p className="mt-3 text-[14px] leading-relaxed text-foreground/70">
                   {stat.label}
                 </p>
               </SpotlightCard>
@@ -571,15 +655,15 @@ export default function CareerClinicPage() {
         <div className="mx-auto max-w-[1240px]">
           <Reveal className="mx-auto max-w-[680px] text-center">
             <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-primary">
-              What you&rsquo;ll learn
+              The framework
             </span>
             <h2 className="mt-4 font-serif text-[clamp(26px,3.2vw,36px)] font-medium leading-[1.14] tracking-tight text-foreground">
-              What you&rsquo;ll walk away with inside the cohort
+              Position. Convert. Advance.
             </h2>
-            <p className="mt-4 text-[15.5px] leading-relaxed text-muted-foreground">
-              This isn&rsquo;t another list of tools or templates. You&rsquo;ll
-              leave with a clearer sense of what to focus on, how to build
-              trust, and how to present the experience you already have.
+            <p className="mt-4 text-[15.5px] leading-relaxed text-foreground/70">
+              Every part of Career Clinic runs through the same three-stage
+              framework, three phases that mirror exactly how careers
+              actually move forward in Canada.
             </p>
           </Reveal>
           <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -600,7 +684,7 @@ export default function CareerClinicPage() {
                   <h3 className="mt-2 text-[17px] font-bold leading-snug text-foreground">
                     {pillar.title}
                   </h3>
-                  <p className="mt-3 text-[14px] leading-relaxed text-muted-foreground">
+                  <p className="mt-3 text-[14px] leading-relaxed text-foreground/70">
                     {pillar.text}
                   </p>
                 </div>
@@ -609,8 +693,8 @@ export default function CareerClinicPage() {
           </div>
           <Reveal delay={0.2} className="mt-10 flex justify-center">
             <Button asChild size="lg">
-              <a href={WAITLIST_HREF}>
-                Join the Waitlist
+              <a href="#sessions">
+                Register Here
                 <ArrowRight size={17} weight="bold" />
               </a>
             </Button>
@@ -687,7 +771,7 @@ export default function CareerClinicPage() {
               Everyone else stops at &ldquo;get hired.&rdquo; We start where
               they stop.
             </h2>
-            <p className="mx-auto mt-4 max-w-[58ch] text-[15.5px] leading-relaxed text-muted-foreground">
+            <p className="mx-auto mt-4 max-w-[58ch] text-[15.5px] leading-relaxed text-foreground/70">
               Free settlement agencies get you your first job. Hype coaches
               sell you a fast-hire story. Self-paced courses hand you a
               login and disappear. None of them teach what happens{" "}
@@ -726,7 +810,7 @@ export default function CareerClinicPage() {
                         weight="fill"
                         className="mt-0.5 shrink-0 text-muted-foreground/40"
                       />
-                      <p className="text-[13px] leading-relaxed text-muted-foreground">
+                      <p className="text-[13px] leading-relaxed text-foreground/70">
                         {item.missing}
                       </p>
                     </div>
@@ -770,8 +854,8 @@ export default function CareerClinicPage() {
               done with courses that go nowhere, this is built for you.
             </p>
             <Button asChild size="lg" className="mt-6">
-              <a href={WAITLIST_HREF}>
-                Join the Waitlist
+              <a href="#sessions">
+                Register Here
                 <ArrowRight size={17} weight="bold" />
               </a>
             </Button>
@@ -807,7 +891,7 @@ export default function CareerClinicPage() {
                 <h3 className="mt-6 font-serif text-xl font-medium text-foreground">
                   Abigail Akpan
                 </h3>
-                <p className="mt-1 text-[14px] font-semibold text-muted-foreground">
+                <p className="mt-1 text-[14px] font-semibold text-foreground/70">
                   CPA, Founder, Migrant Smart
                 </p>
                 <div className="mt-6 grid grid-cols-3 gap-4 border-t border-border pt-6">
@@ -816,7 +900,7 @@ export default function CareerClinicPage() {
                       <div className="font-serif text-xl font-medium text-foreground">
                         {stat.value}
                       </div>
-                      <div className="mt-1 text-[11.5px] leading-snug text-muted-foreground">
+                      <div className="mt-1 text-[11.5px] leading-snug text-foreground/70">
                         {stat.label}
                       </div>
                     </div>
@@ -830,7 +914,7 @@ export default function CareerClinicPage() {
                   <p
                     key={i}
                     className={cn(
-                      "text-[15.5px] leading-relaxed text-muted-foreground",
+                      "text-[15.5px] leading-relaxed text-foreground/70",
                       (i === 0 || i === HOST_STORY.length - 1) &&
                         "font-serif text-[17px] text-foreground italic",
                     )}
@@ -840,8 +924,8 @@ export default function CareerClinicPage() {
                 ))}
               </div>
               <Button asChild size="lg" className="mt-8">
-                <a href={WAITLIST_HREF}>
-                  Join the Waitlist
+                <a href="#sessions">
+                  Register Here
                   <ArrowRight size={17} weight="bold" />
                 </a>
               </Button>
@@ -860,23 +944,25 @@ export default function CareerClinicPage() {
           <div className="relative">
             <Reveal>
               <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-white">
-                Program structure
+                The curriculum
               </span>
               <h2 className="mt-4 max-w-[22ch] font-serif text-[clamp(26px,3.4vw,40px)] font-medium leading-[1.12] tracking-tight text-white">
-                Six weeks, entirely focused on{" "}
-                <em className="text-white italic">advancement</em>
+                Three phases, each solving a{" "}
+                <em className="text-white italic">different problem</em>
               </h2>
               <p className="mt-4 max-w-[56ch] text-[15px] leading-relaxed text-white">
-                No first-job-search content, since you&rsquo;re already
-                employed. Every week earns its place.
+                This isn&rsquo;t lecture content. Every phase is built around
+                a specific problem professionals hit in their Canadian
+                career, and ends with something concrete in your hands.
               </p>
             </Reveal>
             <div className="relative mt-12">
               <div className="absolute top-2 bottom-2 left-[15px] w-px bg-white/15 sm:left-[19px]" />
+              <ScrollDrawLine className="absolute top-2 bottom-2 left-[15px] w-px sm:left-[19px]" />
               <div className="flex flex-col gap-6">
-                {WEEKS.map((week, i) => (
+                {PHASES.map((phase, i) => (
                   <Reveal
-                    key={week.number}
+                    key={phase.number}
                     delay={i * 0.05}
                     className="relative flex gap-5 sm:gap-7"
                   >
@@ -885,17 +971,17 @@ export default function CareerClinicPage() {
                     </span>
                     <div className="flex-1 rounded-2xl border border-white/15 bg-white/5 p-6 backdrop-blur-sm sm:p-7">
                       <span className="text-[12px] font-bold uppercase tracking-[0.14em] text-white">
-                        Week {week.number}
+                        Session {phase.number}
                       </span>
                       <h3 className="mt-2 text-[17px] font-bold tracking-tight text-white uppercase sm:text-[19px]">
-                        {week.title}
+                        {phase.title}
                       </h3>
                       <p className="mt-3 text-[14.5px] leading-relaxed text-white">
-                        <strong className="text-white">Objective:</strong>{" "}
-                        {week.objective}
+                        <strong className="text-white">Core question:</strong>{" "}
+                        {phase.objective}
                       </p>
                       <ul className="mt-3 flex flex-col gap-1.5">
-                        {week.items.map((item) => (
+                        {phase.items.map((item) => (
                           <li
                             key={item}
                             className="flex items-start gap-2.5 text-[14px] leading-relaxed text-white"
@@ -907,7 +993,7 @@ export default function CareerClinicPage() {
                       </ul>
                       <p className="mt-4 text-[14px] leading-relaxed text-white">
                         <strong className="text-white">Outcome:</strong>{" "}
-                        {week.outcome}
+                        {phase.outcome}
                       </p>
                     </div>
                   </Reveal>
@@ -923,34 +1009,52 @@ export default function CareerClinicPage() {
         <div className="mx-auto max-w-[1240px]">
           <Reveal blur className="mx-auto max-w-[680px] text-center">
             <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-primary">
-              What you&rsquo;ll walk away with
+              Tangible outputs
             </span>
             <h2 className="mt-4 font-serif text-[clamp(26px,3.2vw,36px)] font-medium leading-[1.14] tracking-tight text-foreground">
               Not just a certificate, but also a toolkit for the next ten
               years of your career.
             </h2>
-            <p className="mx-auto mt-4 max-w-[54ch] text-[15.5px] leading-relaxed text-muted-foreground">
-              Six weeks end. What you build here doesn&rsquo;t. Every
+            <p className="mx-auto mt-4 max-w-[54ch] text-[15.5px] leading-relaxed text-foreground/70">
+              The program ends. What you build here doesn&rsquo;t. Every
               deliverable below is yours to keep, use and build on long
-              after the cohort wraps.
+              after your last session.
             </p>
           </Reveal>
 
-          <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-            {BUILD_OUTCOMES.map((outcome, i) => (
-              <Reveal key={outcome.title} blur delay={i * 0.06}>
-                <div className="flex h-full flex-col rounded-2xl border border-border bg-background p-4">
-                  <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-secondary text-primary">
-                    <outcome.icon size={16} weight="bold" />
+          <div className="mt-14 flex flex-col gap-10">
+            {OUTCOME_GROUPS.map((group, gi) => (
+              <div key={group.phase}>
+                <Reveal className="flex items-center gap-4">
+                  <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-primary text-[12px] font-bold text-primary-foreground">
+                    {gi + 1}
                   </span>
-                  <h3 className="mt-3 text-[13px] leading-snug font-bold text-foreground">
-                    {outcome.title}
-                  </h3>
-                  <p className="mt-1.5 text-[11.5px] leading-relaxed text-muted-foreground">
-                    {outcome.desc}
-                  </p>
+                  <span className="text-[13px] font-bold tracking-tight text-foreground">
+                    {group.phase}
+                  </span>
+                  <span className="h-px flex-1 bg-border" />
+                </Reveal>
+                <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
+                  {group.items.map((outcome, i) => (
+                    <Reveal key={outcome.title} blur delay={i * 0.08}>
+                      <SpotlightCard
+                        spotlightColor="rgba(84, 72, 240, 0.3)"
+                        className="h-full p-6"
+                      >
+                        <span className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-secondary text-primary">
+                          <outcome.icon size={22} weight="bold" />
+                        </span>
+                        <h3 className="mt-4 text-[16px] leading-snug font-bold text-foreground">
+                          {outcome.title}
+                        </h3>
+                        <p className="mt-2 text-[13.5px] leading-relaxed text-foreground/70">
+                          {outcome.desc}
+                        </p>
+                      </SpotlightCard>
+                    </Reveal>
+                  ))}
                 </div>
-              </Reveal>
+              </div>
             ))}
           </div>
 
@@ -959,7 +1063,7 @@ export default function CareerClinicPage() {
               <span className="text-[12px] font-bold uppercase tracking-[0.12em] text-primary">
                 What we won&rsquo;t promise you
               </span>
-              <p className="mx-auto mt-3 max-w-[62ch] text-[14.5px] leading-relaxed text-muted-foreground">
+              <p className="mx-auto mt-3 max-w-[62ch] text-[14.5px] leading-relaxed text-foreground/70">
                 We teach the skills, systems and support for advancement. We
                 don&rsquo;t guarantee a promotion, raise or new role,
                 decisions like that involve factors outside any
@@ -974,55 +1078,67 @@ export default function CareerClinicPage() {
       </section>
 
       {/* TIERS */}
-      <section className="bg-secondary/60 px-5 py-12 sm:px-8 md:py-16 dark:bg-surface-tint">
+      <section
+        id="sessions"
+        className="bg-secondary/60 px-5 py-12 sm:px-8 md:py-16 dark:bg-surface-tint"
+      >
         <div className="mx-auto max-w-[1240px]">
           <Reveal className="mx-auto max-w-[680px] text-center">
             <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-primary">
-              Choose your tier
+              Choose your session
             </span>
             <h2 className="mt-4 font-serif text-[clamp(26px,3.2vw,36px)] font-medium leading-[1.14] tracking-tight text-foreground">
-              From the full accelerator to a done-for-you experience
+              Buy the full framework, or just the phase you need
             </h2>
-            <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground">
-              Register your interest now to see full pricing per tier and
-              secure your spot in Cohort 2.
+            <p className="mt-4 text-[15px] leading-relaxed text-foreground/70">
+              Get all three phases and a free LinkedIn headshot with the
+              Program Bundle, or register for the single session that
+              matches exactly where you&rsquo;re stuck.
             </p>
           </Reveal>
-          <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-3">
-            {TIERS.map((tier, i) => (
-              <Reveal key={tier.name} delay={i * 0.08}>
+          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {SESSION_OFFERS.map((offer, i) => (
+              <Reveal key={offer.name} delay={i * 0.08}>
                 <div
                   className={cn(
                     "flex h-full flex-col rounded-[28px] border p-7 md:p-8",
-                    tier.highlight
+                    offer.highlight
                       ? "border-primary bg-primary text-primary-foreground shadow-[0_30px_60px_-24px_rgba(84,72,240,0.5)]"
                       : "border-border bg-background",
                   )}
                 >
                   <Badge
-                    variant={tier.highlight ? "default" : "soft"}
+                    variant={offer.highlight ? "default" : "soft"}
                     className={cn(
-                      "w-fit",
-                      tier.highlight && "bg-white/15 text-white",
+                      "w-fit text-[15px]",
+                      offer.highlight && "bg-white/15 text-white",
                     )}
                   >
-                    {tier.tagline}
+                    {offer.tagline}
                   </Badge>
                   <h3
                     className={cn(
                       "mt-5 font-serif text-2xl font-medium",
-                      tier.highlight ? "text-white" : "text-foreground",
+                      offer.highlight ? "text-white" : "text-foreground",
                     )}
                   >
-                    {tier.name}
+                    {offer.name}
                   </h3>
                   <div
                     className={cn(
-                      "mt-6 flex flex-1 flex-col gap-3 border-t pt-6",
-                      tier.highlight ? "border-white/20" : "border-border",
+                      "mt-2 text-2xl font-bold",
+                      offer.highlight ? "text-white" : "text-primary",
                     )}
                   >
-                    {tier.features.map((f) => (
+                    {offer.price}
+                  </div>
+                  <div
+                    className={cn(
+                      "mt-6 flex flex-1 flex-col gap-3 border-t pt-6",
+                      offer.highlight ? "border-white/20" : "border-border",
+                    )}
+                  >
+                    {offer.features.map((f) => (
                       <div
                         key={f}
                         className="flex items-start gap-2.5 text-[14px]"
@@ -1032,12 +1148,12 @@ export default function CareerClinicPage() {
                           weight="fill"
                           className={cn(
                             "mt-0.5 shrink-0",
-                            tier.highlight ? "text-white" : "text-primary",
+                            offer.highlight ? "text-white" : "text-primary",
                           )}
                         />
                         <span
                           className={
-                            tier.highlight
+                            offer.highlight
                               ? "text-white/90"
                               : "text-foreground/85"
                           }
@@ -1049,12 +1165,12 @@ export default function CareerClinicPage() {
                   </div>
                   <Button
                     asChild
-                    variant={tier.highlight ? "white" : "outline"}
+                    variant={offer.highlight ? "white" : "outline"}
                     size="lg"
                     className="mt-8 w-full"
                   >
-                    <a href={WAITLIST_HREF}>
-                      Join the Waitlist
+                    <a href={offer.href} target="_blank" rel="noopener">
+                      Register Here
                       <ArrowRight size={17} weight="bold" />
                     </a>
                   </Button>
@@ -1075,7 +1191,7 @@ export default function CareerClinicPage() {
             <h2 className="mt-4 font-serif text-[clamp(26px,3.2vw,36px)] font-medium leading-[1.14] tracking-tight text-foreground">
               Hear it from our graduates
             </h2>
-            <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground">
+            <p className="mt-4 text-[15px] leading-relaxed text-foreground/70">
               Real stories from professionals who went through Career
               Clinic, in their own words.
             </p>
@@ -1173,7 +1289,7 @@ export default function CareerClinicPage() {
         </div>
       </section>
 
-      {/* COMMUNITY BBQ */}
+      {/* WEBINAR */}
       <section className="px-5 py-12 sm:px-8 md:py-16">
         <div className="mx-auto grid max-w-[1240px] items-center gap-14 lg:grid-cols-2 lg:gap-16">
           <Reveal
@@ -1192,35 +1308,36 @@ export default function CareerClinicPage() {
           </Reveal>
           <Reveal blur delay={0.1}>
             <span className="inline-flex items-center gap-1.5 text-[13px] font-bold uppercase tracking-[0.14em] text-primary">
-              <ForkKnife size={15} weight="bold" />
-              Meet us first
+              <VideoCamera size={15} weight="bold" />
+              See it before you buy
             </span>
             <h2 className="mt-4 font-serif text-[clamp(26px,3.2vw,36px)] font-medium text-foreground">
-              Community BBQ
+              Free Career Clinic Webinar
             </h2>
-            <p className="mt-4 max-w-[52ch] text-[15.5px] leading-relaxed text-muted-foreground">
-              Come meet the mentors and recruiters behind Career Clinic in
-              person, ask questions, and decide for yourself.
+            <p className="mt-4 max-w-[52ch] text-[15.5px] leading-relaxed text-foreground/70">
+              Before you invest, come see exactly what Career Clinic
+              teaches. We&rsquo;ll pressure-test the framework live, answer
+              your specific questions, and walk through a real demo of
+              what you&rsquo;d be buying, so you can decide for yourself.
             </p>
             <div className="mt-6 flex flex-col gap-3">
               <div className="flex items-center gap-2.5 text-[14.5px] font-medium text-foreground">
                 <CalendarBlank size={18} className="shrink-0 text-primary" />
-                Saturday, August 22
+                September 5 &amp; September 12, 2026
               </div>
               <div className="flex items-center gap-2.5 text-[14.5px] font-medium text-foreground">
                 <Clock size={18} className="shrink-0 text-primary" />
-                90&ndash;120 minutes &middot; food, a short talk, and a
-                fireside chat with mentors and recruiters
+                60 minutes &middot; program walkthrough, live demo and Q&amp;A
               </div>
               <div className="flex items-center gap-2.5 text-[14.5px] font-medium text-foreground">
                 <MapPin size={18} className="shrink-0 text-primary" />
-                A partner venue in Calgary &middot; capped at 30&ndash;50
-                guests
+                Hosted online &middot; the link is emailed after you
+                register
               </div>
             </div>
             <Button asChild size="lg" className="mt-8">
               <a href={WAITLIST_HREF}>
-                RSVP for the BBQ
+                Register for the Webinar
                 <ArrowUpRight size={17} weight="bold" />
               </a>
             </Button>
@@ -1240,11 +1357,11 @@ export default function CareerClinicPage() {
               Stop building your Canadian career alone
             </h2>
             <p className="mx-auto mt-4 max-w-[480px] text-[15.5px] leading-relaxed text-white/90">
-              Cohort 2 launches September 12, spots are limited.
+              Cohort 2 launches September 19, spots are limited.
             </p>
             <Button asChild size="lg" className="mt-8">
-              <a href={WAITLIST_HREF}>
-                Join the Waitlist
+              <a href="#sessions">
+                Register Here
                 <ArrowRight size={17} weight="bold" />
               </a>
             </Button>

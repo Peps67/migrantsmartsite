@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 type CountdownTimerProps = {
   targetDate: string;
   className?: string;
+  variant?: "dark" | "light";
 };
 
 type TimeLeft = { days: number; hours: number; minutes: number; seconds: number };
@@ -28,6 +29,7 @@ const INITIAL: TimeLeft = { days: 0, hours: 0, minutes: 0, seconds: 0 };
 export default function CountdownTimer({
   targetDate,
   className,
+  variant = "dark",
 }: CountdownTimerProps) {
   const target = new Date(targetDate).getTime();
   const [timeLeft, setTimeLeft] = useState<TimeLeft>(INITIAL);
@@ -51,12 +53,27 @@ export default function CountdownTimer({
       {UNITS.map((u) => (
         <div
           key={u.label}
-          className="flex w-14 flex-col items-center rounded-2xl border border-white/15 bg-white/5 py-3 backdrop-blur-sm sm:w-16"
+          className={cn(
+            "flex w-14 flex-col items-center rounded-2xl border py-3 backdrop-blur-sm sm:w-16",
+            variant === "light"
+              ? "border-white/60 bg-white shadow-[0_10px_24px_-8px_rgba(23,23,31,0.35)]"
+              : "border-white/15 bg-white/5",
+          )}
         >
-          <span className="font-serif text-2xl font-medium tabular-nums text-white sm:text-3xl">
+          <span
+            className={cn(
+              "font-serif text-2xl font-medium tabular-nums sm:text-3xl",
+              variant === "light" ? "text-primary" : "text-white",
+            )}
+          >
             {String(u.value).padStart(2, "0")}
           </span>
-          <span className="mt-1 text-[10px] font-bold uppercase tracking-[0.1em] text-white/50">
+          <span
+            className={cn(
+              "mt-1 text-[10px] font-bold uppercase tracking-[0.1em]",
+              variant === "light" ? "text-foreground/50" : "text-white/50",
+            )}
+          >
             {u.label}
           </span>
         </div>

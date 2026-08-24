@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import createGlobe from "cobe";
+import { gsap } from "gsap";
 import Image from "next/image";
 
 import { useWebglSupported } from "@/lib/useWebglSupported";
@@ -41,8 +42,8 @@ const NODES: Node[] = [
   },
   {
     id: "us",
-    lat: -6,
-    lng: -85,
+    lat: 29.7604,
+    lng: -95.3698,
     country: "United States",
     code: "us",
     avatar: "https://randomuser.me/api/portraits/women/30.jpg",
@@ -61,7 +62,9 @@ const NODES: Node[] = [
 
 const HUB = { id: "hub", lat: 13, lng: -38 };
 
-const INITIAL_PHI = 5.4;
+// The angle the loop opens and closes on. Rotation runs a full turn from here
+// and lands back on it, so intro and exit always play against this same frame.
+const PHI = 5.4;
 const THETA = 0.28;
 
 const GLOBE_RADIUS = 0.8;
@@ -71,7 +74,27 @@ const ARC_SAMPLES = 72;
 const SILHOUETTE_SQ = 0.64;
 
 const SETTLE_MS = 2500;
-const AUTO_ROTATE_SPEED = 0.005;
+
+// Matches the old dash pattern this replaces: strokeWidth 12 gave a ~12-unit
+// round dot, strokeDasharray "0.5 15" repeated every 15.5 units.
+const DOT_SPACING = 15.5;
+const DOT_RADIUS = 6;
+
+const AVATARS_IN = 0.55;
+const LINE_DRAW = 0.9;
+const DOT_POP = 0.3;
+const HUB_DROP = 0.9;
+
+// How long the assembled state (dots + hub) holds before it tears down again.
+const HOLD_ASSEMBLED = 1.4;
+
+const HUB_EXIT = 0.5;
+const LINE_RETRACT = 0.7;
+const DOT_FADE = 0.25;
+
+const ROTATE_HOLD = 0.3;
+const ROTATE_DURATION = 21;
+const POST_ROTATE_PAUSE = 0.25;
 
 type Vec3 = [number, number, number];
 
@@ -99,7 +122,14 @@ function project(v: Vec3, phi: number, theta: number) {
   };
 }
 
-function arcPath(node: Node, phi: number, theta: number): string {
+type Dot = { x: number; y: number };
+
+// Screen positions for one line's dots, spaced evenly by arc length.
+// Resampling by distance rather than by bezier parameter matters: even
+// t-steps bunch up where the curve foreshortens near the globe's edge, which
+// would make spacing visibly uneven. Dots only ever render while the globe is
+// parked at PHI, so a single solve at that angle is all that's needed.
+function arcDots(node: Node, phi: number, theta: number): Dot[] {
   const from = toVec3(node.lat, node.lng);
   const to = toVec3(HUB.lat, HUB.lng);
 
@@ -116,9 +146,7 @@ function arcPath(node: Node, phi: number, theta: number): string {
     (sum[2] / len) * ctrlScale,
   ];
 
-  let d = "";
-  let drawing = false;
-
+  const samples: Array<Dot & { visible: boolean }> = [];
   for (let i = 0; i <= ARC_SAMPLES; i++) {
     const t = i / ARC_SAMPLES;
     const u = 1 - t;
@@ -129,26 +157,46 @@ function arcPath(node: Node, phi: number, theta: number): string {
     ];
 
     const { x, y, visible } = project(point, phi, theta);
-    if (!visible) {
-      drawing = false;
-      continue;
-    }
-
-    const px = (x * 1000).toFixed(2);
-    const py = (y * 1000).toFixed(2);
-    d += `${drawing ? "L" : "M"}${px} ${py}`;
-    drawing = true;
+    samples.push({ x: x * 1000, y: y * 1000, visible });
   }
 
-  return d;
+  const dots: Dot[] = [];
+  let untilNext = 0;
+
+  for (let i = 0; i < samples.length - 1; i++) {
+    const a = samples[i];
+    const b = samples[i + 1];
+    if (!a.visible || !b.visible) continue;
+
+    const dx = b.x - a.x;
+    const dy = b.y - a.y;
+    const segment = Math.hypot(dx, dy);
+    if (segment === 0) continue;
+
+    let pos = untilNext;
+    while (pos <= segment) {
+      const r = pos / segment;
+      dots.push({ x: a.x + dx * r, y: a.y + dy * r });
+      pos += DOT_SPACING;
+    }
+    untilNext = pos - segment;
+  }
+
+  return dots;
 }
+
+// Solved once at module load and never recomputed: the dots are only ever on
+// screen while the globe is parked at PHI. Safe to evaluate during SSR.
+const ARC_DOTS: Record<string, Dot[]> = Object.fromEntries(
+  NODES.map((node) => [node.id, arcDots(node, PHI, THETA)]),
+);
 
 export function GlobeConnections({ className }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
-  const pathRefs = useRef<Record<string, SVGPathElement | null>>({});
-  const phiRef = useRef(INITIAL_PHI);
-  const pointerInteracting = useRef<number | null>(null);
+  const avatarRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const dotGroupRefs = useRef<Record<string, SVGGElement | null>>({});
+  const hubRef = useRef<HTMLDivElement>(null);
   const webglSupported = useWebglSupported();
   const [reduceMotion, setReduceMotion] = useState(false);
 
@@ -169,14 +217,7 @@ export function GlobeConnections({ className }: { className?: string }) {
     let width = wrap.offsetWidth;
     let raf = 0;
     let stopped = false;
-    let lastPhi = Number.NaN;
     const start = performance.now();
-
-    const drawArcs = (phi: number) => {
-      for (const node of NODES) {
-        pathRefs.current[node.id]?.setAttribute("d", arcPath(node, phi, THETA));
-      }
-    };
 
     let globe: ReturnType<typeof createGlobe>;
     try {
@@ -184,7 +225,7 @@ export function GlobeConnections({ className }: { className?: string }) {
         devicePixelRatio: Math.min(window.devicePixelRatio || 1, 2),
         width: width * 2,
         height: width * 2,
-        phi: phiRef.current,
+        phi: PHI,
         theta: THETA,
         dark: 0,
         diffuse: 1.2,
@@ -210,21 +251,18 @@ export function GlobeConnections({ className }: { className?: string }) {
       return;
     }
 
+    // cobe decodes its map texture asynchronously and only paints inside
+    // update(). Nothing drives a frame while the globe is parked, so this
+    // keeps calling update() long enough for the frame after the texture
+    // decodes to actually get painted, then stops.
     const tick = () => {
       if (stopped) return;
-      if (pointerInteracting.current === null && !reduceMotion) {
-        phiRef.current += AUTO_ROTATE_SPEED;
+      globe.update({ phi: PHI, theta: THETA });
+      if (performance.now() - start < SETTLE_MS) {
+        raf = requestAnimationFrame(tick);
       }
-      const settling = performance.now() - start < SETTLE_MS;
-      if (settling || phiRef.current !== lastPhi) {
-        lastPhi = phiRef.current;
-        globe.update({ phi: phiRef.current, theta: THETA });
-        drawArcs(phiRef.current);
-      }
-      raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
-    drawArcs(phiRef.current);
 
     const resizeObserver = new ResizeObserver(() => {
       const next = wrap.offsetWidth;
@@ -235,10 +273,137 @@ export function GlobeConnections({ className }: { className?: string }) {
     });
     resizeObserver.observe(wrap);
 
+    const avatarEls = NODES.map((n) => avatarRefs.current[n.id]).filter(
+      (el): el is HTMLDivElement => el !== null,
+    );
+    const dotSets = NODES.map((n) => {
+      const group = dotGroupRefs.current[n.id];
+      return group ? Array.from(group.children) : [];
+    });
+    const hubEl = hubRef.current;
+
+    let ctx: gsap.Context | undefined;
+    let visibility: IntersectionObserver | undefined;
+
+    if (hubEl && avatarEls.length === NODES.length) {
+      ctx = gsap.context(() => {
+        const allDots = dotSets.flat();
+
+        if (reduceMotion) {
+          gsap.set(avatarEls, { opacity: 1, scale: 1 });
+          gsap.set(allDots, { opacity: 1, scale: 1 });
+          gsap.set(hubEl, { opacity: 1, yPercent: 0 });
+          return;
+        }
+
+        // Avatars and flags are the one layer that never leaves — they fade
+        // in once and then ride the globe for good, so they sit outside the
+        // repeating timeline.
+        gsap.fromTo(
+          avatarEls,
+          { opacity: 0, scale: 0.5 },
+          { opacity: 1, scale: 1, duration: AVATARS_IN, ease: "power3.out" },
+        );
+
+        const spin = { phi: PHI };
+        const tl = gsap.timeline({
+          repeat: -1,
+          delay: AVATARS_IN,
+          repeatDelay: POST_ROTATE_PAUSE,
+        });
+
+        // One tween per line, all starting together. `amount` spreads a fixed
+        // total across however many dots that line has, so lines of different
+        // lengths still land on the hub at the same moment — which is what
+        // reads as "converging". `each` would not.
+        dotSets.forEach((dots, i) => {
+          if (!dots.length) return;
+          tl.fromTo(
+            dots,
+            { opacity: 0, scale: 0 },
+            {
+              opacity: 1,
+              scale: 1,
+              duration: DOT_POP,
+              ease: "back.out(1.7)",
+              stagger: { amount: LINE_DRAW },
+            },
+            i === 0 ? 0 : "<",
+          );
+        });
+
+        tl.fromTo(
+          hubEl,
+          { opacity: 0, yPercent: -60 },
+          {
+            opacity: 1,
+            yPercent: 0,
+            duration: HUB_DROP,
+            ease: "elastic.out(1, 0.8)",
+          },
+          "-=0.1",
+        );
+
+        // Teardown mirrors the intro: hub leaves the way it arrived, then the
+        // dots retract from the hub back toward each flag.
+        tl.to(
+          hubEl,
+          {
+            opacity: 0,
+            yPercent: -60,
+            duration: HUB_EXIT,
+            ease: "back.in(1.6)",
+          },
+          `+=${HOLD_ASSEMBLED}`,
+        );
+
+        dotSets.forEach((dots, i) => {
+          if (!dots.length) return;
+          tl.to(
+            dots,
+            {
+              opacity: 0,
+              scale: 0,
+              duration: DOT_FADE,
+              ease: "power2.in",
+              stagger: { amount: LINE_RETRACT, from: "end" },
+            },
+            i === 0 ? "-=0.15" : "<",
+          );
+        });
+
+        // A full turn with only the avatars aboard, landing back on PHI so the
+        // next assembly plays against the exact frame this one did. Nothing
+        // but cobe needs a frame here — the dots are hidden and never move.
+        tl.fromTo(
+          spin,
+          { phi: PHI },
+          {
+            phi: PHI + Math.PI * 2,
+            duration: ROTATE_DURATION,
+            ease: "none",
+            onUpdate: () => globe.update({ phi: spin.phi, theta: THETA }),
+          },
+          `+=${ROTATE_HOLD}`,
+        );
+
+        visibility = new IntersectionObserver(
+          ([entry]) => {
+            if (entry.isIntersecting) tl.play();
+            else tl.pause();
+          },
+          { threshold: 0 },
+        );
+        visibility.observe(wrap);
+      }, wrapRef);
+    }
+
     return () => {
       stopped = true;
       cancelAnimationFrame(raf);
       resizeObserver.disconnect();
+      visibility?.disconnect();
+      ctx?.revert();
       globe.destroy();
     };
   }, [webglSupported, reduceMotion]);
@@ -248,32 +413,9 @@ export function GlobeConnections({ className }: { className?: string }) {
   return (
     <div
       ref={wrapRef}
-      className={cx("relative aspect-square w-full", className)}
+      className={cx("@container relative aspect-square w-full", className)}
     >
-      <canvas
-        ref={canvasRef}
-        onPointerDown={(e) => {
-          pointerInteracting.current = e.clientX;
-          e.currentTarget.style.cursor = "grabbing";
-          e.currentTarget.setPointerCapture(e.pointerId);
-        }}
-        onPointerUp={(e) => {
-          pointerInteracting.current = null;
-          e.currentTarget.style.cursor = "grab";
-        }}
-        onPointerCancel={(e) => {
-          pointerInteracting.current = null;
-          e.currentTarget.style.cursor = "grab";
-        }}
-        onPointerMove={(e) => {
-          if (pointerInteracting.current !== null) {
-            const delta = e.clientX - pointerInteracting.current;
-            pointerInteracting.current = e.clientX;
-            phiRef.current += delta / 200;
-          }
-        }}
-        className="size-full cursor-grab touch-pan-y select-none"
-      />
+      <canvas ref={canvasRef} className="pointer-events-none size-full" />
 
       <svg
         aria-hidden
@@ -282,18 +424,23 @@ export function GlobeConnections({ className }: { className?: string }) {
         className="pointer-events-none absolute inset-0 size-full"
       >
         {NODES.map((node) => (
-          <path
+          <g
             key={node.id}
             ref={(el) => {
-              pathRefs.current[node.id] = el;
+              dotGroupRefs.current[node.id] = el;
             }}
-            fill="none"
-            stroke="var(--bright-violet, #6a4bff)"
-            strokeWidth={7}
-            strokeLinecap="round"
-            strokeDasharray="0.5 15"
-            vectorEffect="non-scaling-stroke"
-          />
+            fill="var(--bright-violet, #6a4bff)"
+          >
+            {ARC_DOTS[node.id].map((dot, i) => (
+              <circle
+                key={i}
+                cx={dot.x}
+                cy={dot.y}
+                r={DOT_RADIUS}
+                opacity={0}
+              />
+            ))}
+          </g>
         ))}
       </svg>
 
@@ -307,15 +454,17 @@ export function GlobeConnections({ className }: { className?: string }) {
             opacity: "var(--cobe-visible-hub, 0)",
           } as React.CSSProperties
         }
-        className="pointer-events-none z-10 size-14 -translate-x-[48.5%] -translate-y-full transition-[opacity] duration-300 sm:size-[68px]"
+        className="pointer-events-none z-10 size-9 -translate-x-[48.5%] -translate-y-full transition-opacity duration-300 @sm:size-12 @md:size-14 @xl:size-[68px]"
       >
-        <Image
-          src="/logo-icon.png"
-          alt="Migrant Smart"
-          width={72}
-          height={92}
-          className="size-full object-contain drop-shadow-[0_3px_10px_rgba(46,26,120,0.45)]"
-        />
+        <div ref={hubRef} className="size-full opacity-0">
+          <Image
+            src="/logo-icon.png"
+            alt="Migrant Smart"
+            width={72}
+            height={92}
+            className="size-full object-contain drop-shadow-[0_3px_10px_rgba(46,26,120,0.45)]"
+          />
+        </div>
       </div>
 
       {NODES.map((node) => (
@@ -333,8 +482,13 @@ export function GlobeConnections({ className }: { className?: string }) {
           }
           className="pointer-events-none -translate-x-1/2 -translate-y-1/2 transition-[opacity,filter] duration-300"
         >
-          <div className="relative">
-            <div className="size-14 overflow-hidden rounded-full shadow-[0_14px_32px_-8px_rgba(23,23,31,0.45)] ring-4 ring-white sm:size-[68px]">
+          <div
+            ref={(el) => {
+              avatarRefs.current[node.id] = el;
+            }}
+            className="relative opacity-0"
+          >
+            <div className="size-7 overflow-hidden rounded-full shadow-[0_14px_32px_-8px_rgba(23,23,31,0.45)] ring-2 ring-white @sm:size-9 @sm:ring-[3px] @md:size-11 @xl:size-14">
               <Image
                 src={node.avatar}
                 alt=""
@@ -345,8 +499,10 @@ export function GlobeConnections({ className }: { className?: string }) {
             </div>
             <span
               className={cx(
-                "absolute -bottom-1 block h-5 w-[27px] overflow-hidden rounded-[4px] shadow-[0_4px_12px_-2px_rgba(23,23,31,0.45)] ring-2 ring-white sm:h-6 sm:w-[33px]",
-                node.flagSide === "left" ? "-left-3" : "-right-3",
+                "absolute -bottom-0.5 block h-2.5 w-[13px] overflow-hidden rounded-[3px] shadow-[0_4px_12px_-2px_rgba(23,23,31,0.45)] ring-1 ring-white @sm:h-3 @sm:w-[16px] @md:h-4 @md:w-[21px] @md:ring-2 @xl:h-5 @xl:w-[27px]",
+                node.flagSide === "left"
+                  ? "-left-1.5 @md:-left-2.5"
+                  : "-right-1.5 @md:-right-2.5",
               )}
             >
               <Image

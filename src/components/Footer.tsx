@@ -6,9 +6,9 @@ import { Button } from "@/components/ui/button";
 import { GrainOverlay } from "@/components/GrainOverlay";
 
 const SOCIALS = [
-  { href: "https://www.linkedin.com/", label: "LinkedIn", icon: LinkedinLogo },
-  { href: "https://www.instagram.com/migrantsmart?igsh=MTM0MGtiMTkwanZ5Mg==", label: "Instagram", icon: InstagramLogo },
-  { href: "https://www.youtube.com/", label: "YouTube", icon: YoutubeLogo },
+  { href: "https://www.linkedin.com/company/migrant-smart/", label: "LinkedIn", icon: LinkedinLogo },
+  { href: "https://www.instagram.com/migrantsmart", label: "Instagram", icon: InstagramLogo },
+  { href: "https://www.youtube.com/@MigrantSmart", label: "YouTube", icon: YoutubeLogo },
 ];
 
 export default function Footer() {
@@ -46,35 +46,41 @@ export default function Footer() {
 
           <div>
             <h4 className="text-[13px] font-bold uppercase tracking-wide text-white">Explore</h4>
-            <div className="mt-4 flex flex-col gap-3">
-              <Link href="/" className="text-[14.5px] text-white/70 hover:text-white">Home</Link>
-              <Link href="/about" className="text-[14.5px] text-white/70 hover:text-white">About Us</Link>
-              <Link href="/blog" className="text-[14.5px] text-white/70 hover:text-white">Blog</Link>
+            <div className="mt-2 flex flex-col">
+              <Link href="/" className="flex min-h-11 items-center text-[14.5px] text-white/70 hover:text-white">Home</Link>
+              <Link href="/about" className="flex min-h-11 items-center text-[14.5px] text-white/70 hover:text-white">About Us</Link>
+              <span className="flex min-h-11 items-center gap-2 text-[14.5px] text-white/40">
+                Blog
+                <span className="rounded-full bg-white/10 px-2 py-0.5 text-[10.5px] font-bold tracking-[0.06em] uppercase">Soon</span>
+              </span>
             </div>
           </div>
 
           <div>
             <h4 className="text-[13px] font-bold uppercase tracking-wide text-white">Programs</h4>
-            <div className="mt-4 flex flex-col gap-3">
-              <Link href="/career-clinic" className="text-[14.5px] text-white/70 hover:text-white">Career Clinic</Link>
-              <Link href="/mastermind" className="text-[14.5px] text-white/70 hover:text-white">Mastermind</Link>
-              <Link href="/events" className="text-[14.5px] text-white/70 hover:text-white">Community Events</Link>
-              <Link href="/webinars" className="text-[14.5px] text-white/70 hover:text-white">Webinars</Link>
+            <div className="mt-2 flex flex-col">
+              <Link href="/career-clinic" className="flex min-h-11 items-center text-[14.5px] text-white/70 hover:text-white">Career Clinic</Link>
+              <Link href="/mastermind" className="flex min-h-11 items-center text-[14.5px] text-white/70 hover:text-white">Mastermind</Link>
+              <Link href="/events" className="flex min-h-11 items-center text-[14.5px] text-white/70 hover:text-white">Community Events</Link>
+              <span className="flex min-h-11 items-center gap-2 text-[14.5px] text-white/40">
+                Webinars
+                <span className="rounded-full bg-white/10 px-2 py-0.5 text-[10.5px] font-bold tracking-[0.06em] uppercase">Soon</span>
+              </span>
             </div>
           </div>
 
           <div>
             <h4 className="text-[13px] font-bold uppercase tracking-wide text-white">Get in touch</h4>
-            <div className="mt-4 flex flex-col gap-3">
-              <a href="mailto:hello@migrantsmart.ca" className="text-[14.5px] text-white/70 hover:text-white">
-                hello@migrantsmart.ca
+            <div className="mt-2 flex flex-col">
+              <a href="mailto:migrantsmart@gmail.com" className="flex min-h-11 items-center text-[14.5px] text-white/70 hover:text-white">
+                Migrantsmart@gmail.com
               </a>
-              <a href="https://chat.whatsapp.com/GZH56TFwU7D61xqFufv6pp?s=sh&p=i&mlu=4" target="_blank" rel="noopener" className="text-[14.5px] text-white/70 hover:text-white">
+              <a href="https://chat.whatsapp.com/FnDcDFhwB2jBt3PwQOMC20" target="_blank" rel="noopener" className="flex min-h-11 items-center text-[14.5px] text-white/70 hover:text-white">
                 WhatsApp Community
               </a>
             </div>
             <Button asChild variant="white" size="sm" className="mt-5">
-              <a href="https://chat.whatsapp.com/GZH56TFwU7D61xqFufv6pp?s=sh&p=i&mlu=4" target="_blank" rel="noopener">
+              <a href="https://chat.whatsapp.com/FnDcDFhwB2jBt3PwQOMC20" target="_blank" rel="noopener">
                 Join Community
                 <ArrowUpRight size={16} weight="bold" />
               </a>

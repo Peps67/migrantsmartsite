@@ -10,7 +10,7 @@ import NewsletterForm from "./NewsletterForm";
 import Reveal from "@/components/Reveal";
 
 export const metadata: Metadata = {
-  title: "Blog — Migrant Smart",
+  title: "Blog - Migrant Smart",
   description:
     "Practical playbooks and real experiences to help you navigate life, work and community in Canada.",
 };
@@ -127,12 +127,12 @@ export default function BlogPage() {
               <h2 className="mt-3 font-serif text-[clamp(22px,2.6vw,30px)] font-medium leading-[1.2] text-foreground">
                 The Canadian résumé: what recruiters here actually look for
               </h2>
-              <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">
+              <p className="mt-3 text-[15px] leading-relaxed text-foreground/70">
                 The format, the length, the phrasing, a practical breakdown of
                 how to rework the résumé that worked back home for the market
                 you&rsquo;re in now.
               </p>
-              <div className="mt-5 flex items-center gap-2 text-[13.5px] text-muted-foreground">
+              <div className="mt-5 flex items-center gap-2 text-[13.5px] text-foreground/70">
                 <span>Abigail Akpan</span>
                 <span aria-hidden>&middot;</span>
                 <span>6 min read</span>
@@ -167,10 +167,10 @@ export default function BlogPage() {
                 <h3 className="mt-2 text-[17px] font-bold leading-snug text-foreground">
                   {post.title}
                 </h3>
-                <p className="mt-2 text-[14px] leading-relaxed text-muted-foreground">
+                <p className="mt-2 text-[14px] leading-relaxed text-foreground/70">
                   {post.desc}
                 </p>
-                <div className="mt-3 text-[12.5px] text-muted-foreground">
+                <div className="mt-3 text-[12.5px] text-foreground/70">
                   {post.meta}
                 </div>
               </Link>

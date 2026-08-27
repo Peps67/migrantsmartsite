@@ -18,7 +18,7 @@ const newsreader = Newsreader({
 });
 
 export const metadata: Metadata = {
-  title: "Migrant Smart — Your Launchpad to Success in Canada",
+  title: "Migrant Smart - Your Launchpad to Success in Canada",
   description:
     "Migrant Smart helps immigrants and international students land, settle and thrive in Canada through career coaching, community, events and workshops.",
 };

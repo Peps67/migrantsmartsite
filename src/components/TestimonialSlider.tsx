@@ -11,7 +11,7 @@ import Reveal from "@/components/Reveal";
 const TESTIMONIALS = [
   {
     quote:
-      "Migrant Smart gave me the roadmap I was missing. The coaching and the community made settling into my career here so much less lonely.",
+      "Migrant Smart gave me the roadmap I was missing. The coaching and the community made settling into my career here less stressful.",
     name: "Chidi Okonkwo",
     role: "Data Analyst, Toronto, ON",
   },

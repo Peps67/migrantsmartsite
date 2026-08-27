@@ -23,7 +23,7 @@ import CalendlyBookButton from "@/components/CalendlyBookButton";
 import Reveal from "@/components/Reveal";
 
 export const metadata: Metadata = {
-  title: "Book Your 1:1 — Migrant Smart",
+  title: "Book Your 1:1 - Migrant Smart",
   description:
     "Book a private 1:1 session with Abigail Akpan, CPA and founder of Migrant Smart. Finance & settlement advice or career advice, tailored to you.",
 };
@@ -82,14 +82,14 @@ const TESTIMONIALS = [
   },
   {
     quote:
-      "I'd been stuck at the same level for four years before working with Abigail. In just two sessions, she helped me build a 'brag book' to track my weekly wins — so when appraisal time came around, I had a real record of my impact to show. That's what got me promoted.",
+      "I'd been stuck at the same level for four years before working with Abigail. In just two sessions, she helped me build a 'brag book' to track my weekly wins, so when appraisal time came around, I had a real record of my impact to show. That's what got me promoted.",
     initials: "NA",
     name: "Ngozi A.",
     role: "Career Strategy Session",
   },
   {
     quote:
-      "I met Abigail at the Next Gen conference, right when I was a fresh graduate with no idea how to approach my career. Our sessions gave me clarity on the skills I needed to build to land a job — and it worked, because I'm now an Analyst at Deloitte.",
+      "I met Abigail at the Next Gen conference, right when I was a fresh graduate with no idea how to approach my career. Our sessions gave me clarity on the skills I needed to build to land a job, and it worked, because I'm now an Analyst at Deloitte.",
     initials: "MB",
     name: "Michael B.",
     role: "Career Strategy Session",
@@ -103,7 +103,7 @@ const TESTIMONIALS = [
   },
   {
     quote:
-      "I made some rough calls on where to settle when I first migrated. After my call with Abby, I decided to move from Quebec to Edmonton after finishing school — the tips and strategy she shared made that decision so much easier.",
+      "I made some rough calls on where to settle when I first migrated. After my call with Abby, I decided to move from Quebec to Edmonton after finishing school, the tips and strategy she shared made that decision so much easier.",
     initials: "SO",
     name: "Samuel O.",
     role: "Finance & Settlement Session",
@@ -204,7 +204,7 @@ export default function Book1On1Page() {
               A safe space to talk about money and{" "}
               <em className="text-primary italic">career</em>
             </h2>
-            <p className="mt-5 max-w-[54ch] text-[15.5px] leading-relaxed text-muted-foreground">
+            <p className="mt-5 max-w-[54ch] text-[15.5px] leading-relaxed text-foreground/70">
               Every month you spend guessing costs you money, momentum and
               confidence you can&rsquo;t get back. In one focused session
               with Abigail Akpan, a Chartered Professional Accountant who
@@ -212,7 +212,7 @@ export default function Book1On1Page() {
               ground up, you get straight answers to the exact problem
               that&rsquo;s keeping you stuck.
             </p>
-            <p className="mt-4 max-w-[54ch] text-[15.5px] leading-relaxed text-muted-foreground">
+            <p className="mt-4 max-w-[54ch] text-[15.5px] leading-relaxed text-foreground/70">
               No generic advice. No jargon. No judgement. Just an honest
               conversation about your specific situation, and a plan you can
               start using the moment you walk out.
@@ -256,7 +256,7 @@ export default function Book1On1Page() {
             <h2 className="mt-4 font-serif text-[clamp(26px,3.2vw,36px)] font-medium leading-[1.14] tracking-tight text-foreground">
               Find the right session for you
             </h2>
-            <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground">
+            <p className="mt-4 text-[15px] leading-relaxed text-foreground/70">
               Three focused ways to work with Abigail directly. Pick the one
               that matches where you&rsquo;re stuck.
             </p>
@@ -281,11 +281,11 @@ export default function Book1On1Page() {
                     <span className="text-xl font-bold text-primary">
                       {session.price}
                     </span>
-                    <span className="text-[13px] text-muted-foreground">
+                    <span className="text-[13px] text-foreground/70">
                       &ndash; {session.duration}
                     </span>
                   </div>
-                  <p className="mt-3 flex-1 text-[15px] leading-relaxed text-muted-foreground">
+                  <p className="mt-3 flex-1 text-[15px] leading-relaxed text-foreground/70">
                     {session.text}
                   </p>
                   <CalendlyBookButton
@@ -331,7 +331,7 @@ export default function Book1On1Page() {
                   <h3 className="mt-5 text-[16px] font-bold text-foreground">
                     {step.title}
                   </h3>
-                  <p className="mt-2 text-[14px] leading-relaxed text-muted-foreground">
+                  <p className="mt-2 text-[14px] leading-relaxed text-foreground/70">
                     {step.text}
                   </p>
                 </Reveal>

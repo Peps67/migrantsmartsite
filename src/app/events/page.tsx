@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -13,7 +14,7 @@ import CtaBand from "@/components/CtaBand";
 import Reveal from "@/components/Reveal";
 
 export const metadata: Metadata = {
-  title: "Community Events — Migrant Smart",
+  title: "Community Events - Migrant Smart",
   description:
     "From our flagship Next Gen to summer sports and the podcast, our events turn online introductions into a real network.",
 };
@@ -60,20 +61,50 @@ const FEATURED = [
   },
 ];
 
+// The tile is a fixed size for every row, so it only ever carries a month range
+// and a year. The exact dates ride on the meta line, where they have room to be
+// precise without pushing the titles out of alignment.
+//
+// `href` is what makes a row's button live. Leave it off and the row renders a
+// flat, unclickable label instead, for anything closed or not yet open.
 const UPCOMING = [
   {
-    title: "MS Sports Summer Social",
-    desc: "Friendly games & community picnic",
+    title: "MS Sports Summer Social (June - August 2026)",
+    desc: "Bringing newcomers, immigrants, and friends together through sport, connection, and fun.",
+    months: "Jun - Aug",
+    year: "2026",
+    fullDate: null,
+    ctaLabel: "Completed",
+    href: null,
+  },
+  {
+    title: "Career Clinic (Sept 19 - Oct 3, 2026)",
+    desc: "3 week Cohort Full Career Acceleration program",
+    months: "Sep - Oct",
+    year: "2026",
+    // Dates are in the title for this one, so the meta line stays clean.
+    fullDate: null,
+    ctaLabel: "Register",
+    href: "/career-clinic",
+  },
+  {
+    title: "Next Gen",
+    desc: "Flagship community gathering, Toronto",
+    months: null,
+    year: null,
+    fullDate: null,
+    ctaLabel: "Coming soon",
+    href: null,
   },
   {
     title: "Young, Skilled & Smart, Live taping",
     desc: "Podcast recording with a live audience",
+    months: null,
+    year: null,
+    fullDate: null,
+    ctaLabel: "Coming soon",
+    href: null,
   },
-  {
-    title: "Career Clinic",
-    desc: "6-week cohort orientation & kickoff",
-  },
-  { title: "Next Gen", desc: "Flagship community gathering, Toronto" },
 ];
 
 const GALLERY_IMAGES = [
@@ -172,7 +203,7 @@ export default function EventsPage() {
                   <h3 className="mt-4 text-[19px] font-bold text-foreground">
                     {event.title}
                   </h3>
-                  <p className="mt-2 text-[14.5px] leading-relaxed text-muted-foreground">
+                  <p className="mt-2 text-[14.5px] leading-relaxed text-foreground/70">
                     {event.text}
                   </p>
                 </div>
@@ -203,33 +234,52 @@ export default function EventsPage() {
                 <Reveal key={item.title} delay={i * 0.06}>
                   <div className="flex flex-col gap-4 rounded-2xl border border-white/15 bg-white/5 p-5 backdrop-blur-sm sm:flex-row sm:items-center sm:justify-between">
                     <div className="flex items-center gap-4">
-                      <div className="flex h-14 w-16 shrink-0 flex-col items-center justify-center rounded-xl bg-white/10">
-                        <span className="text-[13px] font-bold text-white">
-                          TBA
-                        </span>
-                        <span className="text-[10px] text-white/50">
-                          Add date
-                        </span>
+                      <div className="flex h-14 w-[86px] shrink-0 flex-col items-center justify-center rounded-xl bg-white/10">
+                        {item.months ? (
+                          <>
+                            <span className="text-[12.5px] font-bold whitespace-nowrap text-white uppercase">
+                              {item.months}
+                            </span>
+                            <span className="text-[11.5px] whitespace-nowrap text-white/50">
+                              {item.year}
+                            </span>
+                          </>
+                        ) : (
+                          <span className="text-[12.5px] font-bold text-white uppercase">
+                            TBA
+                          </span>
+                        )}
                       </div>
                       <div>
                         <div className="text-[15px] font-bold text-white">
                           {item.title}
                         </div>
                         <div className="text-[13.5px] text-white/60">
+                          {item.fullDate ? `${item.fullDate} · ` : ""}
                           {item.desc}
                         </div>
                       </div>
                     </div>
-                    <Button
-                      asChild
-                      variant="outline"
-                      size="sm"
-                      className="border-white/15 text-white hover:border-brand-light hover:text-brand-light"
-                    >
-                      <a href="https://lu.ma/" target="_blank" rel="noopener">
-                        Register
-                      </a>
-                    </Button>
+                    {item.href ? (
+                      <Button
+                        asChild
+                        variant="outline"
+                        size="sm"
+                        className="shrink-0 border-white/15 text-white hover:border-brand-light hover:text-brand-light"
+                      >
+                        {item.href.startsWith("/") ? (
+                          <Link href={item.href}>{item.ctaLabel}</Link>
+                        ) : (
+                          <a href={item.href} target="_blank" rel="noopener">
+                            {item.ctaLabel}
+                          </a>
+                        )}
+                      </Button>
+                    ) : (
+                      <span className="inline-flex h-[46px] shrink-0 items-center justify-center rounded-full border border-white/15 px-5.5 text-sm font-bold whitespace-nowrap text-white/45">
+                        {item.ctaLabel}
+                      </span>
+                    )}
                   </div>
                 </Reveal>
               ))}

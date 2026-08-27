@@ -5,7 +5,6 @@ import {
   CheckCircle,
   YoutubeLogo,
   Play,
-  Sparkle,
   CalendarBlank,
   Clock,
   MapPin,
@@ -22,42 +21,38 @@ import TestimonialSlider from "@/components/TestimonialSlider";
 import TiltedCard from "@/components/reactbits/TiltedCard";
 import YouTubeThumbnail from "@/components/YouTubeThumbnail";
 import { ParallaxY } from "@/components/ParallaxY";
-import CountdownTimer from "@/components/CountdownTimer";
 import HeroReveal from "./HeroReveal";
 import Reveal from "@/components/Reveal";
 
 const FOUNDER_POINTS = [
   "Host of the Career Clinic program",
-  "Leads a 3,000+ strong newcomer community",
-];
-
-// 9:00 AM MT on Sep 19, 2026 — Career Clinic Cohort 2 kicks off.
-const CAREER_CLINIC_LAUNCH_ISO = "2026-09-19T15:00:00Z";
-
-const CAREER_CLINIC_DETAILS = [
-  { icon: CalendarBlank, label: "Date", value: "Sep 19 – Oct 3, 2026" },
-  { icon: Clock, label: "Time", value: "11:00AM – 2:00PM" },
-  { icon: MapPin, label: "Location", value: "The Platform Calgary" },
+  "Leads a 3,000+ community of professionals",
 ];
 
 export default function Home() {
   return (
     <div>
       {/* HERO */}
-      <section className="relative flex flex-col justify-center overflow-hidden rounded-t-[2.25rem] bg-[#f8f7fd] px-5 py-10 sm:rounded-t-[3rem] sm:px-8 md:py-14">
+      <section className="relative flex flex-col justify-center overflow-hidden rounded-t-[2.25rem] bg-[#f8f7fd] px-5 pt-8 pb-6 sm:rounded-t-[3rem] sm:px-8 md:pt-9 md:pb-8">
         <GrainOverlay />
-        <div className="relative mx-auto grid max-w-[1100px] items-center gap-8 lg:grid-cols-[0.8fr_1fr] lg:gap-8">
+        <div className="relative mx-auto grid max-w-[1440px] items-center gap-8 lg:grid-cols-[0.8fr_1fr] lg:gap-8">
           <div className="lg:-mt-11">
+            <HeroReveal>
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-black/10 bg-black/5 px-3.5 py-1.5 text-[11.5px] font-bold tracking-[0.08em] text-foreground uppercase backdrop-blur-sm">
+                For immigrants building their future in Canada
+              </span>
+            </HeroReveal>
             <BlurText
               text="Your launchpad to success in Canada"
-              className="max-w-[16ch] font-serif text-[clamp(38px,5.4vw,76px)] font-medium leading-[1.05] tracking-tight text-[#17171f] [&>span:nth-child(4)]:text-primary [&>span:nth-child(4)]:italic"
+              className="mt-4 max-w-[16ch] font-serif text-[clamp(38px,5.4vw,76px)] font-medium leading-[1.05] tracking-tight text-[#17171f] [&>span:nth-child(4)]:text-primary [&>span:nth-child(4)]:italic"
               delay={90}
               stepDuration={0.3}
             />
             <HeroReveal delay={0.9}>
               <p className="mt-4 max-w-[46ch] text-[17px] leading-relaxed text-[#17171f]/70 sm:text-lg md:text-[19px]">
-                Career coaching, a driven community and practical workshops to
-                help you land, settle and thrive in Canada.
+                Migrant Smart connects you with the people, information, and
+                opportunities you need to build your career, business, and
+                life in Canada, faster.
               </p>
             </HeroReveal>
             <HeroReveal
@@ -65,7 +60,7 @@ export default function Home() {
               className="mt-7 flex flex-wrap items-center gap-5"
             >
               <a
-                href="https://chat.whatsapp.com/GZH56TFwU7D61xqFufv6pp?s=sh&p=i&mlu=4"
+                href="https://chat.whatsapp.com/FnDcDFhwB2jBt3PwQOMC20"
                 target="_blank"
                 rel="noopener"
                 className="group flex items-center gap-3 rounded-full bg-primary py-3.5 pr-3.5 pl-7 text-[15.5px] font-bold text-white shadow-[0_20px_40px_-16px_rgba(84,72,240,0.45)] transition-transform duration-300 hover:-translate-y-0.5 active:scale-[0.97]"
@@ -90,75 +85,44 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CAREER CLINIC COUNTDOWN STRIP */}
+      {/* CAREER CLINIC STRIP */}
       <section className="relative z-10 px-5 sm:px-8">
-        <Reveal
-          blur
-          className="relative mx-auto -mt-10 max-w-[1040px] overflow-hidden rounded-[2rem] bg-[#5343EB] px-6 py-6 shadow-[0_30px_70px_-24px_rgba(84,72,240,0.55)] sm:-mt-12 sm:rounded-[2.5rem] sm:px-9 sm:py-7"
-        >
-          <GrainOverlay />
-          <div className="relative flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between lg:gap-6">
-            <div className="text-center lg:text-left">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1 text-[11px] font-bold tracking-[0.1em] text-primary uppercase shadow-[0_8px_20px_-8px_rgba(23,23,31,0.35)]">
-                <Sparkle size={12} weight="fill" />
-                Countdown to Career Clinic Cohort 2
-              </span>
-              <div className="mt-4 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
-                <CountdownTimer
-                  targetDate={CAREER_CLINIC_LAUNCH_ISO}
-                  variant="light"
-                  className="justify-center lg:justify-start"
-                />
-              </div>
-            </div>
-
-            <div className="hidden h-16 w-px shrink-0 bg-white/15 lg:block" />
-            <div className="block h-px w-full bg-white/15 lg:hidden" />
-
-            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-4 lg:shrink-0 lg:items-start">
-              {CAREER_CLINIC_DETAILS.map((detail, i) => (
-                <div key={detail.label} className="flex items-center gap-x-6">
-                  {i > 0 && (
-                    <span className="hidden h-9 w-px shrink-0 bg-white/15 sm:block" />
-                  )}
-                  <div className="flex flex-col items-start gap-3">
-                    <div className="flex items-center gap-2.5">
-                      <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-white/10 text-white">
-                        <detail.icon size={16} weight="bold" />
-                      </span>
-                      <div className="text-left">
-                        <div className="text-[10px] font-bold tracking-[0.1em] text-white/55 uppercase">
-                          {detail.label}
-                        </div>
-                        <div className="text-[13px] font-bold whitespace-nowrap text-white">
-                          {detail.value}
-                        </div>
-                      </div>
-                    </div>
-                    {i === 2 && (
-                      <Button
-                        asChild
-                        variant="white"
-                        size="sm"
-                        className="w-full"
-                      >
-                        <Link href="/career-clinic">
-                          Register Here
-                          <ArrowRight size={16} weight="bold" />
-                        </Link>
-                      </Button>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+        {/* One line from sm up. On phones the row is ~920px of content in a
+            ~330px box, so it wraps into a card instead of hiding most of
+            itself behind a scroll with no affordance. */}
+        <Reveal className="mx-auto -mt-6 flex max-w-[1100px] flex-wrap items-center gap-x-4 gap-y-2 rounded-[26px] border border-border bg-background/95 px-5 py-3.5 text-left whitespace-nowrap shadow-[0_20px_50px_-24px_rgba(23,23,31,0.25)] backdrop-blur-xl sm:flex-nowrap sm:overflow-x-auto sm:rounded-full sm:px-8">
+          <span className="shrink-0 rounded-full bg-primary/10 px-3 py-1.5 text-[12px] font-bold tracking-[0.1em] text-primary uppercase">
+            Upcoming
+          </span>
+          <span className="shrink-0 text-[16px] font-bold text-foreground">
+            Career Clinic - Cohort 2
+          </span>
+          <span className="flex shrink-0 items-center gap-1.5 text-[15px] text-foreground/70">
+            <CalendarBlank size={16} weight="bold" className="shrink-0 text-primary/70" />
+            Sept 19 &ndash; Oct 3
+          </span>
+          <span className="flex shrink-0 items-center gap-1.5 text-[15px] text-foreground/70">
+            <Clock size={16} weight="bold" className="shrink-0 text-primary/70" />
+            11:00am to 2:00pm
+          </span>
+          <span className="flex shrink-0 items-center gap-1.5 text-[15px] text-foreground/70">
+            <MapPin size={16} weight="bold" className="shrink-0 text-primary/70" />
+            The Platform Calgary
+          </span>
+          <Link
+            href="/career-clinic"
+            // -my-2.5 keeps the padded hit area from growing the strip itself.
+            className="-my-2.5 ml-auto flex shrink-0 items-center gap-1.5 py-2.5 text-[16px] font-bold text-primary"
+          >
+            Register
+            <ArrowRight size={16} weight="bold" />
+          </Link>
         </Reveal>
       </section>
 
       {/* ABOUT / MISSION */}
       <section id="about" className="px-5 py-9 sm:px-8 md:py-12">
-        <div className="mx-auto grid max-w-[1100px] items-center gap-14 lg:grid-cols-2 lg:gap-16">
+        <div className="mx-auto grid max-w-[1240px] items-center gap-14 lg:grid-cols-2 lg:gap-16">
           <Reveal blur>
             <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-primary">
               Our Mission
@@ -168,7 +132,7 @@ export default function Home() {
               <em className="text-primary italic">smart</em>, supported and
               successful.
             </h2>
-            <p className="mt-6 max-w-[52ch] text-[16px] leading-relaxed text-muted-foreground">
+            <p className="mt-6 max-w-[52ch] text-[16px] leading-relaxed text-foreground/70">
               We exist to close the gap between arriving in Canada and building
               a life you&rsquo;re proud of, replacing guesswork with guidance,
               and isolation with a community that has your back.
@@ -189,19 +153,18 @@ export default function Home() {
               <h3 className="font-serif text-xl font-medium text-foreground">
                 About Migrant Smart
               </h3>
-              <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground">
-                Migrant Smart is a community-first platform helping immigrants
-                and international students navigate life in Canada with
-                confidence. From career readiness and mentorship to events and
-                orientation workshops, we bring the people, tools and know-how
-                of settling into one place.
+              <p className="mt-4 text-[15px] leading-relaxed text-foreground/70">
+                Migrant Smart was built to connect immigrants with real
+                people, practical information, and opportunities to help
+                shorten the gap between arriving in Canada and building the
+                career, business, and life you deserve.
               </p>
               <div className="mt-8 grid grid-cols-3 gap-4 border-t border-border pt-6">
                 <div>
                   <div className="font-serif text-2xl font-medium text-foreground">
                     3,000+
                   </div>
-                  <div className="mt-1 text-[12.5px] text-muted-foreground">
+                  <div className="mt-1 text-[12.5px] text-foreground/70">
                     Community members
                   </div>
                 </div>
@@ -209,7 +172,7 @@ export default function Home() {
                   <div className="font-serif text-2xl font-medium text-foreground">
                     20+
                   </div>
-                  <div className="mt-1 text-[12.5px] text-muted-foreground">
+                  <div className="mt-1 text-[12.5px] text-foreground/70">
                     Events hosted
                   </div>
                 </div>
@@ -217,7 +180,7 @@ export default function Home() {
                   <div className="font-serif text-2xl font-medium text-foreground">
                     4
                   </div>
-                  <div className="mt-1 text-[12.5px] text-muted-foreground">
+                  <div className="mt-1 text-[12.5px] text-foreground/70">
                     Core programs
                   </div>
                 </div>
@@ -276,23 +239,23 @@ export default function Home() {
             <h2 className="mt-4 font-serif text-[clamp(26px,3.2vw,36px)] font-medium text-foreground">
               Abigail Akpan
             </h2>
-            <p className="mt-1 text-[15px] font-semibold text-muted-foreground">
+            <p className="mt-1 text-[15px] font-semibold text-foreground/70">
               CPA, Founder, Migrant Smart
             </p>
-            <p className="mt-5 max-w-[54ch] text-[15.5px] leading-relaxed text-muted-foreground">
+            <p className="mt-5 max-w-[54ch] text-[15.5px] leading-relaxed text-foreground/70">
               Formerly a Manager at one of the world&rsquo;s largest
               consulting firms, Abigail is a Chartered Professional Accountant
               who audited and advised large multinational organizations
               across sectors including SaaS, Oil &amp; Gas, Construction,
               Consumer Services, Manufacturing, and Non-Profits.
             </p>
-            <p className="mt-4 max-w-[54ch] text-[15.5px] leading-relaxed text-muted-foreground">
+            <p className="mt-4 max-w-[54ch] text-[15.5px] leading-relaxed text-foreground/70">
               With 8 years of experience, Abigail now provides strategic
               coaching and guidance to CPA firms across Eastern and Western
               Canada, helping them build profitable wealth management units,
               5X their valuation, and grow their revenue and client base.
             </p>
-            <p className="mt-4 max-w-[54ch] text-[15.5px] leading-relaxed text-muted-foreground">
+            <p className="mt-4 max-w-[54ch] text-[15.5px] leading-relaxed text-foreground/70">
               Alongside her industry and leadership experience, Abigail
               founded Migrant Smart, an organization built to help career and
               business professionals who&rsquo;ve relocated to Canada
@@ -317,7 +280,7 @@ export default function Home() {
             <Button asChild size="lg" className="mt-8">
               <Link href="/book-1-1">Book your 1:1</Link>
             </Button>
-            <p className="mt-4 text-[13px] text-muted-foreground">
+            <p className="mt-4 text-[13px] text-foreground/70">
               Sessions scheduled via Calendly &middot; secure payment via Stripe
             </p>
           </Reveal>
@@ -332,7 +295,7 @@ export default function Home() {
         id="documentary"
         className="overflow-hidden px-5 py-9 sm:px-8 md:py-12"
       >
-        <div className="mx-auto grid max-w-[1100px] items-center gap-14 lg:grid-cols-2 lg:gap-16">
+        <div className="mx-auto grid max-w-[1240px] items-center gap-14 lg:grid-cols-2 lg:gap-16">
           <Reveal blur>
             <Badge variant="outline" className="border-red-500/30 text-red-500">
               <YoutubeLogo size={16} weight="fill" />
@@ -342,7 +305,7 @@ export default function Home() {
               Watch{" "}
               <em className="pb-1 text-primary italic">The Keys We Carry</em>
             </h2>
-            <p className="mt-5 max-w-[52ch] text-[15.5px] leading-relaxed text-muted-foreground">
+            <p className="mt-5 max-w-[52ch] text-[15.5px] leading-relaxed text-foreground/70">
               Go behind the scenes with the real stories of migrants building
               new lives in Canada. Follow the journey, the setbacks and the
               wins, one episode at a time.
@@ -396,7 +359,7 @@ export default function Home() {
               Migrant Smart.
             </p>
             <a
-              href="https://chat.whatsapp.com/GZH56TFwU7D61xqFufv6pp?s=sh&p=i&mlu=4"
+              href="https://chat.whatsapp.com/FnDcDFhwB2jBt3PwQOMC20"
               target="_blank"
               rel="noopener"
               className="group mt-8 inline-flex items-center gap-3 rounded-full bg-white py-3.5 pr-3.5 pl-7 text-[15.5px] font-bold text-[#0b0a12] shadow-[0_24px_50px_-16px_rgba(0,0,0,0.5)] transition-transform duration-300 hover:-translate-y-0.5 active:scale-[0.97]"

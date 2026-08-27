@@ -25,7 +25,6 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import {
   Accordion,
   AccordionContent,
@@ -39,13 +38,12 @@ import Grainient from "@/components/reactbits/Grainient";
 import { GRAINIENT_PROPS } from "@/lib/grainient-theme";
 import { GrainOverlay } from "@/components/GrainOverlay";
 import CountdownTimer from "@/components/CountdownTimer";
-import VideoPlaceholder from "@/components/VideoPlaceholder";
 import { cn } from "@/lib/utils";
 import Reveal from "@/components/Reveal";
 import ScrollDrawLine from "@/components/ScrollDrawLine";
 
 export const metadata: Metadata = {
-  title: "Career Clinic — Migrant Smart",
+  title: "Career Clinic - Migrant Smart",
   description:
     "Career Clinic helps immigrant professionals understand the strategies, expectations and unwritten systems that influence career success in Canada, so they can position their experience, convert opportunities into offers, and build long-term career momentum.",
 };
@@ -84,38 +82,38 @@ const PROBLEM_STATS = [
   {
     value: "44%",
     label:
-      "of immigrants who arrived in the past decade work in jobs matching their education, versus 64% of Canadian-born workers aged 25–34.",
+      "of recent immigrants with a bachelor's degree or higher were working in occupations matching their education in 2021, compared with 64% of Canadian-born workers aged 25–34.",
   },
   {
-    value: "25–27%",
+    value: "27%",
     label:
-      "over-education rate among immigrant degree-holders, more than double the ~11% rate for Canadian-born workers with equivalent credentials.",
+      "of recent immigrants with a bachelor's degree or higher were overeducated for their occupation, more than 2× the 11% rate among Canadian-born workers aged 25–34.",
   },
   {
-    value: "$12.7–17B",
+    value: "$12.7B",
     label:
-      "lost every year to the Canadian economy from underutilized immigrant skills. A systemic, documented pattern, not a personal failing.",
+      "in potential annual earnings for immigrants lost because their education and experience were not better recognized, according to Conference Board of Canada estimates.",
   },
 ];
 
 const LEARN_PILLARS = [
   {
     number: "01",
-    tag: "Position — Get Seen",
+    tag: "Position - Get Seen",
     icon: Eye,
     title: "How Do I Make Employers Understand My Value?",
     text: "We start with a career audit, translate your experience into language Canadian employers instantly understand, and rebuild your resume and LinkedIn around outcomes, not tasks.",
   },
   {
     number: "02",
-    tag: "Convert — Get Hired",
+    tag: "Convert - Get Hired",
     icon: Handshake,
     title: "How Do I Turn Interest Into an Offer?",
     text: "You'll learn to articulate your value with evidence, prepare for interviews that assess more than your resume, and handle salary conversations, plus live mock interviews with real feedback.",
   },
   {
     number: "03",
-    tag: "Advance — Get Ahead",
+    tag: "Advance - Get Ahead",
     icon: TrendUp,
     title: "How Do I Build Career Capital and Keep Growing?",
     text: "Design your next move, build workplace fluency, earn sponsorship and relationships that speak for you, and put together the case for your next promotion.",
@@ -197,7 +195,7 @@ const HOST_STORY = [
   "Back in Nigeria, I was a first-class medical student at one of the country's top private universities. In my culture, becoming a doctor isn't just a career choice, it's the gold standard, and I was on track for it.",
   "Then an opportunity to study in Canada came up, and I took it. I wasn't desperate to leave. I simply accepted a chance to study abroad, the way anyone would. I was told the transition would be simple: switch my program from Kinesiology to Medicine once I arrived at the University of Regina, and I'd be back on track. I didn't even know what Kinesiology meant at the time.",
   "“Simple” turned out to mean something very different. It meant completing a full four-year undergraduate degree, working to save money, establishing residency, and only then applying to an intensely competitive medical school as a non-permanent resident. My seven-year plan had quietly become a fourteen-year one.",
-  "So I pivoted. First to Engineering, where I passed every exam but never felt at home. Then to Business Administration — a decision that meant telling my father, who had sacrificed so much for his future doctor daughter, that the plan had changed.",
+  "So I pivoted. First to Engineering, where I passed every exam but never felt at home. Then to Business Administration, a decision that meant telling my father, who had sacrificed so much for his future doctor daughter, that the plan had changed.",
   "Today, I'm a Chartered Accountant. I've worked at the Ministry of Finance, Great-West Life, and SaskPower, and became Manager at one of the largest accounting and consulting firms in the world by the age of 26.",
   "None of that was the path I planned. But every detour taught me something I couldn't have learned any other way.",
   "Here's what I've come to understand: the detour itself was never the problem. What cost me years wasn't a lack of ability or ambition. It was not knowing the real rules of the systems I was navigating. No one told me what “simple” actually meant until I'd already lost time finding out the hard way.",
@@ -207,7 +205,7 @@ const HOST_STORY = [
 
 const PHASES = [
   {
-    number: "01",
+    number: "1",
     title: "Position: Get Seen",
     objective: "How do I make employers understand my value?",
     items: [
@@ -220,7 +218,7 @@ const PHASES = [
       "A career gap analysis, a positioning statement, a rebuilt resume and a 90-day visibility strategy, all yours to keep.",
   },
   {
-    number: "02",
+    number: "2",
     title: "Convert: Get Hired",
     objective: "How do I turn interest, and interviews, into an offer?",
     items: [
@@ -234,7 +232,7 @@ const PHASES = [
       "An interview readiness score, a value articulation framework, mock interview feedback and a salary negotiation framework.",
   },
   {
-    number: "03",
+    number: "3",
     title: "Advance: Get Ahead",
     objective:
       "How do I build career capital and keep progressing after I get the job?",
@@ -245,8 +243,7 @@ const PHASES = [
       "Relationships and sponsorship, the people who speak for you when you're not in the room",
       "Positioning for advancement, building the case for your next promotion",
     ],
-    outcome:
-      "A 12-month career advancement roadmap, a stakeholder and sponsor map, and a promotion readiness assessment.",
+    outcome: "A 12-month career advancement roadmap.",
   },
 ];
 
@@ -329,6 +326,8 @@ const SESSION_OFFERS = [
   {
     name: "Session 1",
     tagline: "Position",
+    headline: "Get Seen",
+    blurb: "How to position your experience for better opportunities",
     price: "$87 CAD",
     features: [
       "Get seen for the right opportunities",
@@ -341,6 +340,8 @@ const SESSION_OFFERS = [
   {
     name: "Session 2",
     tagline: "Convert",
+    headline: "Get Hired",
+    blurb: "How to turn employers interests and interviews into offers",
     price: "$98 CAD",
     features: [
       "Turn employer interest and interviews into offers",
@@ -353,6 +354,8 @@ const SESSION_OFFERS = [
   {
     name: "Session 3",
     tagline: "Advance",
+    headline: "Get Ahead",
+    blurb: "How to build leverage and get ahead in your career",
     price: "$98 CAD",
     features: [
       "Build career capital and get ahead in your career",
@@ -364,14 +367,44 @@ const SESSION_OFFERS = [
   },
 ];
 
-const TESTIMONIAL_VIDEOS = [
+const DELIVERABLES = [
+  { label: "Career gap analysis", phase: "Position", includedIn: ["Position"] },
+  { label: "Positioning statement", phase: "Position", includedIn: ["Position"] },
+  { label: "Rebuilt resume", phase: "Position", includedIn: ["Position"] },
   {
-    posterSrc: "/career-clinic/hero-professionals.jpg",
-    posterAlt: "A Career Clinic cohort 2 participant, video testimonial coming soon",
+    label: "90-day visibility strategy",
+    phase: "Position",
+    includedIn: ["Position"],
   },
   {
-    posterSrc: "/career-clinic/team-collaboration.jpg",
-    posterAlt: "A Career Clinic cohort 2 participant, video testimonial coming soon",
+    label: "Interview readiness score",
+    phase: "Convert",
+    includedIn: ["Convert"],
+  },
+  {
+    label: "Value articulation framework",
+    phase: "Convert",
+    includedIn: ["Convert"],
+  },
+  {
+    label: "Live mock interview feedback",
+    phase: "Convert",
+    includedIn: ["Convert"],
+  },
+  {
+    label: "Salary negotiation framework",
+    phase: "Convert",
+    includedIn: ["Convert"],
+  },
+  {
+    label: "12-month career advancement roadmap",
+    phase: "Advance",
+    includedIn: ["Advance"],
+  },
+  {
+    label: "Free professional LinkedIn headshot",
+    phase: "Bundle exclusive",
+    includedIn: [],
   },
 ];
 
@@ -412,7 +445,7 @@ export default function CareerClinicPage() {
       {/* HERO */}
       <section className="relative flex flex-col justify-center overflow-hidden rounded-t-[2.25rem] bg-[#f8f7fd] px-5 pt-14 pb-2 sm:rounded-t-[3rem] sm:px-8">
         <GrainOverlay />
-        <div className="relative mx-auto grid max-w-[1100px] items-center gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
+        <div className="relative mx-auto grid w-full max-w-[1440px] items-center gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
           <Reveal>
             <BlurText
               text="You have the experience. Why isn't it showing?"
@@ -432,11 +465,11 @@ export default function CareerClinicPage() {
                   <Clock size={16} weight="bold" />
                 </span>
                 <div className="text-left">
-                  <div className="text-[10px] font-bold uppercase tracking-[0.1em] text-[#17171f]/50">
+                  <div className="text-[11.5px] font-bold uppercase tracking-[0.1em] text-[#17171f]/50">
                     Time
                   </div>
                   <div className="text-[13.5px] font-bold text-[#17171f]">
-                    11:00AM &ndash; 2:00PM
+                    11:00am to 2:00pm
                   </div>
                 </div>
               </div>
@@ -445,7 +478,7 @@ export default function CareerClinicPage() {
                   <CalendarBlank size={16} weight="bold" />
                 </span>
                 <div className="text-left">
-                  <div className="text-[10px] font-bold uppercase tracking-[0.1em] text-[#17171f]/50">
+                  <div className="text-[11.5px] font-bold uppercase tracking-[0.1em] text-[#17171f]/50">
                     Date
                   </div>
                   <div className="text-[13.5px] font-bold text-[#17171f]">
@@ -458,7 +491,7 @@ export default function CareerClinicPage() {
                   <MapPin size={16} weight="bold" />
                 </span>
                 <div className="text-left">
-                  <div className="text-[10px] font-bold uppercase tracking-[0.1em] text-[#17171f]/50">
+                  <div className="text-[11.5px] font-bold uppercase tracking-[0.1em] text-[#17171f]/50">
                     Location
                   </div>
                   <div className="text-[13.5px] font-bold text-[#17171f]">
@@ -466,6 +499,8 @@ export default function CareerClinicPage() {
                   </div>
                 </div>
               </div>
+            </div>
+            <div className="mt-5">
               <Button asChild size="sm">
                 <a href="#sessions">
                   Register Here
@@ -580,7 +615,7 @@ export default function CareerClinicPage() {
                   <fact.icon size={16} weight="bold" />
                 </span>
                 <div className="text-left whitespace-nowrap">
-                  <div className="text-[10.5px] font-bold uppercase tracking-[0.1em] text-primary/70">
+                  <div className="text-[11.5px] font-bold uppercase tracking-[0.1em] text-primary/70">
                     {fact.label}
                   </div>
                   <div className="text-[14px] font-bold text-foreground">
@@ -595,12 +630,14 @@ export default function CareerClinicPage() {
 
       {/* THE PROBLEM */}
       <section className="px-5 py-12 sm:px-8 md:py-16">
-        <div className="mx-auto grid max-w-[1240px] items-center gap-14 lg:grid-cols-2 lg:gap-16">
+        <div className="mx-auto grid max-w-[1240px] items-stretch gap-14 lg:grid-cols-2 lg:gap-16">
           <Reveal
             blur
-            className="relative order-2 rounded-[2rem] border border-black/10 bg-black/5 p-2 lg:order-1 dark:border-white/15 dark:bg-white/5"
+            className="relative order-2 flex flex-col rounded-[2rem] border border-black/10 bg-black/5 p-2 lg:order-1 dark:border-white/15 dark:bg-white/5"
           >
-            <div className="relative aspect-[4/3] overflow-hidden rounded-[calc(2rem-0.5rem)]">
+            {/* Fixed ratio while stacked, then stretches to whatever height the
+                copy beside it ends up being. */}
+            <div className="relative aspect-[4/3] overflow-hidden rounded-[calc(2rem-0.5rem)] lg:aspect-auto lg:flex-1">
               <Image
                 src="/career-clinic/stuck-at-desk.jpg"
                 alt="A stalled professional at their desk, capable but overlooked"
@@ -616,22 +653,45 @@ export default function CareerClinicPage() {
               <ChartLineDown size={15} weight="bold" />
               The tension
             </span>
-            <h2 className="mt-4 max-w-[20ch] font-serif text-[clamp(28px,3.6vw,42px)] font-medium leading-[1.12] tracking-tight text-foreground">
-              It&rsquo;s not that you can&rsquo;t get hired. You did.
+            <h2 className="mt-4 max-w-[22ch] font-serif text-[clamp(28px,3.6vw,42px)] font-medium leading-[1.12] tracking-tight text-foreground">
+              You have the experience. But experience alone doesn&rsquo;t
+              create opportunity.
             </h2>
-            <p className="mt-5 max-w-[54ch] text-[15.5px] leading-relaxed text-foreground/70">
-              It&rsquo;s that once you&rsquo;re inside, nobody taught you the
-              unwritten systems, how credibility, visibility and advancement
-              actually work in a Canadian workplace, so your career stalls
-              exactly where everyone assumes the hard part is over. Talent
-              alone was never going to be enough. Information, positioning,
-              relationships, workplace fluency and strategy are what create
-              leverage, and immigrant professionals shouldn&rsquo;t have to
-              diminish the experience they already have to build it.
-            </p>
+            <div className="mt-5 flex max-w-[56ch] flex-col gap-4">
+              <p className="text-[15.5px] leading-relaxed text-foreground/70">
+                You can be qualified and still struggle to get noticed. You
+                can get the interview and still walk away without the offer.
+                And even after you get the job, you can find yourself
+                overlooked when it&rsquo;s time to grow.
+              </p>
+              <p className="text-[15.5px] leading-relaxed text-foreground/70">
+                The problem isn&rsquo;t a lack of talent or ambition.
+                It&rsquo;s that experience doesn&rsquo;t automatically
+                translate across systems.
+              </p>
+              <p className="text-[15.5px] leading-relaxed text-foreground/70">
+                You need to know how to position your experience so
+                employers see its value, convert that interest into an
+                offer, and build the visibility, relationships and
+                workplace fluency that help you advance once you&rsquo;re
+                in.
+              </p>
+              <p className="text-[15.5px] font-semibold text-foreground">
+                That&rsquo;s the gap Career Clinic is built to close.
+              </p>
+            </div>
           </Reveal>
         </div>
-        <div className="mx-auto mt-14 grid max-w-[1240px] gap-5 sm:grid-cols-3">
+        <Reveal className="mx-auto mt-16 max-w-[1240px] text-center">
+          <span className="inline-flex items-center justify-center gap-1.5 text-[13px] font-bold uppercase tracking-[0.14em] text-primary">
+            <ChartLineDown size={15} weight="bold" />
+            The evidence
+          </span>
+          <h3 className="mx-auto mt-4 max-w-[24ch] font-serif text-[clamp(24px,3vw,32px)] font-medium leading-[1.14] tracking-tight text-foreground">
+            This isn&rsquo;t just your experience. The data shows a pattern.
+          </h3>
+        </Reveal>
+        <div className="mx-auto mt-8 grid max-w-[1240px] gap-5 sm:grid-cols-3">
           {PROBLEM_STATS.map((stat, i) => (
             <Reveal key={stat.value} delay={i * 0.08}>
               <SpotlightCard
@@ -661,9 +721,9 @@ export default function CareerClinicPage() {
               Position. Convert. Advance.
             </h2>
             <p className="mt-4 text-[15.5px] leading-relaxed text-foreground/70">
-              Every part of Career Clinic runs through the same three-stage
-              framework, three phases that mirror exactly how careers
-              actually move forward in Canada.
+              A practical framework for turning the experience you already
+              have into the opportunities, credibility and career momentum
+              you&rsquo;re working toward.
             </p>
           </Reveal>
           <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -943,14 +1003,16 @@ export default function CareerClinicPage() {
           <GrainOverlay />
           <div className="relative">
             <Reveal>
-              <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-white">
+              <span className="text-[15px] font-bold uppercase tracking-[0.14em] text-white">
                 The curriculum
               </span>
-              <h2 className="mt-4 max-w-[22ch] font-serif text-[clamp(26px,3.4vw,40px)] font-medium leading-[1.12] tracking-tight text-white">
-                Three phases, each solving a{" "}
-                <em className="text-white italic">different problem</em>
+              <h2 className="mt-4 max-w-[34ch] font-serif text-[clamp(26px,3.4vw,40px)] font-medium leading-[1.12] tracking-tight text-white">
+                3 sessions, each solving a{" "}
+                <em className="text-white italic">
+                  different&nbsp;problem
+                </em>
               </h2>
-              <p className="mt-4 max-w-[56ch] text-[15px] leading-relaxed text-white">
+              <p className="mt-4 max-w-[820px] text-[17px] leading-relaxed text-white">
                 This isn&rsquo;t lecture content. Every phase is built around
                 a specific problem professionals hit in their Canadian
                 career, and ends with something concrete in your hands.
@@ -976,7 +1038,7 @@ export default function CareerClinicPage() {
                       <h3 className="mt-2 text-[17px] font-bold tracking-tight text-white uppercase sm:text-[19px]">
                         {phase.title}
                       </h3>
-                      <p className="mt-3 text-[14.5px] leading-relaxed text-white">
+                      <p className="mt-3 text-[16.5px] leading-relaxed text-white">
                         <strong className="text-white">Core question:</strong>{" "}
                         {phase.objective}
                       </p>
@@ -984,14 +1046,14 @@ export default function CareerClinicPage() {
                         {phase.items.map((item) => (
                           <li
                             key={item}
-                            className="flex items-start gap-2.5 text-[14px] leading-relaxed text-white"
+                            className="flex items-start gap-2.5 text-[16.5px] leading-relaxed text-white"
                           >
                             <span className="mt-[9px] size-1 shrink-0 rounded-full bg-white/40" />
                             <span>{item}</span>
                           </li>
                         ))}
                       </ul>
-                      <p className="mt-4 text-[14px] leading-relaxed text-white">
+                      <p className="mt-4 text-[16.5px] leading-relaxed text-white">
                         <strong className="text-white">Outcome:</strong>{" "}
                         {phase.outcome}
                       </p>
@@ -1012,8 +1074,8 @@ export default function CareerClinicPage() {
               Tangible outputs
             </span>
             <h2 className="mt-4 font-serif text-[clamp(26px,3.2vw,36px)] font-medium leading-[1.14] tracking-tight text-foreground">
-              Not just a certificate, but also a toolkit for the next ten
-              years of your career.
+              Beyond a certificate, a toolkit of practical guides and
+              resources&hellip;
             </h2>
             <p className="mx-auto mt-4 max-w-[54ch] text-[15.5px] leading-relaxed text-foreground/70">
               The program ends. What you build here doesn&rsquo;t. Every
@@ -1057,23 +1119,6 @@ export default function CareerClinicPage() {
               </div>
             ))}
           </div>
-
-          <Reveal delay={0.2} className="mt-8">
-            <div className="mx-auto max-w-[900px] rounded-[28px] border border-dashed border-primary/25 bg-secondary/40 p-7 text-center md:p-9 dark:bg-surface-tint">
-              <span className="text-[12px] font-bold uppercase tracking-[0.12em] text-primary">
-                What we won&rsquo;t promise you
-              </span>
-              <p className="mx-auto mt-3 max-w-[62ch] text-[14.5px] leading-relaxed text-foreground/70">
-                We teach the skills, systems and support for advancement. We
-                don&rsquo;t guarantee a promotion, raise or new role,
-                decisions like that involve factors outside any
-                program&rsquo;s control: budget, headcount, manager
-                discretion, timing. What we can promise is everything
-                above. What you do with it is the next chapter, and
-                it&rsquo;s yours.
-              </p>
-            </div>
-          </Reveal>
         </div>
       </section>
 
@@ -1085,99 +1130,103 @@ export default function CareerClinicPage() {
         <div className="mx-auto max-w-[1240px]">
           <Reveal className="mx-auto max-w-[680px] text-center">
             <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-primary">
-              Choose your session
+              Position &rarr; Convert &rarr; Advance
             </span>
             <h2 className="mt-4 font-serif text-[clamp(26px,3.2vw,36px)] font-medium leading-[1.14] tracking-tight text-foreground">
-              Buy the full framework, or just the phase you need
+              Buy the full framework, or just the session you need
             </h2>
             <p className="mt-4 text-[15px] leading-relaxed text-foreground/70">
-              Get all three phases and a free LinkedIn headshot with the
-              Program Bundle, or register for the single session that
-              matches exactly where you&rsquo;re stuck.
+              Get all three sessions and a free LinkedIn headshot with the
+              Program Bundle, or register for the session that matches
+              exactly where you&rsquo;re stuck.
             </p>
           </Reveal>
-          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {SESSION_OFFERS.map((offer, i) => (
-              <Reveal key={offer.name} delay={i * 0.08}>
-                <div
-                  className={cn(
-                    "flex h-full flex-col rounded-[28px] border p-7 md:p-8",
-                    offer.highlight
-                      ? "border-primary bg-primary text-primary-foreground shadow-[0_30px_60px_-24px_rgba(84,72,240,0.5)]"
-                      : "border-border bg-background",
-                  )}
-                >
-                  <Badge
-                    variant={offer.highlight ? "default" : "soft"}
-                    className={cn(
-                      "w-fit text-[15px]",
-                      offer.highlight && "bg-white/15 text-white",
-                    )}
-                  >
-                    {offer.tagline}
-                  </Badge>
-                  <h3
-                    className={cn(
-                      "mt-5 font-serif text-2xl font-medium",
-                      offer.highlight ? "text-white" : "text-foreground",
-                    )}
-                  >
-                    {offer.name}
-                  </h3>
+
+          <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              ...SESSION_OFFERS.filter((o) => !o.highlight),
+              SESSION_OFFERS.find((o) => o.highlight),
+            ].map((offer, i) => {
+              if (!offer) return null;
+              const items = offer.highlight
+                ? DELIVERABLES.map((d) => d.label)
+                : DELIVERABLES.filter((d) =>
+                    d.includedIn.includes(offer.tagline),
+                  ).map((d) => d.label);
+              return (
+                <Reveal key={offer.name} delay={i * 0.06}>
                   <div
                     className={cn(
-                      "mt-2 text-2xl font-bold",
-                      offer.highlight ? "text-white" : "text-primary",
+                      "relative flex h-full flex-col rounded-[24px] border bg-background p-6 dark:bg-surface",
+                      offer.highlight
+                        ? "border-primary shadow-[0_24px_50px_-20px_rgba(84,72,240,0.35)]"
+                        : "border-border",
                     )}
                   >
-                    {offer.price}
-                  </div>
-                  <div
-                    className={cn(
-                      "mt-6 flex flex-1 flex-col gap-3 border-t pt-6",
-                      offer.highlight ? "border-white/20" : "border-border",
+                    {offer.highlight && (
+                      <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-primary px-3 py-1 text-[11.5px] font-bold tracking-[0.06em] whitespace-nowrap text-white uppercase shadow-[0_4px_10px_-4px_rgba(84,72,240,0.5)]">
+                        Most popular
+                      </span>
                     )}
-                  >
-                    {offer.features.map((f) => (
-                      <div
-                        key={f}
-                        className="flex items-start gap-2.5 text-[14px]"
-                      >
-                        <CheckCircle
-                          size={17}
-                          weight="fill"
-                          className={cn(
-                            "mt-0.5 shrink-0",
-                            offer.highlight ? "text-white" : "text-primary",
-                          )}
-                        />
-                        <span
-                          className={
-                            offer.highlight
-                              ? "text-white/90"
-                              : "text-foreground/85"
-                          }
+                    <div className="min-h-[76px]">
+                      <h3 className="text-center font-serif text-lg font-medium text-foreground">
+                        {offer.highlight ? "Full Bundle" : offer.headline}
+                      </h3>
+                      <p className="mt-1 text-center text-[14.5px] leading-snug text-foreground/80">
+                        {offer.highlight
+                          ? "All 3 sessions, one payment"
+                          : offer.blurb}
+                      </p>
+                    </div>
+                    <div className="mt-4 text-center">
+                      <span className="text-4xl font-bold text-foreground">
+                        {offer.price.replace(" CAD", "")}
+                      </span>
+                      <span className="ml-1 text-[14.5px] text-foreground/80">
+                        CAD
+                      </span>
+                    </div>
+                    <p className="mt-1 min-h-[21px] text-center text-[14.5px] text-foreground/80">
+                      {offer.highlight
+                        ? "Save $33 vs. buying separately"
+                        : "One live session"}
+                    </p>
+                    <Button
+                      asChild
+                      size="lg"
+                      variant={offer.highlight ? "primary" : "outline"}
+                      className="mt-5 w-full"
+                    >
+                      <a href={offer.href} target="_blank" rel="noopener">
+                        Register Here
+                      </a>
+                    </Button>
+                    <div className="mt-6 flex flex-1 flex-col gap-2.5 border-t border-border pt-6">
+                      {items.map((item) => (
+                        <div
+                          key={item}
+                          className="flex items-start gap-2 text-[14.5px]"
                         >
-                          {f}
-                        </span>
-                      </div>
-                    ))}
+                          <CheckCircle
+                            size={16}
+                            weight="fill"
+                            className="mt-0.5 shrink-0 text-primary"
+                          />
+                          <span className="text-foreground/80">{item}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                  <Button
-                    asChild
-                    variant={offer.highlight ? "white" : "outline"}
-                    size="lg"
-                    className="mt-8 w-full"
-                  >
-                    <a href={offer.href} target="_blank" rel="noopener">
-                      Register Here
-                      <ArrowRight size={17} weight="bold" />
-                    </a>
-                  </Button>
-                </div>
-              </Reveal>
-            ))}
+                </Reveal>
+              );
+            })}
           </div>
+          <p className="mx-auto mt-8 max-w-[560px] text-center text-[14.5px] text-foreground/80">
+            Buying all three sessions separately costs $283 CAD. The full
+            bundle is{" "}
+            <strong className="font-bold text-primary">$250 CAD</strong>,
+            a $33 saving, and is the only way to get the free headshot.
+          </p>
         </div>
       </section>
 
@@ -1189,80 +1238,30 @@ export default function CareerClinicPage() {
               Career Clinic testimonials
             </span>
             <h2 className="mt-4 font-serif text-[clamp(26px,3.2vw,36px)] font-medium leading-[1.14] tracking-tight text-foreground">
-              Hear it from our graduates
+              Hear from our graduates
             </h2>
             <p className="mt-4 text-[15px] leading-relaxed text-foreground/70">
               Real stories from professionals who went through Career
               Clinic, in their own words.
             </p>
           </Reveal>
-          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2">
-            {TESTIMONIAL_VIDEOS.map((video) => (
-              <Reveal key={video.posterSrc} blur>
-                <VideoPlaceholder
-                  posterSrc={video.posterSrc}
-                  posterAlt={video.posterAlt}
-                  label="[Add participant name — role]"
-                  aspectClassName="aspect-[16/11]"
-                  className="rounded-[2rem]"
-                />
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* WRITTEN TESTIMONIALS */}
-      <section className="relative overflow-hidden bg-[#5343EB] py-12 sm:py-16">
-        <div className="absolute inset-0 opacity-40">
-          <Grainient {...GRAINIENT_PROPS} color3="#5343EB" />
-        </div>
-        <GrainOverlay />
-        <div className="relative mx-auto max-w-[900px] px-5 text-center sm:px-8">
-          <Reveal>
-            <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-brand-lighter">
-              Real advancement stories
-            </span>
-            <h2 className="mt-4 font-serif text-[clamp(26px,3.2vw,36px)] font-medium leading-[1.14] tracking-tight text-white">
-              What changed for our graduates
-            </h2>
-          </Reveal>
-        </div>
-        <Reveal
-          delay={0.1}
-          className="relative mt-10 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]"
-        >
-          <div className="motion-safe:animate-marquee flex w-max gap-5 hover:[animation-play-state:paused]">
-            {[0, 1, 2, 0, 1, 2].map((_, i) => (
-              <div
-                key={i}
-                className="w-[300px] shrink-0 rounded-2xl border border-white/20 bg-white/10 p-6 backdrop-blur-sm sm:w-[340px]"
+          {/* Deliberately outside Reveal: a scroll-triggered opacity animation
+              that fails to fire leaves the player invisible and unclickable. */}
+          <div className="mt-10 flex justify-center">
+            <div className="w-full max-w-[820px] overflow-hidden rounded-[2rem] border border-black/10 bg-black shadow-[0_30px_60px_-24px_rgba(23,23,31,0.35)] dark:border-white/15">
+              <video
+                controls
+                playsInline
+                preload="metadata"
+                poster="/career-clinic/testimonial-poster.jpg"
+                className="aspect-video size-full object-contain"
               >
-                <Quotes size={26} weight="fill" className="text-white/25" />
-                <div className="mt-4 flex flex-col gap-3 text-[13.5px] leading-relaxed">
-                  <div>
-                    <span className="font-bold text-white">Before: </span>
-                    <span className="text-white/70">
-                      [Insert their before state]
-                    </span>
-                  </div>
-                  <div>
-                    <span className="font-bold text-white">After: </span>
-                    <span className="text-white/70">
-                      [Insert their after result]
-                    </span>
-                  </div>
-                </div>
-                <p className="mt-5 text-[13.5px] leading-relaxed text-white italic">
-                  &ldquo;[Insert quote from the graduate]&rdquo;
-                </p>
-                <p className="mt-3 text-[12.5px] font-semibold text-white/60">
-                  &mdash; [Name], [Role]
-                </p>
-              </div>
-            ))}
+                <source src="/career-clinic/testimonial.mp4" type="video/mp4" />
+                Your browser cannot play this video.
+              </video>
+            </div>
           </div>
-        </Reveal>
+        </div>
       </section>
 
       {/* FAQ */}

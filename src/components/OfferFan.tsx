@@ -21,7 +21,7 @@ const OFFERS = [
     tag: "Get promoted",
     title: "Career Clinic",
     description:
-      "A 6-week cohort that teaches the unwritten rules of credibility, visibility and advancement inside a Canadian organization.",
+      "The strategies and unwritten systems behind getting seen, hired and ahead in Corporate Canada.",
   },
   {
     href: "/mastermind",
@@ -87,7 +87,7 @@ export function OfferFan() {
               <offer.icon size={17} weight="bold" />
             </span>
             <div className="absolute inset-x-0 bottom-0 p-4">
-              <div className="text-[10.5px] font-bold uppercase tracking-[0.12em] text-white/70">
+              <div className="text-[11.5px] font-bold uppercase tracking-[0.12em] text-white/70">
                 {offer.tag}
               </div>
             </div>
@@ -97,7 +97,7 @@ export function OfferFan() {
             <h3 className="font-serif text-lg font-medium text-foreground">
               {offer.title}
             </h3>
-            <p className="mt-2 text-[13.5px] leading-relaxed text-muted-foreground">
+            <p className="mt-2 text-[13.5px] leading-relaxed text-foreground/70">
               {offer.description}
             </p>
             <span className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-bold text-primary">

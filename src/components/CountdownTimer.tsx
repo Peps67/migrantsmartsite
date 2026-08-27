@@ -70,7 +70,7 @@ export default function CountdownTimer({
           </span>
           <span
             className={cn(
-              "mt-1 text-[10px] font-bold uppercase tracking-[0.1em]",
+              "mt-1 text-[11.5px] font-bold uppercase tracking-[0.1em]",
               variant === "light" ? "text-foreground/50" : "text-white/50",
             )}
           >

@@ -137,7 +137,7 @@ export default function Nav() {
                       <span className="block text-[14px] font-bold text-foreground">
                         {item.title}
                       </span>
-                      <span className="block text-[12.5px] text-muted-foreground">
+                      <span className="block text-[12.5px] text-foreground/70">
                         {item.desc}
                       </span>
                     </span>
@@ -170,7 +170,7 @@ export default function Nav() {
 
         <div className="ml-1 hidden items-center gap-2 lg:flex">
           <a
-            href="https://chat.whatsapp.com/GZH56TFwU7D61xqFufv6pp?s=sh&p=i&mlu=4"
+            href="https://chat.whatsapp.com/FnDcDFhwB2jBt3PwQOMC20"
             target="_blank"
             rel="noopener"
             className="group flex items-center gap-2 rounded-full bg-primary py-2 pr-2 pl-4 text-[13.5px] font-bold text-primary-foreground shadow-[0_10px_24px_-8px_rgba(84,72,240,0.55)] transition-transform duration-300 hover:-translate-y-0.5 active:scale-[0.97]"
@@ -246,7 +246,7 @@ export default function Nav() {
                         <Link
                           href={link.href}
                           onClick={() => setMobileOpen(false)}
-                          className="font-serif text-4xl font-medium text-foreground"
+                          className="flex min-h-11 items-center font-serif text-4xl font-medium text-foreground"
                         >
                           {link.label}
                         </Link>
@@ -257,7 +257,7 @@ export default function Nav() {
                         <Link
                           href={item.href}
                           onClick={() => setMobileOpen(false)}
-                          className="font-serif text-2xl font-medium text-muted-foreground"
+                          className="flex min-h-11 items-center font-serif text-2xl font-medium text-muted-foreground"
                         >
                           {item.title}
                         </Link>
@@ -268,7 +268,7 @@ export default function Nav() {
                       className="mt-8 flex items-center gap-4"
                     >
                       <a
-                        href="https://chat.whatsapp.com/GZH56TFwU7D61xqFufv6pp?s=sh&p=i&mlu=4"
+                        href="https://chat.whatsapp.com/FnDcDFhwB2jBt3PwQOMC20"
                         target="_blank"
                         rel="noopener"
                         onClick={() => setMobileOpen(false)}

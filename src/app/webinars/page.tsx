@@ -11,7 +11,7 @@ import CtaBand from "@/components/CtaBand";
 import Reveal from "@/components/Reveal";
 
 export const metadata: Metadata = {
-  title: "Webinars & Workshops — Migrant Smart",
+  title: "Webinars & Workshops - Migrant Smart",
   description:
     "Live and recorded sessions on the things no one tells you when you arrive: housing, credentials, banking, taxes and more.",
 };
@@ -65,7 +65,9 @@ export default function WebinarsPage() {
     <div>
       {/* HERO */}
       <section className="flex min-h-[100dvh] flex-col justify-center px-5 py-10 sm:px-8">
-        <div className="mx-auto grid max-w-[1100px] items-center gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
+        {/* w-full is load-bearing: mx-auto on a flex item cancels stretch, so
+            without it this grid sizes to its content and overflows on mobile. */}
+        <div className="mx-auto grid w-full max-w-[1100px] items-center gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
           <Reveal>
             <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-primary">
               Webinars &amp; Workshops
@@ -74,7 +76,7 @@ export default function WebinarsPage() {
               text="The practical essentials, explained"
               className="mt-4 max-w-[16ch] font-serif text-[clamp(34px,4.6vw,64px)] font-medium leading-[1.14] tracking-tight text-foreground [&>span:nth-child(4)]:pb-1 [&>span:nth-child(4)]:text-primary [&>span:nth-child(4)]:italic"
             />
-            <p className="mt-4 max-w-[48ch] text-[16.5px] leading-relaxed text-muted-foreground md:text-[18.5px]">
+            <p className="mt-4 max-w-[48ch] text-[16.5px] leading-relaxed text-foreground/70 md:text-[18.5px]">
               Live and recorded sessions on the things no one tells you when you
               arrive, housing, credentials, banking and taxes, led by anchors
               who&rsquo;ve been there.
@@ -111,7 +113,7 @@ export default function WebinarsPage() {
               <h2 className="mt-5 font-serif text-[clamp(24px,3vw,32px)] font-medium text-foreground">
                 Newcomers Orientation
               </h2>
-              <p className="mt-4 max-w-[50ch] text-[15px] leading-relaxed text-muted-foreground">
+              <p className="mt-4 max-w-[50ch] text-[15px] leading-relaxed text-foreground/70">
                 Our free flagship workshop covering the first 90 days in Canada,
                 settling in, credentials, banking, healthcare, housing and how
                 to plug into the community from day one.
@@ -155,17 +157,17 @@ export default function WebinarsPage() {
                 >
                   <div className="flex items-center justify-between">
                     <Badge variant="soft">{item.type}</Badge>
-                    <span className="text-[12.5px] font-medium text-muted-foreground">
+                    <span className="text-[12.5px] font-medium text-foreground/70">
                       Add date
                     </span>
                   </div>
                   <h3 className="mt-4 text-[18px] font-bold text-foreground">
                     {item.title}
                   </h3>
-                  <p className="mt-2 text-[14.5px] leading-relaxed text-muted-foreground">
+                  <p className="mt-2 text-[14.5px] leading-relaxed text-foreground/70">
                     {item.text}
                   </p>
-                  <p className="mt-4 text-[12.5px] font-semibold text-muted-foreground">
+                  <p className="mt-4 text-[12.5px] font-semibold text-foreground/70">
                     Anchor: TBA
                   </p>
                 </SpotlightCard>
@@ -196,7 +198,7 @@ export default function WebinarsPage() {
                 <h4 className="mt-4 text-[16px] font-bold text-foreground">
                   {step.title}
                 </h4>
-                <p className="mt-2 text-[14.5px] leading-relaxed text-muted-foreground">
+                <p className="mt-2 text-[14.5px] leading-relaxed text-foreground/70">
                   {step.text}
                 </p>
               </Reveal>

@@ -13,7 +13,7 @@ import Reveal from "@/components/Reveal";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "About — Migrant Smart",
+  title: "About - Migrant Smart",
   description:
     "Migrant Smart is a community-first platform built to help immigrants and international students land, settle and thrive in Canada.",
 };
@@ -44,18 +44,13 @@ const TEAM = [
   },
 ];
 
-const HOST_STATS = [
-  { value: "8+", label: "Years in finance & accounting" },
-  { value: "Age 26", label: "Promoted to Manager at a global firm" },
-  { value: "CPA", label: "Chartered Professional Accountant" },
-];
 
 const HOST_STORY = [
   "I moved to Canada to become a doctor. I became a Chartered Accountant instead, and navigating that detour is the reason Migrant Smart exists.",
   "Back in Nigeria, I was a first-class medical student at one of the country's top private universities. In my culture, becoming a doctor isn't just a career choice, it's the gold standard, and I was on track for it.",
   "Then an opportunity to study in Canada came up, and I took it. I wasn't desperate to leave. I simply accepted a chance to study abroad, the way anyone would. I was told the transition would be simple: switch my program from Kinesiology to Medicine once I arrived at the University of Regina, and I'd be back on track. I didn't even know what Kinesiology meant at the time.",
   "“Simple” turned out to mean something very different. It meant completing a full four-year undergraduate degree, working to save money, establishing residency, and only then applying to an intensely competitive medical school as a non-permanent resident. My seven-year plan had quietly become a fourteen-year one.",
-  "So I pivoted. First to Engineering, where I passed every exam but never felt at home. Then to Business Administration — a decision that meant telling my father, who had sacrificed so much for his future doctor daughter, that the plan had changed.",
+  "So I pivoted. First to Engineering, where I passed every exam but never felt at home. Then to Business Administration, a decision that meant telling my father, who had sacrificed so much for his future doctor daughter, that the plan had changed.",
   "Today, I'm a Chartered Accountant. I've worked at the Ministry of Finance, Great-West Life, and SaskPower, and became Manager at one of the largest accounting and consulting firms in the world by the age of 26.",
   "None of that was the path I planned. But every detour taught me something I couldn't have learned any other way.",
   "Here's what I've come to understand: the detour itself was never the problem. What cost me years wasn't a lack of ability or ambition. It was not knowing the real rules of the systems I was navigating. No one told me what “simple” actually meant until I'd already lost time finding out the hard way.",
@@ -66,10 +61,18 @@ const HOST_STORY = [
 export default function AboutPage() {
   return (
     <div>
-      {/* PAGE HERO — brand-purple field per the Migrant Smart brand guideline. */}
-      <section className="relative flex min-h-[100dvh] flex-col justify-center overflow-hidden rounded-t-[2.25rem] bg-gradient-to-br from-[#5343EB] to-[#4739c9] px-5 py-10 text-center sm:rounded-t-[3rem] sm:px-8 md:py-12">
-        <span className="pointer-events-none absolute -top-16 left-[6%] hidden h-64 w-64 rounded-full bg-[#6F61F8]/50 blur-[90px] sm:block" />
-        <span className="pointer-events-none absolute -bottom-20 right-[8%] hidden h-72 w-72 rounded-full bg-white/10 blur-[100px] sm:block" />
+      {/* PAGE HERO */}
+      <section className="relative flex min-h-[100dvh] flex-col justify-center overflow-hidden rounded-t-[2.25rem] bg-[#0b0a12] px-5 py-10 text-center sm:rounded-t-[3rem] sm:px-8 md:py-12">
+        <Image
+          src="/about/hero-community.jpg"
+          alt="A Migrant Smart community event, the room raising their hands together"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+          style={{ objectPosition: "50% 40%" }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0b0a12]/40 via-[#0b0a12]/60 to-[#0b0a12]/85" />
         <GrainOverlay />
         <Reveal className="relative mx-auto max-w-[760px]">
           <span className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-[13px] font-bold uppercase tracking-[0.14em] text-white backdrop-blur-sm">
@@ -137,14 +140,14 @@ export default function AboutPage() {
               Less time lost. More time{" "}
               <em className="pb-1 text-primary italic">moving forward.</em>
             </h2>
-            <p className="mt-6 max-w-[54ch] text-[15.5px] leading-relaxed text-muted-foreground">
+            <p className="mt-6 max-w-[54ch] text-[15.5px] leading-relaxed text-foreground/70">
               Arriving in a new country means starting over, credentials,
               career, community, confidence, all at once. Migrant Smart brings
               the essentials of settling into one place: career readiness,
               mentorship, live events and practical orientation, backed by a
               community that genuinely wants you to win.
             </p>
-            <p className="mt-4 max-w-[54ch] text-[15.5px] leading-relaxed text-muted-foreground">
+            <p className="mt-4 max-w-[54ch] text-[15.5px] leading-relaxed text-foreground/70">
               We replace guesswork with guidance, and isolation with belonging,
               so your transition is smart, supported and successful.
             </p>
@@ -166,7 +169,7 @@ export default function AboutPage() {
               <h3 className="mt-6 font-serif text-xl font-medium text-foreground">
                 Our Mission
               </h3>
-              <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">
+              <p className="mt-3 text-[15px] leading-relaxed text-foreground/70">
                 To make every migrant&rsquo;s transition into Canada smart,
                 supported and successful, equipping newcomers with the coaching,
                 community and confidence to build a life they&rsquo;re proud of.
@@ -184,7 +187,7 @@ export default function AboutPage() {
               <h3 className="mt-6 font-serif text-xl font-medium text-foreground">
                 Our Vision
               </h3>
-              <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">
+              <p className="mt-3 text-[15px] leading-relaxed text-foreground/70">
                 A Canada where every newcomer can reach their full potential,
                 where arriving is the start of thriving, not just surviving, and
                 no one has to navigate the journey alone.
@@ -211,21 +214,21 @@ export default function AboutPage() {
               Why do so many talented professionals still feel like
               outsiders, years after they&rsquo;ve arrived?
             </p>
-            <p className="mt-6 text-[15.5px] leading-relaxed text-muted-foreground">
+            <p className="mt-6 text-[15.5px] leading-relaxed text-foreground/70">
               Moving to a new country is never easy. You&rsquo;re figuring
               out a new country while adapting to new systems, new culture
               and new norms, and that becomes a lot harder without knowing
               the right people, having access to the right information, or
               being in the right rooms.
             </p>
-            <p className="mt-4 text-[15.5px] leading-relaxed text-muted-foreground">
+            <p className="mt-4 text-[15.5px] leading-relaxed text-foreground/70">
               Five to ten years in, many professionals are still underpaid,
               still overlooked for opportunities, still wondering if Canada
               was the right move. We asked why. The answer was simple: a lack
               of opportunity, no understanding of the systemic rules, and not
               being in the right rooms.
             </p>
-            <p className="mt-4 text-[15.5px] leading-relaxed text-muted-foreground">
+            <p className="mt-4 text-[15.5px] leading-relaxed text-foreground/70">
               That&rsquo;s exactly why Migrant Smart exists. We&rsquo;re
               building a community where professionals like you connect with
               peers who&rsquo;ve navigated the same path, get real answers to
@@ -264,21 +267,9 @@ export default function AboutPage() {
                 <h3 className="mt-6 font-serif text-xl font-medium text-foreground">
                   Abigail Akpan
                 </h3>
-                <p className="mt-1 text-[14px] font-semibold text-muted-foreground">
+                <p className="mt-1 text-[14px] font-semibold text-foreground/70">
                   CPA, Founder, Migrant Smart
                 </p>
-                <div className="mt-6 grid grid-cols-3 gap-4 border-t border-border pt-6">
-                  {HOST_STATS.map((stat) => (
-                    <div key={stat.label}>
-                      <div className="font-serif text-xl font-medium text-foreground">
-                        {stat.value}
-                      </div>
-                      <div className="mt-1 text-[11.5px] leading-snug text-muted-foreground">
-                        {stat.label}
-                      </div>
-                    </div>
-                  ))}
-                </div>
               </div>
             </Reveal>
             <Reveal blur delay={0.1}>
@@ -287,7 +278,7 @@ export default function AboutPage() {
                   <p
                     key={i}
                     className={cn(
-                      "text-[15.5px] leading-relaxed text-muted-foreground",
+                      "text-[15.5px] leading-relaxed text-foreground/70",
                       (i === 0 || i === HOST_STORY.length - 1) &&
                         "font-serif text-[17px] text-foreground italic",
                     )}
@@ -343,7 +334,7 @@ export default function AboutPage() {
                 <h3 className="mt-5 font-serif text-xl font-medium text-foreground">
                   {member.name}
                 </h3>
-                <p className="mt-1 text-[15px] font-semibold text-muted-foreground">
+                <p className="mt-1 text-[15px] font-semibold text-foreground/70">
                   {member.role}
                 </p>
               </Reveal>

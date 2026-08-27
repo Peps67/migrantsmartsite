@@ -19,7 +19,7 @@ export default function CtaBand({
   heading,
   lede,
   ctaLabel = "Join the community",
-  ctaHref = "https://chat.whatsapp.com/GZH56TFwU7D61xqFufv6pp?s=sh&p=i&mlu=4",
+  ctaHref = "https://chat.whatsapp.com/FnDcDFhwB2jBt3PwQOMC20",
   backgroundImageSeed,
 }: CtaBandProps) {
   return (

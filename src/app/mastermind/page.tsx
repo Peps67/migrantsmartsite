@@ -20,7 +20,7 @@ import Reveal from "@/components/Reveal";
 import HeroReveal from "../HeroReveal";
 
 export const metadata: Metadata = {
-  title: "Mastermind — Migrant Smart",
+  title: "Mastermind - Migrant Smart",
   description:
     "A private, invitation-only community for professionals and entrepreneurs across Canada building wealth and legacy, with access to vetted experts, private investment opportunities and a room full of peers who think bigger.",
 };
@@ -32,7 +32,7 @@ const BENEFITS = [
   {
     icon: UsersThree,
     title: "Vetted Professionals",
-    text: "Connect with trusted experts who can help you execute across the areas that matter — idea validation, plan development, mergers and acquisitions, digital products, marketing, sales, communications, and more — so you know who to trust while you build.",
+    text: "Connect with trusted experts who can help you execute across the areas that matter, idea validation, plan development, mergers and acquisitions, digital products, marketing, sales, communications, and more, so you know who to trust while you build.",
   },
   {
     icon: Buildings,
@@ -83,7 +83,7 @@ export default function MastermindPage() {
               className="mt-6 flex flex-wrap items-center gap-5"
             >
               <a
-                href="mailto:hello@migrantsmart.ca?subject=Mastermind%20Waitlist"
+                href="mailto:migrantsmart@gmail.com?subject=Mastermind%20Waitlist"
                 className="group flex items-center gap-3 rounded-full bg-primary py-3.5 pr-3.5 pl-7 text-[15.5px] font-bold text-white shadow-[0_20px_40px_-16px_rgba(84,72,240,0.45)] transition-transform duration-300 hover:-translate-y-0.5 active:scale-[0.97]"
               >
                 Join the Waitlist
@@ -150,7 +150,7 @@ export default function MastermindPage() {
           <h2 className="mt-4 font-serif text-[clamp(26px,3.2vw,36px)] font-medium leading-[1.14] tracking-tight text-foreground">
             Not a Network. An Inner Circle.
           </h2>
-          <p className="mt-6 text-[15.5px] leading-relaxed text-muted-foreground">
+          <p className="mt-6 text-[15.5px] leading-relaxed text-foreground/70">
             Mastermind is a private, invitation-only membership for
             professionals and entrepreneurs in Canada who are serious about
             building wealth and leaving a legacy. Every member is selected
@@ -186,7 +186,7 @@ export default function MastermindPage() {
                   <h4 className="mt-5 text-[16px] font-bold text-foreground">
                     {item.title}
                   </h4>
-                  <p className="mt-2 text-[14px] leading-relaxed text-muted-foreground">
+                  <p className="mt-2 text-[14px] leading-relaxed text-foreground/70">
                     {item.text}
                   </p>
                 </SpotlightCard>
@@ -205,7 +205,7 @@ export default function MastermindPage() {
           <h2 className="mt-4 font-serif text-[clamp(26px,3.2vw,36px)] font-medium leading-[1.14] tracking-tight text-foreground">
             Wealth Is Built in the Right Rooms
           </h2>
-          <p className="mt-6 text-[15.5px] leading-relaxed text-muted-foreground">
+          <p className="mt-6 text-[15.5px] leading-relaxed text-foreground/70">
             Membership begins with an application, we review each one to keep
             the community sharp, trusted, and genuinely valuable. Selected
             members meet monthly over dinner: an evening to hear from guest
@@ -220,7 +220,7 @@ export default function MastermindPage() {
         heading="Doors Open in 2027. Applications Start With the Waitlist."
         lede="Mastermind is being built for a select group of Canada's most driven professionals and entrepreneurs, and every place is earned through application. Join the waitlist now to be among the first considered, with founding-member standing for those selected before we open."
         ctaLabel="Join the Waitlist"
-        ctaHref="mailto:hello@migrantsmart.ca?subject=Mastermind%20Waitlist"
+        ctaHref="mailto:migrantsmart@gmail.com?subject=Mastermind%20Waitlist"
         backgroundImageSeed="migrant-smart-mastermind-waitlist"
       />
     </div>

@@ -11,6 +11,7 @@ import {
 } from "@phosphor-icons/react";
 
 import { PlaceholderPhoto } from "@/components/PlaceholderPhoto";
+import { cn } from "@/lib/utils";
 
 const OFFERS = [
   {
@@ -52,18 +53,22 @@ const OFFERS = [
     title: "Webinars & Workshops",
     description:
       "Orientation sessions and masterclasses covering everything you need to know as a newcomer.",
+    // Page lives in src/app/_webinars and is not routed, so this card shows
+    // the offer without pretending there is somewhere to click through to.
+    soon: true,
   },
 ];
 
 export function OfferFan() {
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-      {OFFERS.map((offer) => (
-        <Link
-          key={offer.href}
-          href={offer.href}
-          className="group block overflow-hidden rounded-[26px] border border-black/10 bg-background shadow-[0_20px_45px_-24px_rgba(23,23,31,0.3)] transition-transform duration-300 hover:-translate-y-1 dark:border-white/10"
-        >
+      {OFFERS.map((offer) => {
+        const cardClass = cn(
+          "group block overflow-hidden rounded-[26px] border border-black/10 bg-background shadow-[0_20px_45px_-24px_rgba(23,23,31,0.3)] transition-transform duration-300 dark:border-white/10",
+          !offer.soon && "hover:-translate-y-1",
+        );
+        const body = (
+          <>
           <div className="relative aspect-[4/3] overflow-hidden">
             {offer.image ? (
               <Image
@@ -100,17 +105,33 @@ export function OfferFan() {
             <p className="mt-2 text-[13.5px] leading-relaxed text-foreground/70">
               {offer.description}
             </p>
-            <span className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-bold text-primary">
-              See more
-              <ArrowRight
-                size={14}
-                weight="bold"
-                className="transition-transform duration-300 group-hover:translate-x-1"
-              />
-            </span>
+            {offer.soon ? (
+              <span className="mt-4 inline-flex items-center rounded-full bg-secondary px-2.5 py-1 text-[11.5px] font-bold tracking-[0.06em] text-foreground/50 uppercase">
+                Coming soon
+              </span>
+            ) : (
+              <span className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-bold text-primary">
+                See more
+                <ArrowRight
+                  size={14}
+                  weight="bold"
+                  className="transition-transform duration-300 group-hover:translate-x-1"
+                />
+              </span>
+            )}
           </div>
-        </Link>
-      ))}
+          </>
+        );
+        return offer.soon ? (
+          <div key={offer.href} className={cardClass}>
+            {body}
+          </div>
+        ) : (
+          <Link key={offer.href} href={offer.href} className={cardClass}>
+            {body}
+          </Link>
+        );
+      })}
     </div>
   );
 }

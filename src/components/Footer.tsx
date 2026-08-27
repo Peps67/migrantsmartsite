@@ -49,7 +49,10 @@ export default function Footer() {
             <div className="mt-2 flex flex-col">
               <Link href="/" className="flex min-h-11 items-center text-[14.5px] text-white/70 hover:text-white">Home</Link>
               <Link href="/about" className="flex min-h-11 items-center text-[14.5px] text-white/70 hover:text-white">About Us</Link>
-              <Link href="/blog" className="flex min-h-11 items-center text-[14.5px] text-white/70 hover:text-white">Blog</Link>
+              <span className="flex min-h-11 items-center gap-2 text-[14.5px] text-white/40">
+                Blog
+                <span className="rounded-full bg-white/10 px-2 py-0.5 text-[10.5px] font-bold tracking-[0.06em] uppercase">Soon</span>
+              </span>
             </div>
           </div>
 
@@ -59,7 +62,10 @@ export default function Footer() {
               <Link href="/career-clinic" className="flex min-h-11 items-center text-[14.5px] text-white/70 hover:text-white">Career Clinic</Link>
               <Link href="/mastermind" className="flex min-h-11 items-center text-[14.5px] text-white/70 hover:text-white">Mastermind</Link>
               <Link href="/events" className="flex min-h-11 items-center text-[14.5px] text-white/70 hover:text-white">Community Events</Link>
-              <Link href="/webinars" className="flex min-h-11 items-center text-[14.5px] text-white/70 hover:text-white">Webinars</Link>
+              <span className="flex min-h-11 items-center gap-2 text-[14.5px] text-white/40">
+                Webinars
+                <span className="rounded-full bg-white/10 px-2 py-0.5 text-[10.5px] font-bold tracking-[0.06em] uppercase">Soon</span>
+              </span>
             </div>
           </div>
 

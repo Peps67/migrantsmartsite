@@ -17,6 +17,9 @@ import {
 
 import { cn } from "@/lib/utils";
 
+// `soon` entries keep their place in the nav but are not links: their pages
+// live in private folders (src/app/_blog, src/app/_webinars) and are not
+// routed, so linking to them would only ever produce a 404.
 const OFFERING = [
   {
     href: "/career-clinic",
@@ -35,6 +38,7 @@ const OFFERING = [
     icon: ChalkboardTeacher,
     title: "Webinars & Workshops",
     desc: "Orientation & masterclasses",
+    soon: true,
   },
 ];
 
@@ -44,7 +48,7 @@ const NAV_LINKS = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/events", label: "Events" },
-  { href: "/blog", label: "Blog" },
+  { href: "/blog", label: "Blog", soon: true },
 ];
 
 const menuStagger: Variants = {
@@ -124,25 +128,64 @@ export default function Nav() {
             </button>
             <div className="invisible absolute top-full left-1/2 z-50 w-[300px] -translate-x-1/2 pt-3 opacity-0 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:visible group-hover:opacity-100">
               <div className="rounded-[22px] border border-black/10 bg-background/90 p-2 shadow-[0_30px_60px_-20px_rgba(23,23,31,0.4)] backdrop-blur-xl dark:border-white/10">
-                {OFFERING.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className="flex items-start gap-3 rounded-2xl p-3 transition-colors hover:bg-accent"
-                  >
-                    <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-secondary text-primary">
-                      <item.icon size={19} weight="regular" />
-                    </span>
-                    <span>
-                      <span className="block text-[14px] font-bold text-foreground">
-                        {item.title}
+                {OFFERING.map((item) => {
+                  const rowClass = cn(
+                    "flex items-start gap-3 rounded-2xl p-3 transition-colors",
+                    item.soon ? "cursor-default" : "hover:bg-accent",
+                  );
+                  const body = (
+                    <>
+                      <span
+                        className={cn(
+                          "flex size-10 shrink-0 items-center justify-center rounded-full bg-secondary",
+                          item.soon ? "text-foreground/35" : "text-primary",
+                        )}
+                      >
+                        <item.icon size={19} weight="regular" />
                       </span>
-                      <span className="block text-[12.5px] text-foreground/70">
-                        {item.desc}
+                      <span>
+                        <span
+                          className={cn(
+                            "flex items-center gap-2 text-[14px] font-bold",
+                            item.soon
+                              ? "text-foreground/45"
+                              : "text-foreground",
+                          )}
+                        >
+                          {item.title}
+                          {item.soon && (
+                            <span className="rounded-full bg-secondary px-2 py-0.5 text-[10.5px] font-bold tracking-[0.06em] text-foreground/50 uppercase">
+                              Soon
+                            </span>
+                          )}
+                        </span>
+                        <span
+                          className={cn(
+                            "block text-[12.5px]",
+                            item.soon
+                              ? "text-foreground/40"
+                              : "text-foreground/70",
+                          )}
+                        >
+                          {item.desc}
+                        </span>
                       </span>
-                    </span>
-                  </Link>
-                ))}
+                    </>
+                  );
+                  return item.soon ? (
+                    <div key={item.href} className={rowClass}>
+                      {body}
+                    </div>
+                  ) : (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className={rowClass}
+                    >
+                      {body}
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -157,15 +200,12 @@ export default function Nav() {
             Events
           </Link>
 
-          <Link
-            href="/blog"
-            className={cn(
-              "rounded-full px-3.5 py-2 text-[13.5px] font-semibold text-foreground/70 transition-colors hover:text-foreground",
-              isActive("/blog") && "bg-accent text-foreground",
-            )}
-          >
+          <span className="flex cursor-default items-center gap-1.5 rounded-full px-3.5 py-2 text-[13.5px] font-semibold text-foreground/40">
             Blog
-          </Link>
+            <span className="rounded-full bg-secondary px-2 py-0.5 text-[10.5px] font-bold tracking-[0.06em] text-foreground/50 uppercase">
+              Soon
+            </span>
+          </span>
         </nav>
 
         <div className="ml-1 hidden items-center gap-2 lg:flex">
@@ -243,24 +283,42 @@ export default function Nav() {
                     </button>
                     {NAV_LINKS.map((link) => (
                       <motion.div key={link.href} variants={menuItem}>
-                        <Link
-                          href={link.href}
-                          onClick={() => setMobileOpen(false)}
-                          className="flex min-h-11 items-center font-serif text-4xl font-medium text-foreground"
-                        >
-                          {link.label}
-                        </Link>
+                        {link.soon ? (
+                          <span className="flex min-h-11 items-center gap-3 font-serif text-4xl font-medium text-foreground/35">
+                            {link.label}
+                            <span className="rounded-full bg-secondary px-2.5 py-1 font-sans text-[11.5px] font-bold tracking-[0.06em] text-foreground/50 uppercase">
+                              Soon
+                            </span>
+                          </span>
+                        ) : (
+                          <Link
+                            href={link.href}
+                            onClick={() => setMobileOpen(false)}
+                            className="flex min-h-11 items-center font-serif text-4xl font-medium text-foreground"
+                          >
+                            {link.label}
+                          </Link>
+                        )}
                       </motion.div>
                     ))}
                     {OFFERING.map((item) => (
                       <motion.div key={item.href} variants={menuItem}>
-                        <Link
-                          href={item.href}
-                          onClick={() => setMobileOpen(false)}
-                          className="flex min-h-11 items-center font-serif text-2xl font-medium text-muted-foreground"
-                        >
-                          {item.title}
-                        </Link>
+                        {item.soon ? (
+                          <span className="flex min-h-11 items-center gap-3 font-serif text-2xl font-medium text-foreground/35">
+                            {item.title}
+                            <span className="rounded-full bg-secondary px-2.5 py-1 font-sans text-[11.5px] font-bold tracking-[0.06em] text-foreground/50 uppercase">
+                              Soon
+                            </span>
+                          </span>
+                        ) : (
+                          <Link
+                            href={item.href}
+                            onClick={() => setMobileOpen(false)}
+                            className="flex min-h-11 items-center font-serif text-2xl font-medium text-muted-foreground"
+                          >
+                            {item.title}
+                          </Link>
+                        )}
                       </motion.div>
                     ))}
                     <motion.div

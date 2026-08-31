@@ -184,12 +184,6 @@ const CAREER_CLINIC_PERKS = [
   "Buy the full 3-session bundle, or just the session that matches where you're stuck",
 ];
 
-const HOST_STATS = [
-  { value: "8+", label: "Years in finance & accounting" },
-  { value: "Age 26", label: "Promoted to Manager at a global firm" },
-  { value: "CPA", label: "Chartered Professional Accountant" },
-];
-
 const HOST_STORY = [
   "I moved to Canada to become a doctor. I became a Chartered Accountant instead, and navigating that detour is the reason Migrant Smart exists.",
   "Back in Nigeria, I was a first-class medical student at one of the country's top private universities. In my culture, becoming a doctor isn't just a career choice, it's the gold standard, and I was on track for it.",
@@ -387,7 +381,7 @@ const DELIVERABLES = [
     includedIn: ["Convert"],
   },
   {
-    label: "Live mock interview feedback",
+    label: "Group mock interview experience",
     phase: "Convert",
     includedIn: ["Convert"],
   },
@@ -395,6 +389,16 @@ const DELIVERABLES = [
     label: "Salary negotiation framework",
     phase: "Convert",
     includedIn: ["Convert"],
+  },
+  {
+    label: "Stakeholder & sponsor identification",
+    phase: "Advance",
+    includedIn: ["Advance"],
+  },
+  {
+    label: "Promotion readiness assessment",
+    phase: "Advance",
+    includedIn: ["Advance"],
   },
   {
     label: "12-month career advancement roadmap",
@@ -406,6 +410,18 @@ const DELIVERABLES = [
     phase: "Bundle exclusive",
     includedIn: [],
   },
+];
+
+// How every session runs, as opposed to what you walk away with. These are the
+// same whichever session you buy, so they lead each session card rather than
+// being carried per phase in DELIVERABLES.
+const SESSION_INCLUDES = [
+  "Live, in-person facilitation",
+  "Practical cohort with hands-on exercises",
+  "Career Clinic workbook & worksheets",
+  "Facilitator Q&A + peer feedback",
+  "In-person networking",
+  "Certificate of participation",
 ];
 
 const FAQS = [
@@ -569,7 +585,7 @@ export default function CareerClinicPage() {
                 Countdown to Career Clinic Cohort 2
               </h2>
               <p className="mt-3 text-[15px] font-semibold text-white/80">
-                Saturday, September 19, 2026 &middot; 9:00 AM MT / 11:00 AM ET
+                Saturday, September 19, 2026 &middot; 11:00am - 2:00pm
               </p>
               <p className="mt-1 text-[13.5px] text-white/50">
                 Live sessions at a partner venue in Calgary, with virtual
@@ -954,18 +970,6 @@ export default function CareerClinicPage() {
                 <p className="mt-1 text-[14px] font-semibold text-foreground/70">
                   CPA, Founder, Migrant Smart
                 </p>
-                <div className="mt-6 grid grid-cols-3 gap-4 border-t border-border pt-6">
-                  {HOST_STATS.map((stat) => (
-                    <div key={stat.label}>
-                      <div className="font-serif text-xl font-medium text-foreground">
-                        {stat.value}
-                      </div>
-                      <div className="mt-1 text-[11.5px] leading-snug text-foreground/70">
-                        {stat.label}
-                      </div>
-                    </div>
-                  ))}
-                </div>
               </div>
             </Reveal>
             <Reveal blur delay={0.1}>
@@ -1088,10 +1092,10 @@ export default function CareerClinicPage() {
             {OUTCOME_GROUPS.map((group, gi) => (
               <div key={group.phase}>
                 <Reveal className="flex items-center gap-4">
-                  <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-primary text-[12px] font-bold text-primary-foreground">
+                  <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary text-[15px] font-bold text-primary-foreground">
                     {gi + 1}
                   </span>
-                  <span className="text-[13px] font-bold tracking-tight text-foreground">
+                  <span className="text-[17px] font-bold tracking-tight text-foreground">
                     {group.phase}
                   </span>
                   <span className="h-px flex-1 bg-border" />
@@ -1109,7 +1113,7 @@ export default function CareerClinicPage() {
                         <h3 className="mt-4 text-[16px] leading-snug font-bold text-foreground">
                           {outcome.title}
                         </h3>
-                        <p className="mt-2 text-[13.5px] leading-relaxed text-foreground/70">
+                        <p className="mt-2 text-[15px] leading-relaxed text-foreground/70">
                           {outcome.desc}
                         </p>
                       </SpotlightCard>
@@ -1148,11 +1152,17 @@ export default function CareerClinicPage() {
               SESSION_OFFERS.find((o) => o.highlight),
             ].map((offer, i) => {
               if (!offer) return null;
+              // Session cards lead with what every session gives you, then the
+              // deliverables specific to that phase. The bundle lists only its
+              // deliverables, so its card stays about what makes it different.
               const items = offer.highlight
                 ? DELIVERABLES.map((d) => d.label)
-                : DELIVERABLES.filter((d) =>
-                    d.includedIn.includes(offer.tagline),
-                  ).map((d) => d.label);
+                : [
+                    ...SESSION_INCLUDES,
+                    ...DELIVERABLES.filter((d) =>
+                      d.includedIn.includes(offer.tagline),
+                    ).map((d) => d.label),
+                  ];
               return (
                 <Reveal key={offer.name} delay={i * 0.06}>
                   <div
@@ -1186,11 +1196,18 @@ export default function CareerClinicPage() {
                         CAD
                       </span>
                     </div>
-                    <p className="mt-1 min-h-[21px] text-center text-[14.5px] text-foreground/80">
-                      {offer.highlight
-                        ? "Save $33 vs. buying separately"
-                        : "One live session"}
-                    </p>
+                    {/* Sized for two lines on every card so the bundle's extra
+                        line does not drop its button below the others. */}
+                    <div className="mt-1 min-h-[42px] text-center text-[14.5px] text-foreground/80">
+                      {offer.highlight ? (
+                        <>
+                          <p>Everything in all three sessions</p>
+                          <p>Save $33 vs. buying separately</p>
+                        </>
+                      ) : (
+                        <p>One live session</p>
+                      )}
+                    </div>
                     <Button
                       asChild
                       size="lg"

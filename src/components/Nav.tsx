@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -69,9 +69,34 @@ const menuItem: Variants = {
 export default function Nav() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  // The dropdown used to open on hover alone, which left it dead to clicks,
+  // taps and the keyboard. Hover still works; this drives everything else.
+  const [offerOpen, setOfferOpen] = useState(false);
+  const offerRef = useRef<HTMLDivElement>(null);
 
   const isActive = (href: string) => pathname === href;
   const offerActive = OFFERING_PATHS.includes(pathname);
+
+  useEffect(() => {
+    if (!offerOpen) return;
+    const onPointerDown = (e: PointerEvent) => {
+      if (!offerRef.current?.contains(e.target as Node)) setOfferOpen(false);
+    };
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOfferOpen(false);
+    };
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [offerOpen]);
+
+  // Navigating from inside the panel should not leave it hanging open.
+  useEffect(() => {
+    setOfferOpen(false);
+  }, [pathname]);
 
   return (
     <header className="sticky top-4 z-40 px-4">
@@ -111,22 +136,33 @@ export default function Nav() {
             About
           </Link>
 
-          <div className="group relative">
+          <div ref={offerRef} className="group relative">
             <button
               type="button"
+              aria-haspopup="true"
+              aria-expanded={offerOpen}
+              onClick={() => setOfferOpen((v) => !v)}
               className={cn(
                 "flex items-center gap-1 rounded-full px-3.5 py-2 text-[13.5px] font-semibold text-foreground/70 transition-colors hover:text-foreground",
-                offerActive && "bg-accent text-foreground",
+                (offerActive || offerOpen) && "bg-accent text-foreground",
               )}
             >
               Our Offering
               <CaretDown
                 size={12}
                 weight="bold"
-                className="transition-transform duration-300 group-hover:rotate-180"
+                className={cn(
+                  "transition-transform duration-300 group-hover:rotate-180",
+                  offerOpen && "rotate-180",
+                )}
               />
             </button>
-            <div className="invisible absolute top-full left-1/2 z-50 w-[300px] -translate-x-1/2 pt-3 opacity-0 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:visible group-hover:opacity-100">
+            <div
+              className={cn(
+                "invisible absolute top-full left-1/2 z-50 w-[300px] -translate-x-1/2 pt-3 opacity-0 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100",
+                offerOpen && "visible opacity-100",
+              )}
+            >
               <div className="rounded-[22px] border border-black/10 bg-background/90 p-2 shadow-[0_30px_60px_-20px_rgba(23,23,31,0.4)] backdrop-blur-xl dark:border-white/10">
                 {OFFERING.map((item) => {
                   const rowClass = cn(
@@ -180,6 +216,7 @@ export default function Nav() {
                     <Link
                       key={item.href}
                       href={item.href}
+                      onClick={() => setOfferOpen(false)}
                       className={rowClass}
                     >
                       {body}
@@ -301,6 +338,14 @@ export default function Nav() {
                         )}
                       </motion.div>
                     ))}
+                    {/* Without this the offering items read as three stray
+                        smaller links: on mobile there was no "Our Offering"
+                        anywhere, which is what the desktop nav calls them. */}
+                    <motion.div variants={menuItem} className="mt-6">
+                      <span className="text-[12px] font-bold tracking-[0.14em] text-foreground/45 uppercase">
+                        Our Offering
+                      </span>
+                    </motion.div>
                     {OFFERING.map((item) => (
                       <motion.div key={item.href} variants={menuItem}>
                         {item.soon ? (

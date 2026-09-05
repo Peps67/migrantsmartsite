@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Hanken_Grotesk, Newsreader } from "next/font/google";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import MetaPixel from "@/components/MetaPixel";
 import "./globals.css";
 
 const hankenGrotesk = Hanken_Grotesk({
@@ -35,6 +36,7 @@ export default function RootLayout({
       style={{ overflowX: "clip" }}
     >
       <body style={{ overflowX: "clip" }}>
+        <MetaPixel />
         <Nav />
         {children}
         <Footer />
